@@ -5,50 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>payment</title>
-    <link href="/dist/output.css" rel="stylesheet">
+    <link href="..../dist/output.css" rel="stylesheet">
 
 </head>
 
 <body>
     <div class="p-5 mb-10">
-        <div class="mt-20">
+        <div class="mt-20 mb-10">
             <h2 class="font-bold">
                 Create an Account
             </h2>
             <h2 class="text-sm text-gray-500">Welcome back to the app</h2>
         </div>
-        <div>
+        <div class="mb-5">
             <div class="mb-3 ">
                 <label class="text-sm font-medium mb-2" for="name">
                     Name
                     </lable>
-                    <input id="name" class="border rounded-md outline-none w-full py-3 px-4 text-sm" name="name"
+                    <input id="name" class="border rounded-lg outline-none w-full py-3 px-4 text-sm" name="name"
                         placeholder="John Deo" type="name">
             </div>
             <div class="mb-3 ">
                 <label class="text-sm font-medium mb-2" for="email">
                     Email
                     </lable>
-                    <input id="email" class="border rounded-md outline-none w-full py-3 px-4 text-sm" name="email"
+                    <input id="email" class="border rounded-lg outline-none w-full py-3 px-4 text-sm" name="email"
                         placeholder="Hello@example.com" type="email">
             </div>
             <div class="mb-3 ">
                     <label class="text-sm font-medium mb-2" for="password">
                         Password
                         </lable>
-                <div class="flex border rounded-2xl border-main-dark  px-2 py-1 items-center">
-                    <input id="password" class="w-full text-sm outline-none" name="password" placeholder="*****"
+                <div class="flex border rounded-lg items-center bg-white pr-3">
+                    <input id="password" class="w-full py-3 px-4 rounded-lg text-sm outline-none" name="password" placeholder="*****"
                         type="password">
-                    <img src="assets/images/eye.svg" class="w-2 h-4">
+                    <img src="assets/images/eye.svg" class="">
                 </div>
             </div>
         </div>
-        <p class="text-xs">By continuing, you agree to our <a href="#" class="text-main-dark">term of service</a></p>
-        <div class="flex flex-col gap-4">
+        <p class="text-xs mb-2">By continuing, you agree to our <a href="#" class="text-main-dark">term of service</a></p>
+        <div class="flex flex-col gap-8">
             <button class="w-full text-center py-3 border rounded-md font-bold bg-main-inactive text-white border-main-inactive">
                 Sign Up
             </button>
-            <button class="w-full text-center py-3 border rounded-md font-medium flex items-center gap-2">
+            <button class="w-full text-center py-3 px-3 border rounded-md font-medium flex items-center gap-2 mb-5">
                 <img class="" src="assets/images/google.svg">
                 Continue with Google
             </button>
