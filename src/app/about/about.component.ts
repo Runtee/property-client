@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HomeComponent } from '../home/home.component';
+import { FabComponent } from '../fab/fab.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [HomeComponent],
+  imports: [FabComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })

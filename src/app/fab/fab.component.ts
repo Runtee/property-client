@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-filter',
+  selector: 'app-fab',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './filter.component.html',
-  styleUrl: './filter.component.css'
+  templateUrl: './fab.component.html',
+  styleUrl: './fab.component.css'
 })
-export class FilterComponent {
-
+export class FabComponent {
+ 
 }
