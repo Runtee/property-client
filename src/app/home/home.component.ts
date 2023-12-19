@@ -43,5 +43,6 @@ export class HomeComponent implements OnInit {
   selectCard(card: propertyInterface): void {
     this.selectedCard = card;
   }
+  
 }
 

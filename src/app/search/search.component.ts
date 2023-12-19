@@ -24,7 +24,8 @@ export class SearchComponent {
   autofocus = false
   showHistory: boolean = false;
   showSuggestions: boolean = false;
-  value: string = ""
+  showResults: boolean = false;
+
   onInputClick() {
     this.router.navigate(['/search']);
     this.showHistory = true;
@@ -38,7 +39,6 @@ export class SearchComponent {
 
     if (inputElement) {
       const searchTerm = inputElement.value.trim();
-      this.value = searchTerm
       if (searchTerm) {
         this.showHistory = false;
         this.showSuggestions = true;
@@ -55,7 +55,7 @@ export class SearchComponent {
     const inputElement = event.target as HTMLInputElement;
     const searchTerm = inputElement.value.trim();
     // Replace with your actual search logic and data fetching
-    this.searchResults = []; // Simulating search by replacing data
+    this.showResults = true; // Simulating search by replacing data
     if (searchTerm === '10 storey') {
       this.searchResults = [
         {

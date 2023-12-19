@@ -6,34 +6,49 @@
             </div>
             <div class="font-bold text-lg text-center">Upload</div>
             <div class="ml-auto"><button
-                    class="bg-main-dark text-white text-sm px-5 py-1 rounded-2xl font-bold">Post</button></div>
+                    class="bg-main-dark text-white text-sm px-5 py-1 rounded-2xl font-bold">Post</button>
+            </div>
         </div>
     </header>
     <main class="p-5">
-        <textarea src="" class="w-full outline-none" placeholder="Description"></textarea>
-        <div class="grid grid-cols-3 gap-2 mb-2 mt-[95%]">
-            <div class="w-24 h-24 border rounded-lg border-main-dark relative">
-                <img src="assets/images/camera.png"
-                    class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-            </div>
-            <div class="w-24 h-24 border rounded-lg border-main-dark relative">
-                <img src="assets/images/Rectangle 594.png" class="w-full h-full">
-            </div>
-
-            <div class="w-24 h-24 border rounded-lg border-main-dark relative">
-                <img src="assets/images/Rectangle 597.png" class="w-full h-full">
+        <div class="mb-10">
+            <h2 class="font-semibold">Image</h2>
+            <div class="relative border rounded-lg h-48 border-main-dark">
+                <div class="w-full h-full bg-slate-50 rounded-lg" *ngIf="!selectedImage"></div>
+                <img id="uploadedImage" class="w-full h-48 brightness-50" src="" alt="" *ngIf="selectedImage">
+                <div class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                    <button (click)="selectImageFile()">
+                        <img src="assets/images/icons8-camera-30.png" class="w-6 h-6">
+                    </button>
+                    <input type="file" #imageInput [style.display]="'none'" accept="image/*"
+                        (change)="onImageChange($event)">
+                </div>
+                <div class="absolute top-2 right-1">
+                    <button (click)="removeImageFile()">
+                        <img src="assets/images/close.svg" class="w-6 h-6">
+                    </button>
+                </div>
             </div>
         </div>
-
+        <div class="">
+            <h2 class="font-semibold">Video</h2>
+            <div class="relative border rounded-lg h-48 border-main-dark">
+                <div class="w-full h-full bg-slate-50 rounded-lg" *ngIf="!selectedVideo"></div>
+                <video id="uploadedVideo" class="w-full h-48 brightness-50" src="" alt="" controls
+                    *ngIf="selectedVideo"></video>
+                <div class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                    <button (click)="selectVideoFile()">
+                        <img src="assets/images/icons8-video-50.png" class="w-6 h-6">
+                    </button>
+                    <input type="file" #videoInput [style.display]="'none'" accept="video/*"
+                        (change)="onVideoChange($event)">
+                </div>
+                <div class="absolute top-2 right-1">
+                    <button (click)="removeVideoFile()">
+                        <img src="assets/images/close.svg" class="w-6 h-6">
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
-    <div class="px-3 py-2 border-t border-main-dark flex justify-between">
-        <div class="flex gap-3">
-            <img src="assets/images/gallery.png" class="">
-            <img src="assets/images/location.svg" class="">
-        </div>
-        <div class="flex border rounded-2xl border-main-dark w-48 px-2 py-1 items-center">
-            <input class="w-full text-[13px] outline-none" placeholder="Everyone can respond">
-            <img src="assets/images/Vector.svg" class="w-2 h-4">
-        </div>
-    </div>
 </div>
