@@ -18,7 +18,7 @@ export const routes: Routes = [
     { path: "about", component: AboutComponent },
     { path: "payment", component: PaymentComponent },
     { path: "upload", component: UploadComponent },
-    { path: "upload-media", component: UploadMediaComponent },
+    { path: "uploadmedia", component: UploadMediaComponent },
     { path: "search", component: SearchComponent },
     // { path: "search-result", component: SearchResultsComponent },
     { path: "filter", component: FilterComponent },

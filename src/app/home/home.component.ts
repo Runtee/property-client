@@ -4,10 +4,11 @@ import { SearchComponent } from '../search/search.component';
 import { FabComponent } from '../fab/fab.component';
 import { data, propertyCategory } from "../../data"
 import { propertyInterface } from '../interfaces/interfaces';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, SearchComponent, FabComponent, NgIf],
+  imports: [NgFor, SearchComponent, FabComponent, NgIf,RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

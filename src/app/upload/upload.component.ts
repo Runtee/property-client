@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
@@ -9,7 +10,11 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './upload.component.css'
 })
 export class UploadComponent {
+  constructor(private location: Location) {}
 
+  goBack(): void {
+    this.location.back();
+  }
   personalDetails: any = {};
   propertyDetails: any = {};
 

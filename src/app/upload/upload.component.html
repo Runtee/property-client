@@ -3,7 +3,9 @@
         <header class="p-5 mb-5">
             <div class="relative">
                 <div class="absolute top-0 left-0">
-                    <button class=""><img class="" src="assets/images/arrow-square-left.svg"></button>
+                    <button class="" (click)="goBack()">
+                        <img class="" src="assets/images/arrow-square-left.svg">
+                    </button>
                 </div>
                 <h2 class="font-bold text-lg text-center">Fill this form to proceed</h2>
             </div>
@@ -17,26 +19,32 @@
                         <h3 class="text-sm font-medium mb-2">
                             Email
                         </h3>
-                        <input [(ngModel)]="personalDetails.email" name="email" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                        <input [(ngModel)]="personalDetails.email" name="email"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text">
                     </div>
                     <div class="">
                         <h3 class="text-sm font-medium mb-2">
                             Number
                         </h3>
-                        <input [(ngModel)]="personalDetails.number" name="number" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                        <input [(ngModel)]="personalDetails.number" name="number"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text">
                     </div>
                 </div>
                 <div class="mb-4">
                     <h3 class="text-sm font-medium mb-2">
                         Name
                     </h3>
-                    <input [(ngModel)]="personalDetails.name" name="name" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                    <input [(ngModel)]="personalDetails.name" name="name"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
                 </div>
                 <div class="mb-5">
                     <h3 class="text-sm font-medium mb-2">
                         Address
                     </h3>
-                    <input [(ngModel)]="personalDetails.address" name="address" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                    <input [(ngModel)]="personalDetails.address" name="address"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
                 </div>
             </div>
 
@@ -47,26 +55,32 @@
                     <h3 class="text-sm font-medium mb-2">
                         Title
                     </h3>
-                    <input [(ngModel)]="propertyDetails.title" name="title" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                    <input [(ngModel)]="propertyDetails.title" name="title"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
                 </div>
                 <div class="mb-4">
                     <h3 class="text-sm font-medium mb-2">
                         Location
                     </h3>
-                    <input [(ngModel)]="propertyDetails.location" name="location" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                    <input [(ngModel)]="propertyDetails.location" name="location"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
                 </div>
                 <div class="mb-4 flex gap-2">
                     <div class="">
                         <h3 class="text-sm font-medium mb-2">
                             Category
                         </h3>
-                        <input [(ngModel)]="propertyDetails.category" name="category" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                        <input [(ngModel)]="propertyDetails.category" name="category"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text">
                     </div>
                     <div class="">
                         <h3 class="text-sm font-medium mb-2">
                             Price
                         </h3>
-                        <input [(ngModel)]="propertyDetails.price" name="price" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                        <input [(ngModel)]="propertyDetails.price" name="price"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text">
                     </div>
                 </div>
                 <div class="mb-4 flex gap-2">
@@ -74,22 +88,28 @@
                         <h3 class="text-sm font-medium mb-2">
                             City
                         </h3>
-                        <input [(ngModel)]="propertyDetails.city" name="city" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                        <input [(ngModel)]="propertyDetails.city" name="city"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text">
                     </div>
                     <div class="">
                         <h3 class="text-sm font-medium mb-2">
                             State
                         </h3>
-                        <input [(ngModel)]="propertyDetails.state" name="state" class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text">
+                        <input [(ngModel)]="propertyDetails.state" name="state"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text">
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-col gap-4">
-                <button type="button" class="w-full text-center py-3 border rounded-md font-bold text-main-dark border-main-dark">
+                <button type="button"
+                    class="w-full text-center py-3 border rounded-md font-bold text-main-dark border-main-dark">
                     Cancel
                 </button>
-                <button type="submit" class="w-full text-center py-3 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+                <button type="submit"
+                    class="w-full text-center py-3 border rounded-md font-bold bg-main-dark text-white border-main-dark">
                     Confirm
                 </button>
             </div>
