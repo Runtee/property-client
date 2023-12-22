@@ -5,7 +5,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { UploadComponent } from './upload/upload.component';
 import { UploadMediaComponent } from './upload-media/upload-media.component';
 import { SearchComponent } from './search/search.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
+// import { SearchResultsComponent } from './search-results/search-results.component';
 import { FilterComponent } from './filter/filter.component';
 import { SavedComponent } from './saved/saved.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -20,7 +20,7 @@ export const routes: Routes = [
     { path: "upload", component: UploadComponent },
     { path: "upload-media", component: UploadMediaComponent },
     { path: "search", component: SearchComponent },
-    { path: "search-result", component: SearchResultsComponent },
+    // { path: "search-result", component: SearchResultsComponent },
     { path: "filter", component: FilterComponent },
     { path: "saved", component: SavedComponent },
     {path: "profile", component: ProfileComponent},
