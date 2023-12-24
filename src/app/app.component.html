@@ -1,26 +1,26 @@
-<div>
-<div class="mb-16">
-<router-outlet></router-outlet>
-</div>
-
-<nav class="bottom-0 fixed bg-white shadow-2xl rounded-t-xl w-full p-2">
-    <div class="flex p-1 gap-2 w-full justify-evenly">
-        <div routerLink="/home" class="cursor-pointer flex flex-col items-center gap-1">
-            <img src="assets/images/home-2.svg">
-            <h4 class="text-xs text-main-dark">Home</h4>
-        </div>
-        <div routerLink="/saved" class="cursor-pointer flex flex-col items-center gap-1">
+<div class="">
+  <div class="mb-16">
+  <router-outlet></router-outlet>
+  </div>
+  
+  <nav class="bottom-0 fixed bg-white shadow-2xl rounded-t-xl w-full p-2">
+      <div class="flex p-1 gap-2 w-full justify-evenly">
+          <div routerLink="/home" class="cursor-pointer flex flex-col items-center gap-1" routerLinkActive="text-main-dark">
+              <img src="assets/images/home-2.svg">
+              <h4 class="text-xs">Home</h4>
+          </div>
+          <div routerLink="/saved" routerLinkActive="text-main-dark" class="cursor-pointer flex flex-col items-center gap-1">
             <img src="assets/images/archive.svg">
             <h4 class="text-xs">Saved</h4>
-        </div>
-        <div routerLink="/" class="cursor-pointer flex flex-col items-center gap-1">
-            <img src="assets/images/message-text.svg">
-            <h4 class="text-xs">Message</h4>
-        </div>
-        <div routerLink="/profile" class="cursor-pointer flex flex-col items-center gap-1">
-            <img src="assets/images/profile.svg">
-            <h4 class="text-xs">Profile</h4>
-        </div>
-    </div>
-</nav>
-</div>
+          </div>
+          <div routerLink="/" class="cursor-pointer flex flex-col items-center gap-1" routerLinkActive="text-main-dark">
+              <img src="assets/images/message-text.svg">
+              <h4 class="text-xs">Message</h4>
+          </div>
+          <div routerLink="/profile" class="cursor-pointer flex flex-col items-center gap-1" routerLinkActive="text-main-dark">
+              <img src="assets/images/profile.svg">
+              <h4 class="text-xs">Profile</h4>
+          </div>
+      </div>
+  </nav>
+  </div>

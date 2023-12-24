@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
+import { propertyInterface } from '../interfaces/interfaces';
+import { data } from '../data';
 
 @Component({
   selector: 'app-saved',
-  standalone: true,
-  imports: [],
   templateUrl: './saved.component.html',
-  styleUrl: './saved.component.css'
+  styles: ``
 })
 export class SavedComponent {
+  savedProperty : propertyInterface[] = data.slice(0,3);
 
 }

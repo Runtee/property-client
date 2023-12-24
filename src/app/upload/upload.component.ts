@@ -1,20 +1,12 @@
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-upload',
-  standalone: true,
-  imports: [FormsModule],
   templateUrl: './upload.component.html',
-  styleUrl: './upload.component.css'
+  styles: ``
 })
 export class UploadComponent {
-  constructor(private location: Location) {}
 
-  goBack(): void {
-    this.location.back();
-  }
   personalDetails: any = {};
   propertyDetails: any = {};
 

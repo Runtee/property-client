@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
-import { Location, NgFor, NgIf } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-change-password',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf],
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styles: ``
 })
-
 export class ChangePasswordComponent {
+
   newPasswordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
   oldPasswordVisible: boolean = false;
@@ -18,11 +15,9 @@ export class ChangePasswordComponent {
   formErrors: { [key: string]: string } = {};
   isFormSubmitted: boolean = false;
 
-  constructor(private location: Location) {}
+  constructor() {}
 
-  goBack(): void {
-    this.location.back();
-  }
+
 
   togglePasswordVisibility(field: string): void {
     
@@ -64,4 +59,3 @@ export class ChangePasswordComponent {
     }
   }
 }
-

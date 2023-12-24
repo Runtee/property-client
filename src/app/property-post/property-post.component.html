@@ -1,0 +1,12 @@
+<div>
+    <app-search-input></app-search-input>
+    <app-trending [filteredData]="filteredData" [main_data]="main_data" (cardSelected)="selectCards($event)"></app-trending>
+    <!-- items info page -->
+    <section class="bg-[#F9FBFA] p-4">
+        <div class="w-full h-[85px] mb-3">
+            <img src="assets/images/banner.png" class="w-full h-full object-cover">
+        </div>
+        <app-post [selectedCard]="selectedCard"></app-post>
+    </section>
+</div>
+<app-fab></app-fab>

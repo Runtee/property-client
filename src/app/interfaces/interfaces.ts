@@ -1,10 +1,11 @@
 export interface propertyInterface {
-    id?: string;
-    title?: string;
+    id: string;
+    title: string;
     price?: number;
     category?: string;
     description?: string;
     address?: string;
+    location?: string;
     city?: string;
     state?: string;
     image?: string;

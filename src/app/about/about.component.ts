@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { FabComponent } from '../fab/fab.component';
+import { propertyInterface } from '../interfaces/interfaces';
+import { data } from '../data';
 
 @Component({
   selector: 'app-about',
-  standalone: true,
-  imports: [FabComponent],
   templateUrl: './about.component.html',
-  styleUrl: './about.component.css'
+  styles: ``
 })
 export class AboutComponent {
+  main_data: propertyInterface[] = data;
+  filteredData: propertyInterface[] = [];
+  selectedCard: propertyInterface | null = null;
 
+  // // Handle card selection
+  selectCards(card: propertyInterface): void {
+    this.selectedCard = card;
+  }
 }

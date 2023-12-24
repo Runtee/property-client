@@ -1,115 +1,97 @@
-<div>
+<div class="mb-24">
     <header class="p-5 mb-10">
         <div class="relative">
             <div class="absolute top-0 left-0">
-                <button class=""><img class="" src="assets/images/arrow-square-left.svg"></button>
+                <!-- back icon -->
+                <button class="" (click)="closeFilterScreen()">
+                    <img class="" src="assets/images/arrow-square-left.svg">
+                  </button>
             </div>
             <h2 class="font-bold text-lg text-center">Filter</h2>
         </div>
     </header>
+
     <div class="px-5">
-        <div class="flex justify-between items-center mb-8">
-            <h3 class="text-sm font-semibold">Category</h3>
-            <img src="assets/images/arrow-right.svg" class="">
-        </div>
-        <div class="w-full h-[1px] border border-gray-400 border-opacity-50 mb-8"></div>
-        <div class="mb-8">
+        <form (ngSubmit)="applyFilter(filterForm.value)" #filterForm="ngForm">
+          <div class="mb-8">
+            <div class="flex justify-between items-center mb-2 cursor-pointer" (click)="toggleDropdown()">
+              <h3 class="text-sm font-semibold">Category</h3>
+              <img src="assets/images/arrow-right.svg" class="">
+            </div>
+      
+            <!-- dropdown for category -->
+            <div class="" [ngStyle]="{display: showDropdown ? 'block' : 'none'}">
+              <div class="flex justify-between items-center w-full">
+                <h2 class="text-[13px] font-medium">Land</h2>
+                <input name="category_land" type="checkbox" ngModel>
+              </div>
+              <div class="flex justify-between items-center w-full">
+                <h2 class="text-[13px] font-medium">Real Estate</h2>
+                <input name="category_real_estate" type="checkbox" ngModel>
+              </div>
+              <div class="flex justify-between items-center w-full">
+                <h2 class="text-[13px] font-medium">Rent</h2>
+                <input name="category_rent" type="checkbox" ngModel>
+              </div>
+            </div>
+          </div>
+          <div class="w-full h-[1px] border border-gray-400 border-opacity-50 mb-8"></div>
+          <div class="mb-8">
             <h3 class="text-sm font-semibold mb-5">Price</h3>
             <div class="flex justify-between gap-3 mb-5">
-                <div class="w-full">
-                   <h3 class="text-[13px] font-medium">
-                    Min
-                   </h3> 
-                   <input class="bg-white text-xs px-3 py-3 w-full border rounded-md">
-                </div>
-                <div class="w-full">
-                    <h3 class="text-[13px] font-medium">
-                     Max
-                    </h3> 
-                    <input class="bg-white text-xs px-3 py-3 w-full border rounded-md">
-                 </div>
+              <div class="w-full">
+                <h3 class="text-[13px] font-medium">
+                  Min
+                </h3>
+                <input name="min_price" class="bg-white text-xs px-3 py-3 w-full border rounded-md" ngModel>
+              </div>
+              <div class="w-full">
+                <h3 class="text-[13px] font-medium">
+                  Max
+                </h3>
+                <input name="max_price" class="bg-white text-xs px-3 py-3 w-full border rounded-md" ngModel>
+              </div>
             </div>
             <div class="">
-                <input type="range" class="w-full text-main-dark">
+              <input type="range" class="w-full text-main-dark">
             </div>
-        </div>
-        <div class="w-full h-[1px] border border-gray-400 border-opacity-50 mb-8"></div>
-        <div class="flex justify-between items-center mb-8">
+          </div>
+          <div class="w-full h-[1px] border border-gray-400 border-opacity-50 mb-8"></div>
+          <div class="flex justify-between items-center mb-8">
             <h3 class="text-sm font-semibold">Location</h3>
             <img src="assets/images/arrow-right.svg" class="">
-        </div>
-        <div class="w-full h-[1px] border border-gray-400 border-opacity-50 mb-8"></div>
-        <div class="">
+          </div>
+          <div class="w-full h-[1px] border border-gray-400 border-opacity-50 mb-8"></div>
+          <div class="">
             <h3 class="text-sm font-semibold mb-1">Badges</h3>
             <div class=" gap-3 mb-5">
-                <div class="w-full flex justify-between mb-1">
-                   <h3 class="text-[13px] font-medium">
-                    Kyc
-                   </h3> 
-                   <input type="checkbox" class="bg-white text-xs px-3 py-3 border border-main-dark rounded-md">
-                </div>
-                <div class="w-full flex justify-between mb-1">
-                    <h3 class="text-[13px] font-medium">
-                        CofO
-                    </h3> 
-                    <input type="checkbox" class="bg-white text-xs px-3 py-3 border border-main-dark rounded-md">
-                 </div>
-                 <div class="w-full flex justify-between mb-1">
-                    <h3 class="text-[13px] font-medium">
-                        Doxxed
-                    </h3> 
-                    <input type="checkbox" class="bg-white text-xs px-3 py-3 border border-main-dark rounded-md">
-                 </div>
+              <div class="w-full flex justify-between mb-1">
+                <h3 class="text-[13px] font-medium">
+                  Kyc
+                </h3>
+                <input name="badge_kyc" type="checkbox" class="bg-white text-xs px-3 py-3 border border-main-dark rounded-md" ngModel>
+              </div>
+              <div class="w-full flex justify-between mb-1">
+                <h3 class="text-[13px] font-medium">
+                  CofO
+                </h3>
+                <input name="badge_cofO" type="checkbox" class="bg-white text-xs px-3 py-3 border border-main-dark rounded-md" ngModel>
+              </div>
+              <div class="w-full flex justify-between mb-1">
+                <h3 class="text-[13px] font-medium">
+                  Doxxed
+                </h3>
+                <input name="badge_doxxed" type="checkbox" class="bg-white text-xs px-3 py-3 border border-main-dark rounded-md" ngModel>
+              </div>
             </div>
-        </div>
-    </div>
-</div>
+          </div>
+          <div class="mt-8 flex gap-3">
+            <button type="button" class="bg-main-light text-slate-700 font-bold text-sm rounded-lg px-4 py-2" (click)="resetFilter()">Reset</button>
+            <button class="bg-main-dark text-slate-100 font-bold text-sm rounded-lg px-4 py-2">Filter</button>
+          </div>
+        </form>
+      </div>
 
-<button id="dropdownHelperButton" data-dropdown-toggle="dropdownHelper" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center " type="button">Dropdown checkbox
-    </button>
-    
-    <!-- Dropdown menu -->
-    <div id="dropdownHelper" class="z-10  bg-white divide-y divide-gray-100 rounded-lg shadow w-60 ">
-        <ul class="p-3 space-y-1 text-sm text-gray-700 " aria-labelledby="dropdownHelperButton">
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <div class="flex items-center h-5">
-                  <input id="helper-checkbox-1" aria-describedby="helper-checkbox-text-1" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-              </div>
-              <div class="ms-2 text-sm">
-                  <label for="helper-checkbox-1" class="font-medium text-gray-900 dark:text-gray-300">
-                    <div>Enable notifications</div>
-                    <p id="helper-checkbox-text-1" class="text-xs font-normal text-gray-500 dark:text-gray-300">Some helpful instruction goes over here.</p>
-                  </label>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <div class="flex items-center h-5">
-                  <input id="helper-checkbox-2" aria-describedby="helper-checkbox-text-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-              </div>
-              <div class="ms-2 text-sm">
-                  <label for="helper-checkbox-2" class="font-medium text-gray-900 dark:text-gray-300">
-                    <div>Enable 2FA auth</div>
-                    <p id="helper-checkbox-text-2" class="text-xs font-normal text-gray-500 dark:text-gray-300">Some helpful instruction goes over here.</p>
-                  </label>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <div class="flex items-center h-5">
-                  <input id="helper-checkbox-3" aria-describedby="helper-checkbox-text-3" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-              </div>
-              <div class="ms-2 text-sm">
-                  <label for="helper-checkbox-3" class="font-medium text-gray-900 dark:text-gray-300">
-                    <div>Subscribe newsletter</div>
-                    <p id="helper-checkbox-text-3" class="text-xs font-normal text-gray-500 dark:text-gray-300">Some helpful instruction goes over here.</p>
-                  </label>
-              </div>
-            </div>
-          </li>
-        </ul>
-    </div>
-    
+      
+      
+</div>

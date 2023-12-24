@@ -1,27 +1,21 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
-import { FabComponent } from '../fab/fab.component';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators'; 
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { data } from "../data";
+import { propertyInterface } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-search',
-  standalone: true,
-  imports: [NgIf, NgFor, CurrencyPipe, FabComponent, FormsModule],
   templateUrl: './search.component.html',
-  styleUrl: './search.component.css'
 })
-
 export class SearchComponent {
+  main_data: propertyInterface[] = data;
   searchHistory: string[] = ['Ubollo', 'Enugu'];
-  searchSuggestions: string[] = ['10 storey building in Obollo Affor', 'Ten storey building in Lekki Peninsula'];
   suggestions: string[] = [];
-  searchResults: any[] = [];
+  searchResults: propertyInterface[] = [];
   showHistory: boolean = true;
   showSuggestions: boolean = false;
+  showResults: boolean = false;
   showSearch: boolean = true;
   showFilter: boolean = false;
   searchTerm: string = '';
@@ -42,6 +36,16 @@ export class SearchComponent {
     // this.searchResults = [];
   }
 
+  openFilterScreen() {
+    this.showSearch = false;
+    this.showFilter = true;
+  }
+
+  closeFilterScreen() {
+    this.showSearch = true;
+    this.showFilter = false;
+  }
+
   onKeyUp(event: KeyboardEvent) {
     const inputElement = event.target as HTMLInputElement;
 
@@ -53,13 +57,14 @@ export class SearchComponent {
 
   handleSearch(searchTerm: string) {
     this.searchResults = [];
+    this.showResults = false;
 
     if (searchTerm) {
       this.showHistory = false;
       this.showSuggestions = true;
-      this.suggestions = this.searchSuggestions.filter((suggestion) =>
-        suggestion.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      this.suggestions = this.main_data.filter((suggestion) =>
+        suggestion.title.toLowerCase().includes(searchTerm.toLowerCase())
+      ).map((suggestion) => suggestion.title);
     } else {
       this.showSuggestions = false;
     }
@@ -68,44 +73,21 @@ export class SearchComponent {
   onSearch(event: any) {
     const inputElement = event.target as HTMLInputElement;
     this.searchTerm = inputElement.value.trim();
-
-    // Replace with your actual search logic and data fetching
-    if (this.searchTerm === '10 storey') {
-      this.searchResults = [
-        {
-          title: '10 plots of land at Storeylane',
-          location: 'Lekki, Lagos State',
-          price: 67900,
-          badges: ['CofO', 'KYC'],
-        },
-      ];
-    }
-
-    // if (this.searchTerm) {
-    //   this.handleSearch(this.searchTerm);
-    // }
-
+    this.searchResults = this.main_data.filter((suggestion) =>
+      suggestion.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    this.showResults = true;
     this.showHistory = false;
     this.showSuggestions = false;
   }
 
-  openFilterScreen() {
-    this.showSearch = false;
-    this.showFilter = true;
+  onSuggestionClick(suggestion: string) {
+    this.searchTerm = suggestion;
+    this.onSearch({ target: { value: suggestion } });
   }
 
-  closeFilterScreen() {
-    this.showSearch = true;
-    this.showFilter = false;
-  }
-
-  resetFilter() {
-    // Implement logic to reset filter values (clear checkboxes, inputs, etc.)
-  }
-
-  applyFilter() {
-    // Implement logic to apply the filter based on form values
-    // You can use filterForm.value to access the form values
-    this.showFilter = false;
+  onHistoryClick(history: string) {
+    this.searchTerm = history;
+    this.onSearch({ target: { value: history } });
   }
 }

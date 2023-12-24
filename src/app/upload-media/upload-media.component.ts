@@ -1,22 +1,14 @@
-import { Location, NgIf } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-upload-media',
-  standalone: true,
-  imports: [NgIf],
   templateUrl: './upload-media.component.html',
-  styleUrl: './upload-media.component.css'
+  styles: ``
 })
-
 export class UploadMediaComponent {
   selectedImage: File | null = null;
   selectedVideo: File | null = null;
-  constructor(private location: Location) {}
 
-  goBack(): void {
-    this.location.back();
-  }
   onImageChange(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
@@ -89,4 +81,3 @@ removeImageFile(): void {
     this.loadVideo();
   }
 }
-

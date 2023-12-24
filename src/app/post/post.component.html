@@ -1,0 +1,64 @@
+<main class="p-4 m-3 shadow-xl rounded-3xl bg-white" *ngIf="selectedCard">
+    <div class="flex gap-1 mb-4">
+        <div class="w-full basis-3/5 flex flex-col justify-between">
+            <div>
+                <h1 class="text-lg text-main-dark font-bold mb-2">
+                    {{selectedCard.title}}
+                </h1>
+                <div class="flex items-baseline gap-1">
+                    <img src="assets/images/location-b.svg" class="">
+                    <span class="text-xs font-medium">{{selectedCard.address}}</span>
+                </div>
+            </div>
+            <div class="flex justify-between">
+            <h1 class="text-main-dark font-bold">N{{selectedCard.price}}</h1>
+            <button class="px-2 text-sm text-white font-bold rounded-xl bg-main-dark border-main-dark">Save</button>
+            <button class="px-2 text-sm text-white hidden font-bold rounded-xl bg-main-dark border-main-dark">Unave</button>
+        </div>
+        </div>
+        <div class="basis-2/5 w-full h-[150px] rounded-lg" style="position: relative;" *ngIf="selectedCard.doxxed">
+            <video class="h-full brightness-50" src="assets/videos/banner.webm"
+                poster="assets/images/Rectangle 594.png"
+                style="object-fit: cover; width: 100%; border-radius: 0.5rem;"></video>
+            <img src="assets/images/play-cricle.svg"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
+        </div>
+    </div>
+    <div class="text-xs mb-4">
+        {{selectedCard.description}}
+    </div>
+    <div class="flex items-center justify-between gap-1 w-full mb-5">
+        <img src="assets/images/Rectangle 596.png" class="h-32 w-full basis-1/2" alt="">
+        <div class="w-full rounded-lg h-32  basis-1/2" style="position: relative;">
+            <video class="h-full brightness-50 w-full" src="assets/videos/banner.webm"
+                poster="assets/images/Rectangle 597.png"
+                style="object-fit: cover; width: 100%; border-radius: 0.5rem;"></video>
+            <img src="assets/images/play-cricle.svg"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
+        </div>
+    </div>
+    <div class="flex gap-5 mb-10">
+        <div class="flex items-center bg-gradient-to-l from-black to-[#000000BF] p-1" *ngIf="selectedCard.c_of_o">
+            <img src="assets/images/personalcard.svg" class="w-7 h-7">
+            <span class="text-sm font-bold text-white">C<span
+                    class="text-[8px] font-extralight">of</span>O</span>
+        </div>
+        <div class="flex items-center bg-gradient-to-l from-main-dark to-[#7A2D9380] p-1" *ngIf="selectedCard.kyc">
+            <img src="assets/images/personalcard.svg" class="w-7 h-7">
+            <span class="text-sm font-bold text-white">KYC</span>
+        </div>
+    </div>
+
+    <div class="flex justify-evenly">
+        <button class="px-4 py-1 w-28 text-main-dark border outline-none border-main-dark rounded font-bold">
+            Contact
+        </button>
+        <button
+            class="px-4 py-1 w-28 text-white border outline-none bg-main-dark border-main-dark rounded font-bold">
+            Purchase
+        </button>
+        <ul>
+            <li></li>
+        </ul>
+    </div>
+</main>
