@@ -15,16 +15,16 @@ export class MainService {
   private postRequest(url: string, data: any): Observable<any> {
     const headers = new HttpHeaders()
       .set('content-type', 'application/json')
-      .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
-      .set('Access-Control-Allow-Origin', '*');
+      // .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
+      // .set('Access-Control-Allow-Origin', '*');
     return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
 
   private getRequest(url: string, params?: HttpParams): Observable<any> {
     const headers = new HttpHeaders()
-      .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
-      .set('Access-Control-Allow-Origin', '*');
+      // .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
+      // .set('Access-Control-Allow-Origin', '*');
     return this.http.get<any>(url, { headers, params, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }

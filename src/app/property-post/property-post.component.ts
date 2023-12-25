@@ -1,33 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { propertyInterface } from '../interfaces/interfaces';
-import { data } from "../data"
 import { ActivatedRoute, Router } from '@angular/router';
+import { MainService } from '../main.service';
+import { catchError, finalize } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-property-post',
   templateUrl: './property-post.component.html',
-  styleUrl: './property-post.component.css'
+  styleUrls: ['./property-post.component.css']
 })
-export class PropertyPostComponent implements OnInit{
-  main_data: propertyInterface[] = data;
+export class PropertyPostComponent implements OnInit {
+  main_data: propertyInterface[] = [];
   filteredData: propertyInterface[] = [];
   selectedCard: propertyInterface | null = null;
+  isLoading = true;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-  }
+  constructor(private router: Router, private route: ActivatedRoute, private mainService: MainService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const itemId = params.get('id');
       if (itemId) {
-        this.selectedCard = this.main_data.find(item => item.id === itemId) || null;
+        this.mainService.getPropertyById(itemId)
+          .pipe(
+            catchError((error) => {
+              console.error('Error fetching property data:', error);
+              return throwError(() => new Error('Something went wrong'));
+            })
+          )
+          .subscribe((item: propertyInterface) => {
+            this.selectedCard = item;
+          });
       }
     });
-    this.filteredData = data
+
+    this.mainService.getTrendings()
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching trending data:', error);
+          return throwError(() => new Error('Something went wrong'));
+        }),
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe((trendings: propertyInterface[]) => {
+        this.main_data = trendings;
+        this.filteredData = this.main_data;
+      });
   }
 
-
-  // // Handle card selection
+  // Handle card selection
   selectCards(card: propertyInterface): void {
     this.selectedCard = card;
   }

@@ -21,7 +21,7 @@ import { BackComponent } from './back/back.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { PropertyItemComponent } from './property-item/property-item.component';
 import { PropertyPostComponent } from './property-post/property-post.component';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +47,7 @@ import { PropertyPostComponent } from './property-post/property-post.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
