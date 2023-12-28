@@ -27,14 +27,14 @@ export class SearchComponent {
 
   constructor(private router: Router, private mainService: MainService) {
     this.mainService.getProperties()
-    .pipe(
-      catchError((error) => {
-        console.error('Error fetching trending data:', error);
-        return throwError(() => new Error('Something went wrong')); // Rethrow for proper handling
-      })
-    ).subscribe((trendings: propertyInterface[]) => {
-      this.main_data = trendings;
-    });
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching trending data:', error);
+          return throwError(() => new Error('Something went wrong')); // Rethrow for proper handling
+        })
+      ).subscribe((trendings: propertyInterface[]) => {
+        this.main_data = trendings;
+      });
 
     this.searchSubject
       .pipe(
@@ -86,13 +86,38 @@ export class SearchComponent {
   onSearch(event: any) {
     const inputElement = event.target as HTMLInputElement;
     this.searchTerm = inputElement.value.trim();
-    this.searchResults = this.main_data.filter((suggestion) =>
-      suggestion.title.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-    this.showResults = true;
-    this.showHistory = false;
-    this.showSuggestions = false;
+  
+    // Check if the input is a valid property link
+    const isPropertyLink = this.isValidPropertyLink(this.searchTerm);
+  
+    if (isPropertyLink) {
+      // If it's a valid property link, extract the property ID and navigate
+      const propertyId = this.extractPropertyIdFromLink(this.searchTerm);
+      this.router.navigate(['/property', propertyId]);
+    } else {
+      // If it's not a valid property link, perform the regular search
+      this.searchResults = this.main_data.filter((suggestion) =>
+        suggestion.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+      this.showResults = true;
+      this.showHistory = false;
+      this.showSuggestions = false;
+    }
   }
+  
+  isValidPropertyLink(link: string): boolean {
+    // Use a regular expression to check if the link matches the expected format
+    const propertyLinkRegex = /^(?:https?:\/\/)(?:localhost:4200|proclan\.com)\/property\/([a-f0-9-]+)$/;
+  
+    return propertyLinkRegex.test(link);
+  }
+  
+  extractPropertyIdFromLink(link: string): string {
+    // Extract the property ID from the link using a regular expression
+    const match = link.match(/\/property\/([a-f0-9-]+)$/);
+    return match ? match[1] : '';
+  }  
+
 
   onSuggestionClick(suggestion: string) {
     this.searchTerm = suggestion;

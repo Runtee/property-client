@@ -1,23 +1,38 @@
 <div class="">
     <header class="">
         <div class="relative">
-            <div class="w-full h-[228px] bg-transparent">
-                <img src="assets/images/bg.png" alt="" height="228" class="w-full h-full">
+            <div class="w-full h-[228px] bg-transparent relative">
+                <img src="assets/images/bg.png" alt="" height="228" [ngClass]="{'brightness-[.35]': editOn}" class="w-full h-full">
+                <img *ngIf="editOn" src="assets/images/cam.svg" alt=""
+                    class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
             </div>
             <div
-                class="absolute -bottom-[30px] left-[20px] bg-gray-300 border-white border-4 rounded-full h-[104px] w-[104px] flex">
-                <img src="assets/images/avater.png" alt="" class="rounded-full" width="100" height="100">
+                class="absolute -bottom-[30px] left-[20px] bg-gray-300 border-white border-4 rounded-full h-[104px]
+                w-[104px] flex">
+                <img src="assets/images/avater.png" alt=""  [ngClass]="{'brightness-[.35]': editOn}" class="rounded-full" width="100" height="100">
+                <img *ngIf="editOn" src="assets/images/cam.svg" alt=""
+                    class="absolute bottom-[20px] left-[48px] transform -translate-y-1/2 -translate-x-1/2">
             </div>
         </div>
         <div class="mt-[40px] px-5">
             <div class="flex justify-between">
-                <h2 class="font-bold">Aaron Sanchez</h2>
-                <div class="flex gap-4">
+                <h2 *ngIf="!editOn" class="font-bold">Aaron Sanchez</h2>
+                <input *ngIf="editOn" class="font-bold w-auto outline-none border-b border-black" value="Aaron Sanchez"
+                    type="text">
+                <div *ngIf="!editOn" class="flex gap-4">
                     <button routerLink="/profile/settings">
                         <img src="assets/images/settings.svg" class="" alt="">
                     </button>
-                    <button>
+                    <button (click)="edit()">
                         <img src="assets/images/edit.svg" class="" alt="">
+                    </button>
+                </div>
+                <div *ngIf="editOn" class="flex gap-4">
+                    <button (click)="cancel()">
+                        <img src="assets/images/close-square.png" class="" alt="">
+                    </button>
+                    <button (click)="save()">
+                        <img src="assets/images/tick-square.png" class="" alt="">
                     </button>
                 </div>
             </div>
@@ -54,9 +69,13 @@
                     <!-- <button>
                         <img src="assets/images/edit.svg" class="" alt="">
                     </button> -->
-                    <button class="px-1 w-full rounded-xl text-[8px] font-bold border bg-black text-white">Verify CofO</button>
-                    <button class="px-1 w-full rounded-xl text-[8px] font-bold border bg-main-dark text-white">Verify KYC</button>
-                    <button class="px-1 w-full rounded-xl text-[8px] font-bold bg-white border border-main-dark text-main-dark">Upload Dox</button>
+                    <button class="px-1 w-full rounded-xl text-[8px] font-bold border bg-black text-white">Verify
+                        CofO</button>
+                    <button class="px-1 w-full rounded-xl text-[8px] font-bold border bg-main-dark text-white">Verify
+                        KYC</button>
+                    <button
+                        class="px-1 w-full rounded-xl text-[8px] font-bold bg-white border border-main-dark text-main-dark">Upload
+                        Dox</button>
                 </div>
             </div>
         </div>

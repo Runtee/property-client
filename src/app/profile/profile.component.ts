@@ -6,5 +6,19 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class ProfileComponent {
+editOn = false
+
+edit(){
+  this.editOn = !this.editOn
+}
+save(){
+  this.editOn = !this.editOn
+
+}
+
+cancel(){
+  this.editOn = !this.editOn
+
+}
 
 }
