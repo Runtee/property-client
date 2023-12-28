@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:"search",component:SearchComponent},
   // { path: "payment", component: PaymentComponent },
   { path: "upload", component: UploadComponent },
-  { path: "uploadmedia", component: UploadMediaComponent },
+  { path: "upload-media", component: UploadMediaComponent },
   { path: "filter", component: FilterComponent },
   { path: "saved", component: SavedComponent },
   {path: "profile", component: ProfileComponent},

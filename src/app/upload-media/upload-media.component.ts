@@ -1,4 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MainService } from '../main.service';
+import { Router } from '@angular/router';
+import { catchError, finalize, throwError } from 'rxjs';
+import { propertyInterface } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-upload-media',
@@ -8,6 +12,60 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class UploadMediaComponent {
   selectedImage: File | null = null;
   selectedVideo: File | null = null;
+  isModal:boolean = false
+  isLoading = true
+  formDetails: any = {};
+  
+  constructor(private mainService: MainService, private router: Router) {}
+
+  ngOnInit(): void {
+    // Retrieve form data from the shared service
+    // this.formDetails = this.mainService.getFormData();
+    const storedFormData = localStorage.getItem('formDetails');
+    this.formDetails = storedFormData ? JSON.parse(storedFormData) : {};
+    if (!this.formDetails || Object.keys(this.formDetails).length === 0) {
+      this.formDetails = this.mainService.getFormData();
+    }
+  }
+
+  ngOnDestroy(): void {
+    localStorage.setItem('formDetails', JSON.stringify(this.formDetails));
+  }
+
+  onConfrim(){
+    console.log(this.formDetails)
+    const formData = new FormData();
+    for (const key in this.formDetails) {
+      formData.append(key, this.formDetails[key]);
+    }
+    if (this.selectedVideo) {
+      formData.append('image', this.selectedVideo, this.selectedVideo.name); // Use a meaningful key for the file
+    }
+    if (this.selectedImage) {
+      formData.append('video', this.selectedImage, this.selectedImage.name); // Use a meaningful key for the file
+    }
+
+    this.mainService.createProperty(formData)  
+    .pipe(
+      catchError((error) => {
+        console.error('Error fetching trending data:', error);
+        return throwError(() => new Error('Something went wrong'));
+      }),
+      finalize(() => {
+        this.isLoading = false;
+      })
+    )
+    .subscribe((property: propertyInterface) => {
+      this.router.navigate(['/property', property.id]);
+    });
+  }
+
+  openModal(){
+    this.isModal = true
+  }
+  closeModal(){
+this.isModal = false
+  }
 
   onImageChange(event: any) {
     const files = event.target.files;

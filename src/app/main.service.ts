@@ -10,9 +10,41 @@ import { CONFIG } from '../constants';
 })
 export class MainService {
 
+  private formData: any = null;
+
+  setFormData(data: any): void {
+    this.formData = data;
+  }
+
+  getFormData(): any {
+    return this.formData;
+  }
+
   constructor(private http: HttpClient) { }
 
   private postRequest(url: string, data: any): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('content-type', 'multipart/form-data')
+      // .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
+      // .set('Access-Control-Allow-Origin', '*');
+    return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
+      .pipe(catchError(this.handleError));
+  }
+  // private postRequestWithMedia(url: string, data: any, file?: File): Observable<any> {
+  //   const formData = new FormData();
+  //   for (const key in data) {
+  //     formData.append(key, data[key]);
+  //   }
+  //   if (file) {
+  //     formData.append('file', file, file.name); // Use a meaningful key for the file
+  //   }
+  //   const headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });  
+  //   return this.http.post<any>(url, formData, { headers })
+  //     .pipe(catchError(this.handleError));
+  // }
+  
+
+  private postRequestWithMedia(url: string, data: any): Observable<any> {
     const headers = new HttpHeaders()
       .set('content-type', 'application/json')
       // .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
@@ -37,7 +69,7 @@ export class MainService {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     console.error(errorMessage);
-    return throwError(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 
   getTrendings(): Observable<any> {
@@ -50,9 +82,9 @@ export class MainService {
     return this.getRequest(url);
   }
 
-  createProperty(property: propertyInterface): Observable<any> {
+  createProperty(property: FormData): Observable<any> {
     const url = `${CONFIG.apiUrl}/property`;
-    return this.postRequest(url, property);
+    return this.postRequestWithMedia(url, property);
   }
 
   getSoldProperties(): Observable<propertyInterface[]> {
