@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { propertyInterface } from './interfaces/interfaces';
-import { CONFIG } from '../constants';
+import { CONFIG } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'

@@ -22,6 +22,9 @@ import { SearchInputComponent } from './search-input/search-input.component';
 import { PropertyItemComponent } from './property-item/property-item.component';
 import { PropertyPostComponent } from './property-post/property-post.component';
 import { HttpClientModule } from '@angular/common/http';
+
+import { AuthModule } from '@auth0/auth0-angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +51,15 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+
+    // Import the module into the application, with configuration
+    // AuthModule.forRoot({
+    //   domain: 'dev-hzf3gl655z7ry503.uk.auth0.com',
+    //   clientId: 'ENL5BwciHFv5T54x9dykwTjbWCY57TPh',
+    //   authorizationParams: {
+    //     redirect_uri: window.location.origin
+    //   }
+    // }),
   ],
   providers: [],
   bootstrap: [AppComponent]

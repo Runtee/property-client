@@ -48,7 +48,7 @@ export class UploadMediaComponent {
     this.mainService.createProperty(formData)  
     .pipe(
       catchError((error) => {
-        console.error('Error fetching trending data:', error);
+        console.error('Error uploading data:', error);
         return throwError(() => new Error('Something went wrong'));
       }),
       finalize(() => {

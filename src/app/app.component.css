@@ -1,0 +1,7 @@
+.inactive-icon {
+    display: none;
+}
+
+.active-icon .active-icon {
+    display: block;
+}
