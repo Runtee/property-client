@@ -5,20 +5,20 @@
                 <h1 class="text-lg text-main-dark font-bold mb-2">
                     {{selectedCard.title}}
                 </h1>
-                <div class="flex items-baseline gap-1">
+                <div class="flex items-baseline gap-1 mb-2">
                     <img src="assets/images/location-b.svg" class="">
-                    <span class="text-xs font-medium">{{selectedCard.address}}</span>
+                    <span class="text-xs font-medium">{{selectedCard.location}}</span>
                 </div>
             </div>
             <div class="flex justify-between">
-            <h1 class="text-main-dark font-bold">N{{selectedCard.price}}</h1>
-            <button class="px-2 text-sm text-white font-bold rounded-xl bg-main-dark border-main-dark">Save</button>
-            <button class="px-2 text-sm text-white hidden font-bold rounded-xl bg-main-dark border-main-dark">Unave</button>
-        </div>
+                <h1 class="text-main-dark font-bold">N{{selectedCard.price}}</h1>
+                <button class="px-2 text-sm text-white font-bold rounded-xl bg-main-dark border-main-dark">Save</button>
+                <button
+                    class="px-2 text-sm text-white hidden font-bold rounded-xl bg-main-dark border-main-dark">Unave</button>
+            </div>
         </div>
         <div class="basis-2/5 w-full h-[150px] rounded-lg" style="position: relative;" *ngIf="selectedCard.doxxed">
-            <video class="h-full brightness-50" src="assets/videos/banner.webm"
-                poster="assets/images/Rectangle 594.png"
+            <video class="h-full brightness-50" src="assets/videos/banner.webm" poster="assets/images/Rectangle 594.png"
                 style="object-fit: cover; width: 100%; border-radius: 0.5rem;"></video>
             <img src="assets/images/play-cricle.svg"
                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
@@ -40,8 +40,7 @@
     <div class="flex gap-5 mb-10">
         <div class="flex items-center bg-gradient-to-l from-black to-[#000000BF] p-1" *ngIf="selectedCard.c_of_o">
             <img src="assets/images/personalcard.svg" class="w-7 h-7">
-            <span class="text-sm font-bold text-white">C<span
-                    class="text-[8px] font-extralight">of</span>O</span>
+            <span class="text-sm font-bold text-white">C<span class="text-[8px] font-extralight">of</span>O</span>
         </div>
         <div class="flex items-center bg-gradient-to-l from-main-dark to-[#7A2D9380] p-1" *ngIf="selectedCard.kyc">
             <img src="assets/images/personalcard.svg" class="w-7 h-7">
@@ -49,16 +48,26 @@
         </div>
     </div>
 
-    <div class="flex justify-evenly">
+    <div class="flex justify-between">
         <button class="px-4 py-1 w-28 text-main-dark border outline-none border-main-dark rounded font-bold">
             Contact
         </button>
-        <button
-            class="px-4 py-1 w-28 text-white border outline-none bg-main-dark border-main-dark rounded font-bold">
+        <button class="px-4 py-1 w-28 text-white border outline-none bg-main-dark border-main-dark rounded font-bold">
             Purchase
+        </button>
+        <button class=" py-1" (click)="copy_to_clipboard()">
+            <img src="assets/images/copy.svg" alt="">
         </button>
         <ul>
             <li></li>
         </ul>
     </div>
 </main>
+
+<div *ngIf="showCopiedAlert" class="absolute -bottom-20 right-[48px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
+    <p class="font-bold px-5 text-sm">Link Copied</p>
+    <div class="flex gap-2  h-10 px-2">
+      <div class="w-[1px] bg-white h-[100%]"></div>
+      <img src="assets/images/good.svg" class="w-8 h-9 cursor-pointer">
+    </div>
+  </div>

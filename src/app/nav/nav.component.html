@@ -1,0 +1,28 @@
+<nav class="bottom-0 fixed bg-white shadow-2xl rounded-t-xl w-full p-2">
+    <div class="flex p-1 gap-2 w-full justify-evenly">
+        <div routerLink="/home" class="cursor-pointer flex flex-col items-center gap-1"
+             routerLinkActive="active-icon">
+            <img src="assets/images/home.svg" class="block" routerLinkActive="inactive-icon">
+            <img src="assets/images/home-2.svg" class="hidden" routerLinkActive="active-icon">
+            <h4 class="text-xs">Home</h4>
+          </div>
+        <div routerLink="/saved" routerLinkActive="active-icon"
+            class="cursor-pointer flex flex-col items-center gap-1">
+            <img src="assets/images/archive.svg" class="block" routerLinkActive="inactive-icon">
+            <img src="assets/images/archive-2.svg" class="hidden" routerLinkActive="active-icon">
+            <h4 class="text-xs">Saved</h4>
+        </div>
+        <div routerLink="/messages" routerLinkActive="active-icon"
+            class="cursor-pointer flex flex-col items-center gap-1">
+            <img src="assets/images/message-text.svg" class="block" routerLinkActive="inactive-icon">
+            <img src="assets/images/message-text-2.svg" class="hidden" routerLinkActive="active-icon">
+            <h4 class="text-xs">Message</h4>
+        </div>
+        <div routerLink="/profile" routerLinkActive="active-icon"
+            class="cursor-pointer flex flex-col items-center gap-1">
+            <img src="assets/images/profile.svg" class="block" routerLinkActive="inactive-icon">
+            <img src="assets/images/profile-2.svg" class="hidden" routerLinkActive="active-icon">
+            <h4 class="text-xs">Profile</h4>
+        </div>
+    </div>
+</nav>

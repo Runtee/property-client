@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { propertyInterface } from '../interfaces/interfaces';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-post',
@@ -7,5 +8,20 @@ import { propertyInterface } from '../interfaces/interfaces';
   styles: ``
 })
 export class PostComponent {
-@Input() selectedCard : propertyInterface | null = null
+  @Input() selectedCard: propertyInterface | null = null;
+  showCopiedAlert: boolean = false;
+
+  constructor(private clipboardService: Clipboard) {} // Inject the ClipboardService
+
+  // to copy to clipboard
+  copy_to_clipboard() {
+    const currentURL = window.location.href;
+    this.clipboardService.copy(currentURL);
+    this.showCopiedAlert = true;
+
+    // Hide the alert after 2 seconds
+    setTimeout(() => {
+      this.showCopiedAlert = false;
+    }, 2000);
+  }
 }

@@ -1,3 +1,4 @@
+<div class="mb-16">
 <div *ngIf="showSearch">
     <div class="flex gap-2 items-center py-5 justify-between px-5">
         <div class="rounded-3xl border-main-dark border flex p-2 items-center w-full">
@@ -64,3 +65,5 @@
 <app-filter *ngIf="showFilter" [showFilter]="showFilter" [showSearch]="showSearch" (closeFilter)="closeFilterScreen()"></app-filter>
 
 <app-fab></app-fab>
+</div>
+<app-nav></app-nav>

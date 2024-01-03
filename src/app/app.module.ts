@@ -24,6 +24,11 @@ import { PropertyPostComponent } from './property-post/property-post.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthModule } from '@auth0/auth0-angular';
+import { OnboardingComponent } from './onboarding/onboarding.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { Trending2Component } from './trending2/trending2.component';
+import { PreviewComponent } from './preview/preview.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -44,22 +49,27 @@ import { AuthModule } from '@auth0/auth0-angular';
     BackComponent,
     SearchInputComponent,
     PropertyItemComponent,
-    PropertyPostComponent
+    PropertyPostComponent,
+    OnboardingComponent,
+    Trending2Component,
+    PreviewComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ClipboardModule,
 
     // Import the module into the application, with configuration
-    // AuthModule.forRoot({
-    //   domain: 'dev-hzf3gl655z7ry503.uk.auth0.com',
-    //   clientId: 'ENL5BwciHFv5T54x9dykwTjbWCY57TPh',
-    //   authorizationParams: {
-    //     redirect_uri: window.location.origin
-    //   }
-    // }),
+    AuthModule.forRoot({
+      domain: 'dev-hzf3gl655z7ry503.uk.auth0.com',
+      clientId: 'ENL5BwciHFv5T54x9dykwTjbWCY57TPh',
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

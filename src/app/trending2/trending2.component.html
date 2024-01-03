@@ -23,7 +23,12 @@
             <div class="w-full h-[85px] mb-3">
                 <img src="assets/images/banner.png" class="w-full h-full object-cover">
             </div>
-            <app-post [selectedCard]="selectedCard"></app-post>
+            <div class="py-3">
+                <h2 class="text-[18px] text-main-dark font-bold">Trending</h2>
+                <div class="" *ngFor="let item of main_data">
+                <app-property-item [item]="item"></app-property-item>
+            </div>
+            </div>
         </section>
     </div>
 </ng-template>

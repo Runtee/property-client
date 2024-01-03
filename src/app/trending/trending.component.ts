@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { propertyInterface } from '../interfaces/interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trending',
@@ -12,6 +13,7 @@ export class TrendingComponent {
   selectedCategory: string = '';
   @Input()  selectedCard: propertyInterface | null = null;
 
+  constructor(private router: Router){}
 
   @Output() cardSelected: EventEmitter<propertyInterface> = new EventEmitter<propertyInterface>();
   filterData(category: string): void {
@@ -28,5 +30,10 @@ export class TrendingComponent {
   selectCard(card: propertyInterface): void {
     this.cardSelected.emit(card);
     this.selectedCard = card
+    this.router.navigate(['/property', card.id]);
   }
+  // selectCard(card: propertyInterface): void {
+  //   this.cardSelected.emit(card);
+  //   this.selectedCard = card
+  // }
 }

@@ -11,25 +11,83 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PropertyPostComponent } from './property-post/property-post.component';
+import { OnboardingComponent } from './onboarding/onboarding.component';
+import { AuthGuard } from '@auth0/auth0-angular';
+import { Trending2Component } from './trending2/trending2.component';
+import { PreviewComponent } from './preview/preview.component';
 
 const routes: Routes = [
-  {path:"",component:HomeComponent},
-  {path:"home",component:HomeComponent},
-  {path:"about",component:AboutComponent},
-  {path:"search",component:SearchComponent},
+  { path: '', component: OnboardingComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'home2',
+    component: Trending2Component,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
+    // canActivate: [AuthGuard],
+  },
   // { path: "payment", component: PaymentComponent },
-  { path: "upload", component: UploadComponent },
-  { path: "upload-media", component: UploadMediaComponent },
-  { path: "filter", component: FilterComponent },
-  { path: "saved", component: SavedComponent },
-  {path: "profile", component: ProfileComponent},
-  {path: "profile/settings", component: SettingsComponent},
-  {path: "profile/change-password", component: ChangePasswordComponent},
-  {path:"property/:id",component:PropertyPostComponent}
+  {
+    path: 'upload',
+    component: UploadComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'upload-media',
+    component: UploadMediaComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'upload-preview',
+    component: PreviewComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'filter',
+    component: FilterComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'saved',
+    component: SavedComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/settings',
+    component: SettingsComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/change-password',
+    component: ChangePasswordComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'property/:id',
+    component: PropertyPostComponent,
+    // canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

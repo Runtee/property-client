@@ -1,4 +1,7 @@
-<app-search-input></app-search-input>
-<div class="px-5">
-<app-property-item *ngFor="let property of savedProperty" [item]="property"></app-property-item>
+<div class="mb-16">
+    <app-search-input></app-search-input>
+    <div class="px-5">
+        <app-property-item *ngFor="let property of savedProperty" [item]="property"></app-property-item>
+    </div>
 </div>
+<app-nav></app-nav>
