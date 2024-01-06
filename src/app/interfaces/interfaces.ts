@@ -14,6 +14,9 @@ export interface propertyInterface {
     c_of_o?: boolean;
     doxxed?: boolean;
     kyc?: boolean;
+    name?: boolean;
+    email?: boolean;
+    number?: boolean;
 }
 
 export interface propertyCategoryInterface {

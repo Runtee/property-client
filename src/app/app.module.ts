@@ -29,6 +29,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Trending2Component } from './trending2/trending2.component';
 import { PreviewComponent } from './preview/preview.component';
 import { NavComponent } from './nav/nav.component';
+import { UploadTextComponent } from './upload-text/upload-text.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { NavComponent } from './nav/nav.component';
     OnboardingComponent,
     Trending2Component,
     PreviewComponent,
-    NavComponent
+    NavComponent,
+    UploadTextComponent
   ],
   imports: [
     BrowserModule,

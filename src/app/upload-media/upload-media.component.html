@@ -2,11 +2,13 @@
     <header class="p-5">
         <div class="grid grid-cols-3">
             <div class="">
-                <app-back></app-back>
+                <button class="" (click)="back.emit()">
+                    <img class="" src="assets/images/arrow-square-left.svg">
+                </button>
             </div>
             <div class="font-bold text-lg text-center">Upload</div>
             <div class="ml-auto"><button
-                    class="bg-main-dark text-white text-sm px-2 py-1  rounded-2xl font-bold" (click)="openModal()">Confrim</button>
+                    class="bg-main-dark text-white text-sm px-2 py-1  rounded-2xl font-bold" (click)="onConfrim()">Preview</button>
             </div>
         </div>
     </header>
@@ -54,9 +56,9 @@
     </main>
 </div>
 
-<div *ngIf="isModal" class="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 z-40"></div>
+<!-- <div *ngIf="isModal" class="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 z-40"></div> -->
 <!--modal-->
-<div id="popup-modal" tabindex="-1" *ngIf="isModal"
+<!-- <div id="popup-modal" tabindex="-1" *ngIf="isModal"
     class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow">
@@ -85,4 +87,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

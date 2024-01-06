@@ -1,0 +1,169 @@
+<div>
+    <form class="pt-5" (ngSubmit)="onSubmit()" novalidate>
+        <header class="p-5 mb-5">
+            <div class="relative">
+                <div class="absolute top-0 left-0">
+                    <app-back></app-back>
+                </div>
+                <h2 class="font-bold text-lg text-center">Fill this form to proceed</h2>
+            </div>
+        </header>
+        <main class="p-5 pt-0">
+            <!-- Personal Details -->
+            <div class="mb-10">
+                <h2 class="font-bold mb-5">Personal Details</h2>
+                <div class="mb-4 flex gap-2 w-full">
+                    <div class="w-full">
+                        <h3 class="text-sm font-medium mb-2">
+                            Email
+                        </h3>
+                        <input [(ngModel)]="formDetails.email" name="email" #email="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="email" required email>
+                        <div *ngIf="isFormSubmitted && formErrors['email']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['email'] }}
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <h3 class="text-sm font-medium mb-2">
+                            Number
+                        </h3>
+                        <input [(ngModel)]="formDetails.number" name="number" #number="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                            required>
+                        <div *ngIf="isFormSubmitted && formErrors['number']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['number'] }}
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium mb-2">
+                        Name
+                    </h3>
+                    <input [(ngModel)]="formDetails.name" name="name" #name="ngModel"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                        required>
+                    <div *ngIf="isFormSubmitted && formErrors['name']" class="text-red-500 text-xs mt-1">
+                        {{ formErrors['name'] }}
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h3 class="text-sm font-medium mb-2">
+                        Address
+                    </h3>
+                    <input [(ngModel)]="formDetails.address" name="address" #address="ngModel"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                        required>
+                    <div *ngIf="isFormSubmitted && formErrors['address']" class="text-red-500 text-xs mt-1">
+                        {{ formErrors['address'] }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Details -->
+            <div class="mb-10">
+                <h2 class="font-bold mb-5">Property Details</h2>
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium mb-2">
+                        Title
+                    </h3>
+                    <input [(ngModel)]="formDetails.title" name="title" #title="ngModel"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                        required maxlength="40">
+                    <div *ngIf="isFormSubmitted && formErrors['title']" class="text-red-500 text-xs mt-1">
+                        {{ formErrors['title'] }}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium mb-2">
+                        Description
+                    </h3>
+                    <textarea [(ngModel)]="formDetails.description" name="description" #description="ngModel"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                        required></textarea>
+                    <div *ngIf="isFormSubmitted && formErrors['description']" class="text-red-500 text-xs mt-1">
+                        {{ formErrors['description'] }}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-sm font-medium mb-2">
+                        Location (Address)
+                    </h3>
+                    <input [(ngModel)]="formDetails.location" name="location" #location="ngModel"
+                        class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                        required>
+                    <div *ngIf="isFormSubmitted && formErrors['location']" class="text-red-500 text-xs mt-1">
+                        {{ formErrors['location'] }}
+                    </div>
+                </div>
+                <div class="mb-4 flex gap-2">
+                    <div class="w-full">
+                        <h3 class="text-sm font-medium mb-2">
+                            City
+                        </h3>
+                        <input [(ngModel)]="formDetails.city" name="city" #city="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                            required>
+                        <div *ngIf="isFormSubmitted && formErrors['city']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['city'] }}
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <h3 class="text-sm font-medium mb-2">
+                            State
+                        </h3>
+                        <input [(ngModel)]="formDetails.state" name="state" #state="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                            required list="state">
+                        <datalist id="state">
+                            <option *ngFor="let state of validStates ">{{state}}</option>
+                        </datalist>
+                        <div *ngIf="isFormSubmitted && formErrors['state']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['state'] }}
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4 flex gap-2">
+                    <div class="w-full">
+                        <h3 class="text-sm font-medium mb-2">
+                            Category
+                        </h3>
+                        <select [(ngModel)]="formDetails.category" name="category" #category="ngModel"
+                            class="bg-white border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            required>
+                            <option value="" disabled>Select Category</option>
+                            <option value="land">Land</option>
+                            <option value="real_estate">Real Estate</option>
+                            <option value="rent">Rent</option>
+                        </select>
+                        <div *ngIf="isFormSubmitted && formErrors['category']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['category'] }}
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <h3 class="text-sm font-medium mb-2">
+                            Price
+                        </h3>
+                        <input [(ngModel)]="formDetails.price" name="price" #price="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="number" required>
+                        <div *ngIf="isFormSubmitted && formErrors['price']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['price'] }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <button type="submit"
+                    class="w-full text-center py-3 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+                    Next
+                </button>
+                <button type="button"
+                    class="w-full text-center py-3 border rounded-md font-bold text-main-dark border-main-dark">
+                    Cancel
+                </button>
+            </div>
+        </main>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
 import { catchError, finalize, throwError } from 'rxjs';
@@ -15,7 +15,9 @@ export class UploadMediaComponent {
   isModal:boolean = false
   isLoading = true
   formDetails: any = {};
-  
+  @Output() back = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
+
   constructor(private mainService: MainService, private router: Router) {}
 
   ngOnInit(): void {
@@ -44,20 +46,21 @@ export class UploadMediaComponent {
     if (this.selectedImage) {
       formData.append('video', this.selectedImage, this.selectedImage.name); // Use a meaningful key for the file
     }
-
-    this.mainService.createProperty(formData)  
-    .pipe(
-      catchError((error) => {
-        console.error('Error uploading data:', error);
-        return throwError(() => new Error('Something went wrong'));
-      }),
-      finalize(() => {
-        this.isLoading = false;
-      })
-    )
-    .subscribe((property: propertyInterface) => {
-      this.router.navigate(['/property', property.id]);
-    });
+    localStorage.setItem('formData', JSON.stringify(formData));
+    this.next.emit()
+    // this.mainService.createProperty(formData)  
+    // .pipe(
+    //   catchError((error) => {
+    //     console.error('Error uploading data:', error);
+    //     return throwError(() => new Error('Something went wrong'));
+    //   }),
+    //   finalize(() => {
+    //     this.isLoading = false;
+    //   })
+    // )
+    // .subscribe((property: propertyInterface) => {
+    //   this.router.navigate(['/property', property.id]);
+    // });
   }
 
   openModal(){
