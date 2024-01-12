@@ -17,14 +17,19 @@ import { Trending2Component } from './trending2/trending2.component';
 import { PreviewComponent } from './preview/preview.component';
 
 const routes: Routes = [
-  { path: '', component: OnboardingComponent },
+  { path: 'login', component: OnboardingComponent },
   {
-    path: 'home',
+    path: 'home2',
     component: HomeComponent,
     // canActivate: [AuthGuard],
   },
   {
-    path: 'home2',
+    path: 'home',
+    component: Trending2Component,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: '',
     component: Trending2Component,
     // canActivate: [AuthGuard],
   },
@@ -42,17 +47,17 @@ const routes: Routes = [
   {
     path: 'upload',
     component: UploadComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'upload-media',
     component: UploadMediaComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'upload-preview',
     component: PreviewComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'filter',
@@ -62,22 +67,22 @@ const routes: Routes = [
   {
     path: 'saved',
     component: SavedComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile/settings',
     component: SettingsComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile/change-password',
     component: ChangePasswordComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'property/:id',

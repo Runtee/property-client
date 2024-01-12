@@ -11,6 +11,7 @@ import { propertyInterface } from '../interfaces/interfaces';
 export class PreviewComponent {
   formDetails : propertyInterface | null = null
   @Output() back = new EventEmitter<void>();
+  isModal = true
 
   constructor(private mainService: MainService, private router: Router) {}
 
@@ -22,5 +23,15 @@ export class PreviewComponent {
     if (!this.formDetails || Object.keys(this.formDetails).length === 0) {
       this.formDetails = this.mainService.getFormData();
     }
+  }
+
+  upload(){
+
+  }
+  logout(){
+
+  }
+  closeModal(){
+    
   }
 }

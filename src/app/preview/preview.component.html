@@ -15,12 +15,14 @@
 
 <div class="pt-0 p-5 flex items-center justify-between gap-3 w-full mb-5">
     <img [src]="formDetails?.image || 'assets/images/Rectangle 596.png'" class="h-32 w-full basis-1/2" alt="">
-    
+
     <div class="w-full rounded-lg h-32 basis-1/2" style="position: relative;">
-        <video class="h-full brightness-50 w-full" [src]="formDetails?.video || 'assets/videos/banner.webm'" 
-               poster="assets/images/Rectangle 597.png" style="object-fit: cover; width: 100%; border-radius: 0.5rem;"></video>
-        
-        <img src="assets/images/play-cricle.svg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
+        <video class="h-full brightness-50 w-full" [src]="formDetails?.video || 'assets/videos/banner.webm'"
+            poster="assets/images/Rectangle 597.png"
+            style="object-fit: cover; width: 100%; border-radius: 0.5rem;"></video>
+
+        <img src="assets/images/play-cricle.svg"
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
     </div>
 </div>
 
@@ -100,13 +102,42 @@
     </div>
 </div>
 <div class="p-5">
-<div class="text-sm mt-10 text-main-dark font-medium">
-    <p>To complete the posting of your advertisement, a listing fee of <span class="font-semibold">₦5000</span> is required.</p>
-    <p>Click "Proceed to Payment" to continue with the payment process.</p>
-</div>
 
-<button type="submit"
+    <button type="submit" (click)="upload()"
         class="w-full mt-5 text-sm text-center py-3 border rounded-md font-bold bg-main-dark text-white border-main-dark">
-        Proceed to Payment
-</button>
+        Upload
+    </button>
+</div>
+<!-- <div *ngIf="isModal" class="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 z-40"></div> -->
+<!--modal-->
+<!-- <div id="popup-modal" tabindex="-1" *ngIf="isModal"
+    class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 py-10 w-full max-w-md max-h-[400px]">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
+                <img src="assets/images/Group 418.svg" class="mb-3" alt="">
+                <h2 class="font-bold text-xl text-main-dark mb-10">Upload Succesful!!</h2>
+                <button
+                    class="py-2 w-20 text-center font-bold bg-main-dark border-main-dark text-white rounded">Done</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div *ngIf="isModal" class="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 z-40"></div>
+<!--modal-->
+<div id="popup-modal" tabindex="-1" *ngIf="isModal"
+    class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 py-10 w-full max-w-md max-h-[400px]">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
+                <img src="assets/images/Group 419.svg" class="mb-3" alt="">
+                <h2 class="font-medium text-xl text-main-dark mb-10">Something went <span class="text-red-500 font-bold">wrong!!!</span> </h2>
+                <button
+                    class="py-2 w-40 text-center font-bold bg-white border mb-5 border-main-dark text-main-dark rounded">Retry</button>
+                    <button
+                    class="py-2 w-40 text-center font-bold bg-main-dark border border-main-dark text-white rounded">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>
