@@ -30,6 +30,8 @@ import { Trending2Component } from './trending2/trending2.component';
 import { PreviewComponent } from './preview/preview.component';
 import { NavComponent } from './nav/nav.component';
 import { UploadTextComponent } from './upload-text/upload-text.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { UploadTextComponent } from './upload-text/upload-text.component';
     Trending2Component,
     PreviewComponent,
     NavComponent,
-    UploadTextComponent
+    UploadTextComponent,
+    NotificationsComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,

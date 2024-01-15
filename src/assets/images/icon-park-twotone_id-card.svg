@@ -1,0 +1,18 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon-park-twotone:id-card">
+<g id="Mask group">
+<mask id="mask0_360_2760" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="6" width="46" height="38">
+<g id="Group">
+<g id="Group_2">
+<path id="Vector" d="M43.7498 8.33337H6.24984C5.6973 8.33337 5.1674 8.55287 4.7767 8.94357C4.386 9.33427 4.1665 9.86417 4.1665 10.4167V39.5834C4.1665 40.1359 4.386 40.6658 4.7767 41.0565C5.1674 41.4472 5.6973 41.6667 6.24984 41.6667H43.7498C44.3024 41.6667 44.8323 41.4472 45.223 41.0565C45.6137 40.6658 45.8332 40.1359 45.8332 39.5834V10.4167C45.8332 9.86417 45.6137 9.33427 45.223 8.94357C44.8323 8.55287 44.3024 8.33337 43.7498 8.33337Z" fill="#555555" stroke="white" stroke-width="4.16667" stroke-linejoin="round"/>
+<path id="Vector_2" d="M37.4998 16.6667H29.1665V25.0001H37.4998V16.6667Z" fill="#555555" stroke="white" stroke-width="4.16667" stroke-linejoin="round"/>
+<path id="Vector_3" d="M12.5 33.3334H37.5M12.5 16.6667H18.75M12.5 25.0001H18.75" stroke="white" stroke-width="4.16667" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</mask>
+<g mask="url(#mask0_360_2760)">
+<path id="Vector_4" d="M0 0H50V50H0V0Z" fill="#7A2D93"/>
+</g>
+</g>
+</g>
+</svg>

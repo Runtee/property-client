@@ -15,6 +15,7 @@ import { OnboardingComponent } from './onboarding/onboarding.component';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { Trending2Component } from './trending2/trending2.component';
 import { PreviewComponent } from './preview/preview.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -87,6 +88,11 @@ const routes: Routes = [
   {
     path: 'property/:id',
     component: PropertyPostComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'notification',
+    component: NotificationsComponent,
     // canActivate: [AuthGuard],
   },
 ];
