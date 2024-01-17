@@ -16,6 +16,9 @@ import { AuthGuard } from '@auth0/auth0-angular';
 import { Trending2Component } from './trending2/trending2.component';
 import { PreviewComponent } from './preview/preview.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { InvoiceAwaitingComponent } from './invoice-awaiting/invoice-awaiting.component';
+import { InvoiceWarningComponent } from './invoice-warning/invoice-warning.component';
+import { InvoiceComponent } from './invoice/invoice.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -48,7 +51,7 @@ const routes: Routes = [
   {
     path: 'upload',
     component: UploadComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'upload-media',
@@ -91,10 +94,26 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
+    path: 'purchase/invoice',
+    component: InvoiceComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'purchase/invoice-awaiting',
+    component: InvoiceAwaitingComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'purchase/invoice-warning',
+    component: InvoiceWarningComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
     path: 'notification',
     component: NotificationsComponent,
     // canActivate: [AuthGuard],
   },
+
 ];
 
 @NgModule({

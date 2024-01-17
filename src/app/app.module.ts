@@ -32,6 +32,10 @@ import { NavComponent } from './nav/nav.component';
 import { UploadTextComponent } from './upload-text/upload-text.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { InvoiceWarningComponent } from './invoice-warning/invoice-warning.component';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { InvoiceAwaitingComponent } from './invoice-awaiting/invoice-awaiting.component';
+import { AllDoneComponent } from './all-done/all-done.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { TopbarComponent } from './topbar/topbar.component';
     NavComponent,
     UploadTextComponent,
     NotificationsComponent,
-    TopbarComponent
+    TopbarComponent,
+    InvoiceWarningComponent,
+    InvoiceComponent,
+    InvoiceAwaitingComponent,
+    AllDoneComponent
   ],
   imports: [
     BrowserModule,

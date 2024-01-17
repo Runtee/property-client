@@ -10,8 +10,12 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class PostComponent {
   @Input() selectedCard: propertyInterface | null = null;
   showCopiedAlert: boolean = false;
-
+  copyTab = false
   constructor(private clipboardService: Clipboard) {} // Inject the ClipboardService
+  
+  opencopyTab(){
+    this.copyTab = !this.copyTab
+  }
 
   // to copy to clipboard
   copy_to_clipboard() {

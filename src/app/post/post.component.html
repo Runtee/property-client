@@ -1,4 +1,5 @@
-<main class="p-4 m-3 shadow-xl rounded-3xl bg-white" *ngIf="selectedCard">
+<main class="relative p-4 pt-5 m-3 shadow-xl rounded-3xl bg-white" *ngIf="selectedCard">
+    <div class="absolute top-0 left-0 bg-main-dark text-xs text-white w-fit px-4 rounded-tl-3xl rounded-br-3xl py-[2px] font-semibold">Clonable</div>
     <div class="flex gap-1 mb-4">
         <div class="w-full basis-3/5 flex flex-col justify-between">
             <div>
@@ -37,37 +38,53 @@
                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
         </div>
     </div>
-    <div class="flex gap-5 mb-10">
-        <div class="flex items-center bg-gradient-to-l from-black to-[#000000BF] p-1" *ngIf="selectedCard.c_of_o">
-            <img src="assets/images/personalcard.svg" class="w-7 h-7">
-            <span class="text-sm font-bold text-white">C<span class="text-[8px] font-extralight">of</span>O</span>
+    <div class="mb-5">
+        <h2 class="text-sm font-bold text-main-dark">Available in:</h2>
+        <h2 class="text-sm font-bold text-red-500">12 : 25</h2>
+
+    </div>
+    <div
+        class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-lg p-2 w-full text-main-dark mb-10">
+        <div class="flex items-center">
+            <h2 class="text-xs font-semibold mr-[1px]">CofO</h2>
+            <img src="assets/images/bad.svg" class="" alt="">
         </div>
-        <div class="flex items-center bg-gradient-to-l from-main-dark to-[#7A2D9380] p-1" *ngIf="selectedCard.kyc">
-            <img src="assets/images/personalcard.svg" class="w-7 h-7">
-            <span class="text-sm font-bold text-white">KYC</span>
+        <div class="flex items-center">
+            <h2 class="text-xs font-semibold mr-[1px]">Search</h2>
+            <img src="assets/images/mdi_tick.svg" class="" alt="">
+        </div>
+        <div class="flex items-center">
+            <h2 class="text-xs font-semibold mr-[1px]">Survey</h2>
+            <img src="assets/images/mdi_tick.svg" class="" alt="">
         </div>
     </div>
 
     <div class="flex justify-between">
-        <button class="px-4 py-1 w-28 text-main-dark border outline-none border-main-dark rounded font-bold">
-            Contact
-        </button>
-        <button class="px-4 py-1 w-28 text-white border outline-none bg-main-dark border-main-dark rounded font-bold">
+        <button class="px-4 py-1 h-fit w-28 text-white border outline-none bg-main-dark border-main-dark rounded font-bold"
+        routerLink="/purchase/invoice-warning">
             Purchase
         </button>
-        <button class=" py-1" (click)="copy_to_clipboard()">
-            <img src="assets/images/copy.svg" alt="">
+        <button class=" py-1" (click)="opencopyTab()">
+            <img src="assets/images/solar_share-line-duotone.svg" class="ml-auto" alt="">
+            <div class=" bg-main-light flex gap-5 rounded-xl px-5 py-1 border border-main-light w-fit" *ngIf="copyTab">
+                <button class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold" (click)="copy_to_clipboard()">
+                    <img src="assets/images/ph_link-duotone.svg" class="" alt="">
+                    Copy Link
+                </button>
+                <button class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold">
+                    <img src="assets/images/ic_twotone-cyclone.svg" class="" alt="">
+                    Clone
+                </button>
+            </div>
         </button>
-        <ul>
-            <li></li>
-        </ul>
     </div>
 </main>
 
-<div *ngIf="showCopiedAlert" class="absolute -bottom-20 right-[48px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
+<div *ngIf="showCopiedAlert"
+    class="absolute -bottom-20 right-[48px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
     <p class="font-bold px-5 text-sm">Link Copied</p>
     <div class="flex gap-2  h-10 px-2">
-      <div class="w-[1px] bg-white h-[100%]"></div>
-      <img src="assets/images/good.svg" class="w-8 h-9 cursor-pointer">
+        <div class="w-[1px] bg-white h-[100%]"></div>
+        <img src="assets/images/good.svg" class="w-8 h-9 cursor-pointer">
     </div>
-  </div>
+</div>
