@@ -36,6 +36,11 @@ import { InvoiceWarningComponent } from './invoice-warning/invoice-warning.compo
 import { InvoiceComponent } from './invoice/invoice.component';
 import { InvoiceAwaitingComponent } from './invoice-awaiting/invoice-awaiting.component';
 import { AllDoneComponent } from './all-done/all-done.component';
+import { MypropertyComponent } from './myproperty/myproperty.component';
+import { PurchaseConfirmationComponent } from './purchase-confirmation/purchase-confirmation.component';
+import { KycSelectComponent } from './kyc-select/kyc-select.component';
+import { KycUploadComponent } from './kyc-upload/kyc-upload.component';
+import { KycVideoComponent } from './kyc-video/kyc-video.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { AllDoneComponent } from './all-done/all-done.component';
     InvoiceWarningComponent,
     InvoiceComponent,
     InvoiceAwaitingComponent,
-    AllDoneComponent
+    AllDoneComponent,
+    MypropertyComponent,
+    PurchaseConfirmationComponent,
+    KycSelectComponent,
+    KycUploadComponent,
+    KycVideoComponent
   ],
   imports: [
     BrowserModule,

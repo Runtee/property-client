@@ -19,14 +19,13 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { InvoiceAwaitingComponent } from './invoice-awaiting/invoice-awaiting.component';
 import { InvoiceWarningComponent } from './invoice-warning/invoice-warning.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { MypropertyComponent } from './myproperty/myproperty.component';
+import { PurchaseConfirmationComponent } from './purchase-confirmation/purchase-confirmation.component';
+import { KycSelectComponent } from './kyc-select/kyc-select.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
-  {
-    path: 'home2',
-    component: HomeComponent,
-    // canActivate: [AuthGuard],
-  },
+  
   {
     path: 'home',
     component: Trending2Component,
@@ -54,19 +53,9 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
-    path: 'upload-media',
-    component: UploadMediaComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'upload-preview',
     component: PreviewComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'filter',
-    component: FilterComponent,
-    // canActivate: [AuthGuard],
   },
   {
     path: 'saved',
@@ -104,6 +93,11 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
+    path: 'purchase/complete',
+    component: PurchaseConfirmationComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
     path: 'purchase/invoice-warning',
     component: InvoiceWarningComponent,
     // canActivate: [AuthGuard],
@@ -113,6 +107,33 @@ const routes: Routes = [
     component: NotificationsComponent,
     // canActivate: [AuthGuard],
   },
+
+  {
+    path: 'my-property',
+    component: MypropertyComponent,
+    // canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'proprerty/kyc',
+    component: KycSelectComponent,
+    // canActivate: [AuthGuard],
+  },
+
+  // {
+  //   path: 'proprerty/ky',
+  //   component: MypropertyComponent,
+  //   // canActivate: [AuthGuard],
+  // },
+
+  // {
+  //   path: 'my-property',
+  //   component: MypropertyComponent,
+  //   // canActivate: [AuthGuard],
+  // },
+  
+
+
 
 ];
 

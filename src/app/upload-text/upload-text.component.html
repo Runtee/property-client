@@ -153,13 +153,17 @@
                     </div>
                 </div>
 
+                <!-- cloning -->
+
                 <div class="mb-5">
                     <div class="flex justify-between items-center">
                         <h2 class="text-sm font-bold">Cloning</h2>
-                        <input class="" type="datetime-local">
+                        <input class="" type="checkbox">
                     </div>
-                    <p class="text-xs text-gray-500 mx-[4px] mb-5">If cloning is enabled, anyone with your cloned link can earn a <span class="h-5 w-6 inline-block border border-main-dark"></span>
-                    % profit for successful referrals</p>
+                    <p class="text-xs text-gray-500 mx-[4px] mb-5">If cloning is enabled, anyone with your cloned link
+                        can earn a <input required
+                            class="h-5 w-6 inline-block border font-bold text-center border-main-dark">
+                        % profit for successful referrals</p>
                     <div class="mb-5 w-full">
                         <button type="button" class="flex gap-5 w-full">
                             <img src="assets/images/people.svg" class="">
@@ -178,11 +182,45 @@
                             <img src="assets/images/arrow-right.svg" class="ml-auto">
                         </button>
                         <div class="">
-                            <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl" >
+                            <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl">
                                 Please input the emails of the desired cloners
                             </textarea>
                         </div>
                     </div>
+                </div>
+
+                <!-- account details -->
+                <div class="">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-sm font-bold">Account details</h2>
+                        <img src="assets/images/arrow-right.svg" class="ml-auto">
+                    </div>
+                    <p class="text-xs text-main-dark mt-1">This is the account that will receive the payment once the
+                        transcation is done. You can skip for now if you are not sure of the details.</p>
+                    <p class="text-xs text-main-dark mb-5">Please make sure the account here and the name on the
+                        Certificate of ownership (CofO) is the same</p>
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium mb-2">
+                            Account Name
+                        </h3>
+                        <input class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text" placeholder="Account Name">
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium mb-2">
+                            Account Number
+                        </h3>
+                        <input class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text" placeholder="Account Number">
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium mb-2">
+                            Bank Name
+                        </h3>
+                        <input class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
+                            type="text" placeholder="Bank name here">
+                    </div>
+
                 </div>
             </div>
 

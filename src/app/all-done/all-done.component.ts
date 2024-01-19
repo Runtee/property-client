@@ -10,4 +10,5 @@ export class AllDoneComponent {
 @Input() image : string = ""
 @Input() page_link : string = ""
 @Input() page_to : string = ""
+@Input() body : string = ""
 }

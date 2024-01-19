@@ -1,0 +1,23 @@
+<div class="mt-5">
+    <app-topbar item="KYC Verfication"></app-topbar>
+    <main class="p-5">
+        <div class="rounded-3xl h-72 w-full bg-zinc-800">
+
+        </div>
+        <div class="flex flex-col items-center mt-4 mb-8">
+            <div
+                class="h-20 w-20 rounded-full outline-gray-500 outline-1 outline border-[3px] border-gray-300 bg-red-600 mb-3">
+            </div>
+            <p class="text-sm px-3 text-center text-gray-400 font-semibold">Please take a selfie picture of your face.
+                Use the red button above to capture</p>
+        </div>
+        <button type="button"
+            class="w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+            Next
+        </button>
+    </main>
+</div>
+
+<div class="" *ngIf="isComplete">
+    <app-all-done title="KYC Verification" body=" All done!" image="Group 439.png" page_link="/my-property" page_to="Profile"></app-all-done>
+</div>

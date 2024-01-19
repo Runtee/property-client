@@ -17,6 +17,10 @@ export interface propertyInterface {
     name?: boolean;
     email?: boolean;
     number?: boolean;
+    clonable?:boolean;
+    searched?:boolean;
+    is_locked?:boolean;
+    survey?:boolean;
 }
 
 export interface propertyCategoryInterface {
