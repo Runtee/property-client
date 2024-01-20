@@ -1,13 +1,21 @@
 <div class="mb-16">
     <div class="pt-20">
-
         <div class="flex w-full shadow-lg shadow-gray-200">
-            <div class="font-bold text-main-dark border-b-4 border-main-dark w-full text-center cursor-pointer">Sold
+            <div (click)="selectTab('sold')"
+                [class]="selectedTab === 'sold' ? 'font-bold text-main-dark border-b-4 border-main-dark w-full text-center cursor-pointer' : 'font-bold text-gray-500 border-b-4 border-transparent w-full text-center cursor-pointer'">
+                Sold
             </div>
-            <div class="font-bold text-gray-500 border-b-4 border-transparent w-full text-center cursor-pointer">Bought
+            <div (click)="selectTab('cloned')"
+                [class]="selectedTab === 'cloned' ? 'font-bold text-main-dark border-b-4 border-main-dark w-full text-center cursor-pointer' : 'font-bold text-gray-500 border-b-4 border-transparent w-full text-center cursor-pointer'">
+                Cloned
+            </div>
+            <div (click)="selectTab('bought')"
+                [class]="selectedTab === 'bought' ? 'font-bold text-main-dark border-b-4 border-main-dark w-full text-center cursor-pointer' : 'font-bold text-gray-500 border-b-4 border-transparent w-full text-center cursor-pointer'">
+                Bought
             </div>
         </div>
     </div>
+
     <main class="mt-5 divide-y-2">
         <!-- <h2 class="font-bold text-sm text-gray-400 text-center mt-10">Your sold properties will show up here</h2>
         <h2 class="font-bold text-sm text-gray-400 text-center mt-10">Your bought properties will show up here</h2> -->
@@ -52,6 +60,31 @@
                     Awaiting Confirmation
                 </div>
             </div> -->
+        </div>
+        <div class="relative">
+            <div class="flex bg-white gap-2 border rounded-xl p-1 w-full cursor-pointer mb-2">
+                <div class="h-20 w-[80px]">
+                    <img src="assets/images/bg.png" class="h-full rounded-xl" width="80">
+                </div>
+                <div class="w-full">
+                    <h2 class="text-sm font-bold">15 plots of land in Storey estate</h2>
+                    <div class="flex items-center py-1">
+                        <img src="assets/images/location.svg" class="w-3 h-3" alt="location">
+                        <span class="text-xs text-main-dark">Enugu, Nigeria</span>
+                    </div>
+                    <h4 class="text-main-dark font-bold text-sm">{{50000 | currency}}</h4>
+                </div>
+            </div>
+            <div class="absolute top-0 h-[88px] flex px-4 items-center justify-between w-full p-1 bg-slate-100 bg-opacity-80">
+                <div class="self-center mt-2">
+                    <h2 class="font-extrabold text-lg text-main-dark">SOLD!</h2>
+                    <!-- <p class="text-xs font-medium">This property was sold through you</p> -->
+                </div>   
+                <div
+                    class="mt-auto w-fit h-fit text-xs text-right font-semibold text-white bg-main-dark px-2 py-1 border border-main-dark rounded-lg">
+                    Claim Reward now
+                </div>
+            </div>
         </div>
 
     </main>

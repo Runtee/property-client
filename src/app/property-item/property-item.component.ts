@@ -13,6 +13,6 @@ constructor(private router: Router) { }
 
 
 selectCard(card: propertyInterface): void {
-  this.router.navigate(['/property', card.id]);
+  this.router.navigate(['/property', card.id, card.user_id]);
 }
 }

@@ -16,7 +16,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { UploadComponent } from './upload/upload.component';
 import { UploadMediaComponent } from './upload-media/upload-media.component';
 import { PostComponent } from './post/post.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BackComponent } from './back/back.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { PropertyItemComponent } from './property-item/property-item.component';
@@ -41,6 +41,7 @@ import { PurchaseConfirmationComponent } from './purchase-confirmation/purchase-
 import { KycSelectComponent } from './kyc-select/kyc-select.component';
 import { KycUploadComponent } from './kyc-upload/kyc-upload.component';
 import { KycVideoComponent } from './kyc-video/kyc-video.component';
+import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { KycVideoComponent } from './kyc-video/kyc-video.component';
     PurchaseConfirmationComponent,
     KycSelectComponent,
     KycUploadComponent,
-    KycVideoComponent
+    KycVideoComponent,
+    ClaimRewardComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,7 @@ import { KycVideoComponent } from './kyc-video/kyc-video.component';
     FormsModule,
     HttpClientModule,
     ClipboardModule,
-
+    ReactiveFormsModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       domain: 'dev-hzf3gl655z7ry503.uk.auth0.com',

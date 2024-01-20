@@ -56,7 +56,7 @@
             <button
                 [ngClass]="{'bg-main-inactive': selectedCard.is_locked, 'bg-main-dark': !selectedCard.is_locked, 'cursor-not-allowed': selectedCard.is_locked}"
                 class="px-4 py-1 h-fit w-28 text-white border outline-none border-main-dark rounded font-bold"
-                [routerLink]="!selectedCard.is_locked ? '/purchase/invoice-warning' : null">
+                [routerLink]="!selectedCard.is_locked ? '/purchase/invoice-warning/'+selectedCard.id+ '/'+ selectedCard.user_id : null">
                 Purchase
             </button>
 

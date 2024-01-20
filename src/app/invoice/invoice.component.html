@@ -1,1 +1,154 @@
-<p>invoice works!</p>
+<div class="p">
+    <app-topbar item="Invoice"></app-topbar>
+
+
+    <!-- the recepit -->
+    <div #invoice class="bg-white mx-5 my-5 h-fit">
+        <div class=" p-5">
+            <div class="">
+                <h2 class="text-sm md:text-lg font-bold mb-1">
+                    Invoice
+                </h2>
+                <h3 class="font-bold md:text-base text-xs mb-1">
+                    Client — Boink
+                </h3>
+                <h3 class=" text-[10px] md:text-sm">
+                    Date Period: June 1- 30 2024
+                </h3>
+                <h3 class=" text-[10px] md:text-sm">
+                    Invoice No.: 2
+                </h3>
+            </div>
+            <div class="float-right mb-10">
+                <h3 class="text-[10px]  md:text-sm">
+                    Gabby Chen
+                </h3>
+                <h3 class="text-[10px] md:text-sm">
+                    102 Bayview Ave
+                </h3>
+                <h3 class="text-[10px] md:text-sm">
+                    Toronto, Ontario
+                </h3>
+                <h3 class="text-[10px] md:text-sm">
+                    M6P 2K6
+                </h3>
+            </div>
+            <div class="w-full mt-10 ">
+                <div class="flex font-bold text-[10px] md:text-sm w-full justify-between pb-1 border-b border-black">
+                    <h2 class="basis-6/12">
+                        Description
+                    </h2>
+                    <h2 class="basis-3/12">
+                        Property sale
+                    </h2>
+                    <h2 class="basis-3/12 w-full text-right">
+                        Subtotal
+                    </h2>
+                </div>
+                <div class="flex w-full text-[8px]  md:text-sm">
+                    <div class="basis-6/12">
+                        <div class="">
+                            <h2 class="font-bold">
+                                Property
+                            </h2>
+                            <h3 class="">
+                                Actual property price
+                            </h3>
+                        </div>
+                        <div class="">
+                            <h2 class="font-bold">
+                                Expenses
+                            </h2>
+                            <h2 class="">
+                                Agency
+                            </h2>
+                            <h2 class="">
+                                Commission
+                            </h2>
+                            <h2 class="">
+                                Legal Fee
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="basis-3/12">
+                        <h3 class="">
+                            $ 12, 345.00
+                        </h3>
+                    </div>
+                    <div class="basis-3/12 w-full text-right">
+                        <h3 class="">
+                            $ 12, 345.00
+                        </h3>
+                        <h3 class="">
+                            $123.45
+                        </h3>
+                        <h3 class="">
+                            $135.24
+                        </h3>
+                        <h3 class="">
+                            $245.31
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-main-inactive p-5 w-full">
+            <div class="w-full">
+                <div class="flex font-bold text-[10px] md:text-sm w-full justify-between pb-1 border-b border-black">
+                    <h2 class="basis-8/12">
+                        Additional Information:
+                    </h2>
+
+                    <h2 class="basis-4/12 w-full text-right">
+                        Total Due:
+                    </h2>
+                </div>
+                <div class=" w-full text-[8px]  md:text-sm">
+                    <div class="float-left">
+                        <div class="">
+                            <h2 class="">
+                                Account number #: 0000-000
+                            </h2>
+                            <h2 class="">
+                                Invoice number #: 00000
+                            </h2>
+                            <h2 class="">
+                                Account name: 000
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="float-right text-right">
+                        <h3 class="text-base  md:text-xl font-bold">
+                            $12,345.00
+                        </h3>
+                        <h3 class="">
+                            Total payment due in 30 minutes.
+                        </h3>
+                    </div>
+                </div>
+                <div class="flex text-[10px] md:text-sm w-full justify-between pt-1 border-t border-black">
+                    <h2 class="basis-8/12">
+                        Thank you! — aaronokafor5&#64;gmail.com
+                    </h2>
+
+                    <h2 class="basis-4/12 font-bold  w-full text-right">
+                        $USD
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="px-5">
+        <button type="button"  (click)="downloadInvoice()"
+            class="mx-auto w-fit text-sm text-center px-3 py-1 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+            Download invoice
+        </button>
+        <button type="button" (click)="confrimPayment()"
+            class="mt-10 w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+            Confirm payment
+        </button>
+    </div>
+</div>

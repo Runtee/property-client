@@ -11,9 +11,9 @@
         <h4 class="text-main-dark font-bold text-sm">{{item.price | currency}}</h4>
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-1">
-                <div class="flex items-center bg-gradient-to-l from-black to-[#000000BF] p-1" *ngIf="item.c_of_o">
+                <div class="flex items-center bg-gradient-to-l from-black to-[#000000BF] p-1" *ngIf="item.searched">
                     <img src="assets/images/personalcard.svg" class="w-3 h-3">
-                    <span class="text-xs font-bold text-white">C<span class="text-[8px]">of</span>O</span>
+                    <span class="text-xs font-bold text-white">Search</span>
                 </div>
                 <div class="flex items-center bg-gradient-to-l from-main-dark to-[#7A2D9380] p-1" *ngIf="item.kyc">
                     <img src="assets/images/personalcard.svg" class="w-3 h-3">

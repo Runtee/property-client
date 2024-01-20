@@ -21,6 +21,7 @@ export interface propertyInterface {
     searched?:boolean;
     is_locked?:boolean;
     survey?:boolean;
+    user_id?:string;
 }
 
 export interface propertyCategoryInterface {

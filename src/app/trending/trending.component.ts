@@ -30,7 +30,7 @@ export class TrendingComponent {
   selectCard(card: propertyInterface): void {
     this.cardSelected.emit(card);
     this.selectedCard = card
-    this.router.navigate(['/property', card.id]);
+    this.router.navigate(['/property', card.id, card.user_id]);
   }
   // selectCard(card: propertyInterface): void {
   //   this.cardSelected.emit(card);

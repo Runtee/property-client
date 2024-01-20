@@ -22,6 +22,7 @@ import { InvoiceComponent } from './invoice/invoice.component';
 import { MypropertyComponent } from './myproperty/myproperty.component';
 import { PurchaseConfirmationComponent } from './purchase-confirmation/purchase-confirmation.component';
 import { KycSelectComponent } from './kyc-select/kyc-select.component';
+import { KycVideoComponent } from './kyc-video/kyc-video.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -55,50 +56,50 @@ const routes: Routes = [
   {
     path: 'upload-preview',
     component: PreviewComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'saved',
     component: SavedComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'profile/settings',
     component: SettingsComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'profile/change-password',
     component: ChangePasswordComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
-    path: 'property/:id',
+    path: 'property/:id/:userid',
     component: PropertyPostComponent,
     // canActivate: [AuthGuard],
   },
   {
-    path: 'purchase/invoice',
+    path: 'purchase/invoice/:id/:userid',
     component: InvoiceComponent,
     // canActivate: [AuthGuard],
   },
   {
-    path: 'purchase/invoice-awaiting',
+    path: 'purchase/invoice-awaiting/:id/:userid',
     component: InvoiceAwaitingComponent,
     // canActivate: [AuthGuard],
   },
   {
-    path: 'purchase/complete',
+    path: 'purchase/complete/:id/:userid',
     component: PurchaseConfirmationComponent,
     // canActivate: [AuthGuard],
   },
   {
-    path: 'purchase/invoice-warning',
+    path: 'purchase/invoice-warning/:id/:userid',
     component: InvoiceWarningComponent,
     // canActivate: [AuthGuard],
   },
@@ -120,11 +121,17 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
 
-  // {
-  //   path: 'proprerty/ky',
-  //   component: MypropertyComponent,
-  //   // canActivate: [AuthGuard],
-  // },
+  {
+    path: 'purchase/invoice/:id/:userid',
+    component: InvoiceComponent,
+    // canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'kyc',
+    component: KycVideoComponent,
+    // canActivate: [AuthGuard],
+  },
 
   // {
   //   path: 'my-property',

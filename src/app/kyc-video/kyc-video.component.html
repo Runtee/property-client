@@ -1,11 +1,13 @@
 <div class="mt-5">
-    <app-topbar item="KYC Verfication"></app-topbar>
+    <app-topbar item="KYC Verification"></app-topbar>
     <main class="p-5">
-        <div class="rounded-3xl h-72 w-full bg-zinc-800">
-
+        <div class="rounded-3xl h-72 w-full ">
+            <!-- the video or camera should show here -->
+            <video #video class="w-full h-[290px] m-0 p-0 border-2 rounded-3xl" autoplay></video>
         </div>
         <div class="flex flex-col items-center mt-4 mb-8">
-            <div
+            <!-- the capture button -->
+            <div (click)="captureImage()"
                 class="h-20 w-20 rounded-full outline-gray-500 outline-1 outline border-[3px] border-gray-300 bg-red-600 mb-3">
             </div>
             <p class="text-sm px-3 text-center text-gray-400 font-semibold">Please take a selfie picture of your face.
@@ -19,5 +21,9 @@
 </div>
 
 <div class="" *ngIf="isComplete">
-    <app-all-done title="KYC Verification" body=" All done!" image="Group 439.png" page_link="/my-property" page_to="Profile"></app-all-done>
+    <app-all-done title="KYC Verification" body=" All done!" image="Group 439.png" page_link="/my-property"
+        page_to="Profile"></app-all-done>
 </div>
+
+<!-- Add a hidden canvas element for image capture -->
+<canvas #canvas class="hidden"></canvas>

@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class MypropertyComponent {
+  selectedTab: string = 'sold'; // Default selected tab
 
+  selectTab(tab: string) {
+    this.selectedTab = tab;
+  }
 }
