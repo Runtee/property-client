@@ -23,6 +23,8 @@ import { MypropertyComponent } from './myproperty/myproperty.component';
 import { PurchaseConfirmationComponent } from './purchase-confirmation/purchase-confirmation.component';
 import { KycSelectComponent } from './kyc-select/kyc-select.component';
 import { KycVideoComponent } from './kyc-video/kyc-video.component';
+import { KycComponent } from './kyc/kyc.component';
+import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -74,6 +76,11 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
+    path: 'profile/support',
+    component: SupportComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
     path: 'profile/change-password',
     component: ChangePasswordComponent,
     // canActivate: [AuthGuard],
@@ -117,7 +124,7 @@ const routes: Routes = [
 
   {
     path: 'proprerty/kyc',
-    component: KycSelectComponent,
+    component: KycComponent,
     // canActivate: [AuthGuard],
   },
 

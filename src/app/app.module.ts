@@ -42,6 +42,8 @@ import { KycSelectComponent } from './kyc-select/kyc-select.component';
 import { KycUploadComponent } from './kyc-upload/kyc-upload.component';
 import { KycVideoComponent } from './kyc-video/kyc-video.component';
 import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
+import { KycComponent } from './kyc/kyc.component';
+import { SupportComponent } from './support/support.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
     KycSelectComponent,
     KycUploadComponent,
     KycVideoComponent,
-    ClaimRewardComponent
+    ClaimRewardComponent,
+    KycComponent,
+    SupportComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,7 @@ import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       domain: 'dev-hzf3gl655z7ry503.uk.auth0.com',
-      clientId: 'ENL5BwciHFv5T54x9dykwTjbWCY57TPh',
+      clientId: 'PTkZD8m1LMOlwHynVzJuTnHU4H2XuVvg',
       authorizationParams: {
         redirect_uri: window.location.origin
       },
