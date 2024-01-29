@@ -11,7 +11,7 @@
         <main class="p-5 pt-0">
             <!-- Personal Details -->
             <div class="mb-10">
-                <h2 class="font-bold mb-5">Personal Details</h2>
+                <h2 class="font-bold mb-5">Personal Details *</h2>
                 <div class="mb-4 flex gap-2 w-full">
                     <div class="w-full">
                         <h3 class="text-sm font-medium mb-2">
@@ -62,7 +62,7 @@
 
             <!-- Property Details -->
             <div class="mb-10">
-                <h2 class="font-bold mb-5">Property Details</h2>
+                <h2 class="font-bold mb-5">Property Details *</h2>
                 <div class="mb-4">
                     <h3 class="text-sm font-medium mb-2">
                         Title
@@ -123,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-4 flex gap-2">
+                <div class="mb-6 flex gap-2">
                     <div class="w-full">
                         <h3 class="text-sm font-medium mb-2">
                             Category
@@ -157,9 +157,19 @@
 
                 <div class="mb-5">
                     <div class="flex justify-between items-center">
-                        <h2 class="text-sm font-bold">Cloning</h2>
-                        <input class="" type="checkbox" [(ngModel)]="formDetails.cloningEnabled">
+                        <h2 class="font-bold">Cloning</h2>
+
+                        <label class="relative inline-flex items-center mb-5 cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" [(ngModel)]="formDetails.cloningEnabled"
+                            (change)="toggleCloning()">
+                            <div
+                                class="w-10 h-4 bg-gray-200 peer-focus:outline-none peer-focus:ring-3 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[-2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-blue-600">
+                            </div>
+                        </label>
+
                     </div>
+                    <!-- if the switch toggled then this div should show -->
+                    <div  *ngIf="showCloningDetails">
                     <p class="text-xs text-gray-500 mx-[4px] mb-5">
                         If cloning is enabled, anyone with your cloned link can earn a
                         <input required class="h-5 w-6 inline-block border font-bold text-center border-main-dark"
@@ -180,23 +190,35 @@
                                 <h2 class="font-bold text-sm text-left">Specific people</h2>
                                 <h2 class="text-xs">Choose who you would like to let clone</h2>
                             </div>
-                            <img src="assets/images/arrow-right.svg" class="ml-auto">
+                            <button type="button" (click)="toggleSelectPeople()">
+                            <img src="assets/images/arrow-right.svg" class="ml-auto" *ngIf="!showSelectPeople">
+                            <img src="assets/images/arrow-up.svg" class="ml-auto" *ngIf="showSelectPeople"> 
+                        </button>                           
                         </button>
-                        <div class="">
-                            <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl"
+                        <div class="" *ngIf="showSelectPeople">
+                            <!-- <app-email-tags [(emails)]="myInitialEmails"></app-email-tags> -->
+                            <app-email-tags [emails]="myInitialEmails" (emailsChange)="onEmailsChange($event)"></app-email-tags>
+
+                            <!-- <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl"
                                 [(ngModel)]="formDetails.specificCloners"
-                                placeholder="Please input the emails of the desired cloners"></textarea>
+                                placeholder="Please input the emails of the desired cloners"></textarea> -->
                         </div>
                     </div>
+                </div>
                 </div>
 
 
                 <!-- account details -->
                 <div class="">
                     <div class="flex justify-between items-center">
-                        <h2 class="text-sm font-bold">Account details</h2>
-                        <img src="assets/images/arrow-right.svg" class="ml-auto">
+                        <h2 class="font-bold">Account details</h2>
+                        <button type="button" (click)="toggleAccountDetails()">
+                            <img src="assets/images/arrow-right.svg" class="ml-auto cursor-pointer" *ngIf="!showAccountDetails">
+                            <img src="assets/images/arrow-up.svg" class="ml-auto cursor-pointer" *ngIf="showAccountDetails">
+                        </button>
                     </div>
+                    <!-- if the button is clicked then this div should show -->
+                    <div *ngIf="showAccountDetails">
                     <p class="text-xs text-main-dark mt-1">
                         This is the account that will receive the payment once the transaction is done. You can skip for
                         now if
@@ -239,6 +261,7 @@
                             {{ formErrors['bankName'] }}
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
 

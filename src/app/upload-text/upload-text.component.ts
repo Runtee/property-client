@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class UploadTextComponent {
   @Output() next = new EventEmitter<void>();
-  constructor(private mainService: MainService, private router: Router) {}
+  constructor(private mainService: MainService, private router: Router) { }
   formDetails: any = {
     email: "",
     number: "",
@@ -21,7 +21,7 @@ export class UploadTextComponent {
     state: '',
     category: '',
     price: null,
-    cloningEnabled: false,
+    cloningEnabled: "true",
     cloningPercentage: null,
     specificCloners: '',
     accountName: '',
@@ -31,7 +31,34 @@ export class UploadTextComponent {
   formErrors: any = {};
   validStates = ['Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara', 'FCT'];
   isFormSubmitted: boolean = false
+  showCloningDetails: boolean = false;
+  showAccountDetails: boolean = false;
+  showSelectPeople: boolean = false;
+
+  toggleCloning() {
+    this.showCloningDetails = !this.showCloningDetails;
+  }
+
+  toggleAccountDetails() {
+    this.showAccountDetails = !this.showAccountDetails;
+  }
+
+  toggleSelectPeople(){
+    this.showSelectPeople = !this.showSelectPeople;
+
+  }
+  myInitialEmails: string[] = [];
+
+  onEmailsChange(updatedEmails: string[]) {
+    this.myInitialEmails = [...updatedEmails];
+    // Ensure that newEmail is cleared to avoid duplicate entry issues
+    this.formDetails.specificCloners = '';
+  }
+  
+
+  
   ngOnInit(): void {
+    false
     // Retrieve data from localStorage and populate formDetails
     const storedFormDetails = localStorage.getItem('formDetails');
     if (storedFormDetails) {

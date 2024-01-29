@@ -44,6 +44,7 @@ import { KycVideoComponent } from './kyc-video/kyc-video.component';
 import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
 import { KycComponent } from './kyc/kyc.component';
 import { SupportComponent } from './support/support.component';
+import { EmailTagsComponent } from './email-tag/email-tag.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SupportComponent } from './support/support.component';
     KycVideoComponent,
     ClaimRewardComponent,
     KycComponent,
-    SupportComponent
+    SupportComponent,
+    EmailTagsComponent,
   ],
   imports: [
     BrowserModule,
