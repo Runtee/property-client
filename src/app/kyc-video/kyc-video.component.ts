@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-kyc-video',
@@ -9,6 +9,8 @@ export class KycVideoComponent {
   @ViewChild('video') video!: ElementRef;
   @ViewChild('canvas') canvas!: ElementRef;
   isComplete = false;
+  @Output() previous = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
 
   async startCamera() {
     try {
@@ -36,5 +38,9 @@ export class KycVideoComponent {
     tracks.forEach(track => track.stop());
 
     this.isComplete = true;
+  }
+
+  upload(){
+    this.next.emit();
   }
 }
