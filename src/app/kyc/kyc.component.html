@@ -1,5 +1,20 @@
-<app-kyc-select></app-kyc-select>
+<!-- <app-kyc-select></app-kyc-select>
 <app-kyc-upload></app-kyc-upload>
 <app-kyc-video></app-kyc-video>
 <app-all-done title="KYC Verification" body="All done!" image="Group 431.svg" page_link="/profile"
-        page_to="Profile"></app-all-done>
+        page_to="Profile"></app-all-done> -->
+
+<main class="">
+        <!-- Step 1: KYC Select -->
+        <app-kyc-select (next)="nextStep()" *ngIf="currentStep === 1"></app-kyc-select>
+
+        <!-- Step 2: KYC Upload -->
+        <app-kyc-upload (next)="nextStep()" (back)="previousStep()" *ngIf="currentStep === 2"></app-kyc-upload>
+
+        <!-- Step 3: KYC Video -->
+        <app-kyc-video (next)="nextStep()" (back)="previousStep()" *ngIf="currentStep === 3"></app-kyc-video>
+
+        <!-- Step 4: All Done -->
+        <app-all-done *ngIf="currentStep === 4" title="KYC Verification" body="All done!" image="Group 431.svg"
+                page_link="/profile" page_to="Profile"></app-all-done>
+</main>

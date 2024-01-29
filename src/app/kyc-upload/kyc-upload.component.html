@@ -1,23 +1,40 @@
 <div class="mt-5">
-    <app-topbar item="KYC Verfication"></app-topbar>
+    <app-topbar item="KYC Verification"></app-topbar>
     <main class="p-5">
-        <div class="border-4 border-dashed border-main-light rounded-3xl px-5 py-3 flex flex-col items-center mb-5">
-            <img src="assets/images/solar_user-id-bold-duotone(1).svg" class="">
-            <p class="text-sm px-3 text-center text-gray-400 font-semibold">Please take a picture of the front part of
-                your ID card</p>
-        </div>
-        <div class="border-4 border-dashed border-main-light rounded-3xl px-5 py-3 flex flex-col items-center mb-8">
-            <img src="assets/images/solar_card-bold-duotone.svg" class="">
-            <p class="text-sm px-3 text-center text-gray-400 font-semibold">Please take a picture of the front part of
-                your ID card</p>
-        </div>
-        <div class="mb-10 flex gap-2 w-full items-center">
-            <h2 class="font-bold text-sm">ID Number:</h2>
-            <input class="w-fit rounded bg-slate-200 px-3 py-1" type="text">
-        </div>
-        <button type="button"
-            class="w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
-            Next
-        </button>
+        <form [formGroup]="kycUploadForm" (ngSubmit)="submitForm()">
+            <div class="border-4 border-dashed border-main-light rounded-3xl px-5 py-3 flex flex-col items-center mb-5">
+                <label for="frontIdImage" class="font-bold text-sm mb-2">
+                    <img *ngIf="!kycUploadForm.get('frontIdImage')?.value"
+                        src="assets/images/solar_user-id-bold-duotone(1).svg" class="">
+                </label>
+                <input formControlName="frontIdImage" id="frontIdImage" type="file" #imageInput [style.display]="'none'"
+                    accept="image/*" (change)="handleImageChange($event,'frontIdImage')">
+                <img *ngIf="kycUploadForm.get('frontIdImage')?.value" [src]="kycUploadForm.get('frontIdImage')?.value"
+                    alt="Front ID Card Image" class="mt-3 rounded-lg">
+                <p class="text-sm px-3 text-center text-gray-400 font-semibold">Please take a picture of the front part
+                    of your ID card</p>
+            </div>
+            <div class="border-4 border-dashed border-main-light rounded-3xl px-5 py-3 flex flex-col items-center mb-8">
+                <label for="backIdImage" class="">
+                    <img *ngIf="!kycUploadForm.get('backIdImage')?.value"
+                        src="assets/images/solar_card-bold-duotone.svg" class="">
+                </label>
+                <input formControlName="backIdImage" id="backIdImage" type="file" #imageInput [style.display]="'none'"
+                    accept="image/*" (change)="handleImageChange($event,'backIdImage')">
+                <img *ngIf="kycUploadForm.get('backIdImage')?.value" [src]="kycUploadForm.get('backIdImage')?.value"
+                    alt="Back ID Card Image" class="mt-3 rounded-lg">
+                <p class="text-sm px-3 text-center text-gray-400 font-semibold">Please take a picture of the back part
+                    of your ID card</p>
+            </div>
+            <div class="mb-10 flex gap-2 w-full items-center">
+                <label for="idNumber" class="font-bold text-sm">ID Number:</label>
+                <input formControlName="idNumber" id="idNumber" class="w-fit rounded bg-slate-200 px-3 py-1"
+                    type="text">
+            </div>
+            <button type="submit"
+                class="w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+                Next
+            </button>
+        </form>
     </main>
 </div>

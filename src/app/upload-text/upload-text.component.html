@@ -158,12 +158,13 @@
                 <div class="mb-5">
                     <div class="flex justify-between items-center">
                         <h2 class="text-sm font-bold">Cloning</h2>
-                        <input class="" type="checkbox">
+                        <input class="" type="checkbox" [(ngModel)]="formDetails.cloningEnabled">
                     </div>
-                    <p class="text-xs text-gray-500 mx-[4px] mb-5">If cloning is enabled, anyone with your cloned link
-                        can earn a <input required
-                            class="h-5 w-6 inline-block border font-bold text-center border-main-dark">
-                        % profit for successful referrals</p>
+                    <p class="text-xs text-gray-500 mx-[4px] mb-5">
+                        If cloning is enabled, anyone with your cloned link can earn a
+                        <input required class="h-5 w-6 inline-block border font-bold text-center border-main-dark"
+                            [(ngModel)]="formDetails.cloningPercentage"> % profit for successful referrals
+                    </p>
                     <div class="mb-5 w-full">
                         <button type="button" class="flex gap-5 w-full">
                             <img src="assets/images/people.svg" class="">
@@ -177,17 +178,18 @@
                             <img src="assets/images/user-add.svg" class="">
                             <div class="text-gray-700">
                                 <h2 class="font-bold text-sm text-left">Specific people</h2>
-                                <h2 class="text-xs">Choose who you woul like to let clone</h2>
+                                <h2 class="text-xs">Choose who you would like to let clone</h2>
                             </div>
                             <img src="assets/images/arrow-right.svg" class="ml-auto">
                         </button>
                         <div class="">
-                            <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl">
-                                Please input the emails of the desired cloners
-                            </textarea>
+                            <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl"
+                                [(ngModel)]="formDetails.specificCloners"
+                                placeholder="Please input the emails of the desired cloners"></textarea>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- account details -->
                 <div class="">
@@ -195,32 +197,48 @@
                         <h2 class="text-sm font-bold">Account details</h2>
                         <img src="assets/images/arrow-right.svg" class="ml-auto">
                     </div>
-                    <p class="text-xs text-main-dark mt-1">This is the account that will receive the payment once the
-                        transcation is done. You can skip for now if you are not sure of the details.</p>
-                    <p class="text-xs text-main-dark mb-5">Please make sure the account here and the name on the
-                        Certificate of ownership (CofO) is the same</p>
+                    <p class="text-xs text-main-dark mt-1">
+                        This is the account that will receive the payment once the transaction is done. You can skip for
+                        now if
+                        you are not sure of the details.
+                    </p>
+                    <p class="text-xs text-main-dark mb-5">
+                        Please make sure the account here and the name on the Certificate of ownership (CofO) is the
+                        same
+                    </p>
                     <div class="mb-4">
                         <h3 class="text-sm font-medium mb-2">
                             Account Name
                         </h3>
-                        <input class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
-                            type="text" placeholder="Account Name">
+                        <input [(ngModel)]="formDetails.accountName" name="accountName" #accountName="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                            placeholder="Account Name" required>
+                        <div *ngIf="isFormSubmitted && formErrors['accountName']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['accountName'] }}
+                        </div>
                     </div>
                     <div class="mb-4">
                         <h3 class="text-sm font-medium mb-2">
                             Account Number
                         </h3>
-                        <input class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
-                            type="text" placeholder="Account Number">
+                        <input [(ngModel)]="formDetails.accountNumber" name="accountNumber" #accountNumber="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                            placeholder="Account Number" required>
+                        <div *ngIf="isFormSubmitted && formErrors['accountNumber']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['accountNumber'] }}
+                        </div>
                     </div>
                     <div class="mb-4">
                         <h3 class="text-sm font-medium mb-2">
                             Bank Name
                         </h3>
-                        <input class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
-                            type="text" placeholder="Bank name here">
+                        <input [(ngModel)]="formDetails.bankName" name="bankName" #bankName="ngModel"
+                            class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
+                            placeholder="Bank name here" required>
+                        <div *ngIf="isFormSubmitted && formErrors['bankName']" class="text-red-500 text-xs mt-1">
+                            {{ formErrors['bankName'] }}
+                        </div>
                     </div>
-
                 </div>
             </div>
 

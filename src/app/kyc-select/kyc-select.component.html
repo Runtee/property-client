@@ -8,7 +8,7 @@
             <p class="text-sm mb-5">Your KYC verification will involve 3 steps. please select your preferred KYC
                 ID/Document below</p>
             <div class="flex gap-2 flex-col p-5">
-                <div
+                <div (click)="cardSelected('national')"
                     class="flex px-5 w-full py-3 justify-between items-center bgtext-white border rounded-lg border-main-light cursor-pointer">
                     <div class="basis-2/5">
                         <img src="assets/images/solar_user-id-bold-duotone.svg" class="">
@@ -17,7 +17,7 @@
                         <p class="text-sm px-3">National ID Card</p>
                     </div>
                 </div>
-                <div
+                <div (click)="cardSelected('driver')"
                     class="flex px-5 w-full py-3 justify-between items-center bgtext-white border rounded-lg border-main-light cursor-pointer">
                     <div class="basis-2/5">
                         <img src="assets/images/solar_card-2-bold-duotone.svg" class="">
@@ -26,7 +26,7 @@
                         <p class="text-sm px-3">Driver's Licence</p>
                     </div>
                 </div>
-                <div
+                <div (click)="cardSelected('voters')"
                     class="flex px-5 w-full py-3 justify-between items-center bgtext-white border rounded-lg border-main-light cursor-pointer">
                     <div class="basis-2/5">
                         <img src="assets/images/icon-park-twotone_id-card.svg" class="">
