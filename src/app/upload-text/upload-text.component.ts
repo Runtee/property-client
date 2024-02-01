@@ -23,7 +23,8 @@ export class UploadTextComponent {
     price: null,
     cloningEnabled: "true",
     cloningPercentage: null,
-    specificCloners: '',
+    cloningType:'public',
+    specificCloners: [],
     accountName: '',
     accountNumber: '',
     bankName: '',
@@ -35,6 +36,10 @@ export class UploadTextComponent {
   showAccountDetails: boolean = false;
   showSelectPeople: boolean = false;
 
+  selectPublic(){
+    this.formDetails.cloningType = "public"
+  }
+
   toggleCloning() {
     this.showCloningDetails = !this.showCloningDetails;
   }
@@ -44,15 +49,16 @@ export class UploadTextComponent {
   }
 
   toggleSelectPeople(){
+    this.formDetails.cloningType = "private"
     this.showSelectPeople = !this.showSelectPeople;
-
   }
-  myInitialEmails: string[] = [];
 
   onEmailsChange(updatedEmails: string[]) {
-    this.myInitialEmails = [...updatedEmails];
+    
+    
+    this.formDetails.specificCloners = [...updatedEmails];
     // Ensure that newEmail is cleared to avoid duplicate entry issues
-    this.formDetails.specificCloners = '';
+    // this.formDetails.specificCloners = [];
   }
   
 
@@ -60,12 +66,13 @@ export class UploadTextComponent {
   ngOnInit(): void {
     false
     // Retrieve data from localStorage and populate formDetails
-    const storedFormDetails = localStorage.getItem('formDetails');
-    if (storedFormDetails) {
-      this.formDetails = JSON.parse(storedFormDetails);
-    }
+    // const storedFormDetails = localStorage.getItem('formDetails');
+    // if (storedFormDetails) {
+    //   this.formDetails = JSON.parse(storedFormDetails);
+    // }
   }
-  onSubmit() {
+  onSubmit(e:Event) {    
+    e.preventDefault()
     // Reset form errors
     this.formErrors = {};
     this.isFormSubmitted = true
