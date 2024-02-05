@@ -3,7 +3,8 @@ import { propertyInterface } from '../interfaces/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainService } from '../main.service';
 import { catchError, finalize } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-property-post',
@@ -15,6 +16,7 @@ export class PropertyPostComponent implements OnInit {
   filteredData: propertyInterface[] = [];
   selectedCard: propertyInterface | null = null;
   isLoading = true;
+  is404 = true;
 
   constructor(private router: Router, private route: ActivatedRoute, private mainService: MainService) {}
 
@@ -24,14 +26,21 @@ export class PropertyPostComponent implements OnInit {
       if (itemId) {
         this.mainService.getPropertyById(itemId)
           .pipe(
-            catchError((error) => {
+          catchError((error) => {
+            if (error instanceof HttpErrorResponse && error.status === 404) {
+              this.is404 = true;              
+            } else {
               console.error('Error fetching property data:', error);
               return throwError(() => new Error('Something went wrong'));
-            })
-          )
-          .subscribe((item: propertyInterface) => {
+            }
+            return of(null);
+          })
+        )
+          .subscribe((item: propertyInterface | null) => {
+          if (item !== null) {
             this.selectedCard = item;
-          });
+          }
+        });
       }
     });
 

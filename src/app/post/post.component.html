@@ -30,10 +30,10 @@
                     class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
             </div>
         </div>
-        <div class="mb-5" *ngIf="selectedCard.is_locked">
+        <div class="mb-5" *ngIf="selectedCard?.is_locked">
             <h2 class="text-sm font-bold text-main-dark">Available in:</h2>
-            <h2 class="text-sm font-bold text-red-500">12 : 25</h2>
-        </div>
+            <h2 class="text-sm font-bold text-red-500">{{ remainingTime }}</h2>
+          </div>          
         <div
             class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-lg p-2 w-full text-main-dark mb-10">
             <div class="flex items-center">
@@ -88,9 +88,9 @@
     </div>
 </div>
 
-<div class="">
+<div class=""  *ngIf="!selectedCard">
     <div class="">
-        <h1 class="text-2xl text-main-dark">Property not found</h1>
+        <h1 class="text-2xl text-main-dark">Invaild Link</h1>
     </div>
 </div>
 
