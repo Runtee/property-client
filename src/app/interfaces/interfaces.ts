@@ -22,7 +22,7 @@ export interface propertyInterface {
     is_locked?:boolean;
     survey?:boolean;
     user_id?:string;
-    locktimestamp?:number;
+    lock_timestamp?:number;
 }
 
 export interface propertyCategoryInterface {

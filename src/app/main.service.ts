@@ -24,8 +24,8 @@ export class MainService {
 
   private postRequest(url: string, data: any): Observable<any> {
     const headers = new HttpHeaders()
-      .set('content-type', 'multipart/form-data')
-      // .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
+      // .set('content-type', 'multipart/form-data')
+      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
       // .set('Access-Control-Allow-Origin', '*');
     return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -55,8 +55,8 @@ export class MainService {
 
   private getRequest(url: string, params?: HttpParams): Observable<any> {
     const headers = new HttpHeaders()
-      // .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
-      // .set('Access-Control-Allow-Origin', '*');
+    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+    // .set('Access-Control-Allow-Origin', '*');
     return this.http.get<any>(url, { headers, params, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
@@ -92,8 +92,8 @@ export class MainService {
     return this.getRequest(url);
   }
 
-  getPaidProperties(): Observable<propertyInterface[]> {
-    const url = `${CONFIG.apiUrl}/property/property-paid`;
+  getBoughtProperties(): Observable<propertyInterface[]> {
+    const url = `${CONFIG.apiUrl}/property/property-bought`;
     return this.getRequest(url);
   }
 
@@ -137,5 +137,26 @@ export class MainService {
     const url = `${CONFIG.apiUrl}/property/${id}`;
     return this.http.delete(url, { observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
+  }
+
+  lockProperty(propertyId: string): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/lock/${propertyId}/`;
+    return this.postRequest(url, {});
+  }
+
+  unlockProperty(propertyId: string): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/unlock/${propertyId}/`;
+    return this.postRequest(url, {});
+  }
+
+  addClonerAccountDetails(id: string): Observable<propertyInterface> {
+    const url = `${CONFIG.apiUrl}/property/${id}/add-clone-account/`;
+    return this.postRequest(url, {});
+  }
+
+  getClonedProperties(): Observable<propertyInterface[]> {
+    const url = `${CONFIG.apiUrl}/property/get-clone-properties/`;
+    return this.getRequest(url);
+    
   }
 }

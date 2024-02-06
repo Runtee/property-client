@@ -3,6 +3,7 @@ import { propertyInterface } from '../interfaces/interfaces';
 import { interval, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-post',
@@ -20,14 +21,13 @@ export class PostComponent {
   //   selectedCard.is_locked = true
   // }
   private intervalSubscription: Subscription | null = null;
+  constructor(private clipboardService: Clipboard,private mainService: MainService) {} // Inject the ClipboardService
 
   ngOnInit() {
-    if (this.selectedCard){
-    this.selectedCard.locktimestamp = 1706968474924
-    this.selectedCard.is_locked = true
-    console.log(this.selectedCard);
     
-  }
+    if (this.selectedCard) {
+      console.log(this.selectedCard.lock_timestamp)
+    }
     this.startTrackingTime();
   }
 
@@ -62,8 +62,8 @@ export class PostComponent {
   }
 
   private calculateRemainingTime(): string {
-    if (this.selectedCard?.locktimestamp) {      
-      const lockTimestamp = new Date(this.selectedCard.locktimestamp);
+    if (this.selectedCard?.lock_timestamp) {      
+      const lockTimestamp = new Date(this.selectedCard.lock_timestamp);
       const now = new Date();
       const differenceInSeconds = Math.floor((lockTimestamp.getTime() - now.getTime()) / 1000);
   
@@ -86,17 +86,23 @@ export class PostComponent {
   }
 
   private updateProperty() {
-    // Call your API service to update the property
-    // ...
+    if (this.selectedCard) {
+      this.mainService.unlockProperty(this.selectedCard.id).subscribe({
+        next: (response) => {
+          console.log('Lock Property Response:', response);       
+          }
+        ,
+        error: (error) => {
+          // Handle HTTP request error
+          console.error('Lock Property Error:', error);
+        }
+      });
+      this.stopTrackingTime();      
+    }
 
-    // Update the component after the API request is successful
-    // this.selectedCard.is_locked = false; // Assuming the API changes the lock status
-    this.stopTrackingTime();
   }
 
 // Variable to store the timeout reference
-
-  constructor(private clipboardService: Clipboard) {} // Inject the ClipboardService
 
   opencopyTab() {
     this.copyTab = !this.copyTab;

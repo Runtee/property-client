@@ -17,9 +17,89 @@
     </div>
 
     <main class="mt-5 divide-y-2">
-        <!-- <h2 class="font-bold text-sm text-gray-400 text-center mt-10">Your sold properties will show up here</h2>
-        <h2 class="font-bold text-sm text-gray-400 text-center mt-10">Your bought properties will show up here</h2> -->
-        <div class="relative">
+        <div *ngIf="selectedTab === 'sold'">
+            <h2 *ngIf="!soldProperties.length" class="font-bold text-sm text-gray-400 text-center mt-10">Your sold properties will show up here</h2>
+            <div class="relative" *ngFor="let property of soldProperties">
+            </div>
+            <div *ngFor="let property of soldProperties">
+            <div class="relative">
+                <div class="flex bg-white gap-2 border rounded-xl p-1 w-full cursor-pointer mb-2">
+                    <div class="h-20 w-[75px]">
+                        <img src="assets/images/bg.png" class="h-full rounded-xl" width="80">
+                    </div>
+                    <div class="w-full">
+                        <h2 class="text-sm font-bold">15 plots of land in Storey estate</h2>
+                        <div class="flex items-center py-1">
+                            <img src="assets/images/location.svg" class="w-3 h-3" alt="location">
+                            <span class="text-xs text-main-dark">Enugu, Nigeria</span>
+                        </div>
+                        <h4 class="text-main-dark font-bold text-sm">{{50000 | currency}}</h4>
+                    </div>
+                </div>
+                <div *ngIf="property.status == 'paid' " class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
+                    <div
+                        class="mt-auto w-fit h-fit text-xs text-right font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
+                        Awaiting Confirmation
+                    </div>
+                </div>
+                <div *ngIf="property.status == 'sold' " class="absolute top-0 h-[88px] flex px-4 items-center justify-between w-full p-1 bg-slate-100 bg-opacity-80">
+                    <div class="self-center mt-2">
+                        <h2 class="font-extrabold text-lg text-main-dark">SOLD!</h2>
+                        <!-- <p class="text-xs font-medium">This property was sold through you</p> -->
+                    </div>   
+                    <!-- <div
+                        class="mt-auto w-fit h-fit text-xs text-right font-semibold text-white bg-main-dark px-2 py-1 border border-main-dark rounded-lg">
+                        Claim Reward now
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div *ngIf="selectedTab === 'cloned'">
+            <h2 *ngIf="!cloneProperties.length" class="font-bold text-sm text-gray-400 text-center mt-10">Properties that was bought through your clone link will show up here</h2>
+            <div class="relative" *ngFor="let property of cloneProperties">
+            </div>
+        </div>
+
+        <div *ngIf="selectedTab === 'bought'">
+            <h2 *ngIf="!boughtProperties.length" class="font-bold text-sm text-gray-400 text-center mt-10">Your bought properties will show up here</h2>
+            <div *ngFor="let property of boughtProperties">
+                <div class="relative">
+                    <div class="flex bg-white gap-2 border rounded-xl p-1 w-full cursor-pointer mb-2">
+                        <div class="h-20 w-[75px]">
+                            <img src="assets/images/bg.png" class="h-full rounded-xl" width="80">
+                        </div>
+                        <div class="w-full">
+                            <h2 class="text-sm font-bold">15 plots of land in Storey estate</h2>
+                            <div class="flex items-center py-1">
+                                <img src="assets/images/location.svg" class="w-3 h-3" alt="location">
+                                <span class="text-xs text-main-dark">Enugu, Nigeria</span>
+                            </div>
+                            <h4 class="text-main-dark font-bold text-sm">{{50000 | currency}}</h4>
+                        </div>
+                    </div>
+                    <div *ngIf="property.status == 'paid' " class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
+                        <div
+                            class="mt-auto w-fit h-fit text-xs text-right font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
+                            Awaiting Confirmation
+                        </div>
+                    </div>
+                    <div *ngIf="property.status == 'sold' " class="absolute top-0 h-[88px] flex px-4 items-center justify-between w-full p-1 bg-slate-100 bg-opacity-80">
+                        <div class="self-center mt-2">
+                            <h2 class="font-extrabold text-lg text-main-dark">SOLD!</h2>
+                            <!-- <p class="text-xs font-medium">This property was sold through you</p> -->
+                        </div>   
+                        <!-- <div
+                            class="mt-auto w-fit h-fit text-xs text-right font-semibold text-white bg-main-dark px-2 py-1 border border-main-dark rounded-lg">
+                            Claim Reward now
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="relative">
             <div class="flex bg-white gap-2 border rounded-xl p-1 w-full cursor-pointer mb-2">
                 <div class="h-20 w-[75px]">
                     <img src="assets/images/bg.png" class="h-full rounded-xl" width="80">
@@ -54,12 +134,12 @@
                     <h4 class="text-main-dark font-bold text-sm">{{50000 | currency}}</h4>
                 </div>
             </div>
-            <!-- <div class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
+            <div class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
                 <div
                     class="mt-auto w-fit h-fit text-xs text-right font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
                     Awaiting Confirmation
                 </div>
-            </div> -->
+            </div>
         </div>
         <div class="relative">
             <div class="flex bg-white gap-2 border rounded-xl p-1 w-full cursor-pointer mb-2">
@@ -78,14 +158,14 @@
             <div class="absolute top-0 h-[88px] flex px-4 items-center justify-between w-full p-1 bg-slate-100 bg-opacity-80">
                 <div class="self-center mt-2">
                     <h2 class="font-extrabold text-lg text-main-dark">SOLD!</h2>
-                    <!-- <p class="text-xs font-medium">This property was sold through you</p> -->
+                    <p class="text-xs font-medium">This property was sold through you</p>
                 </div>   
                 <div
                     class="mt-auto w-fit h-fit text-xs text-right font-semibold text-white bg-main-dark px-2 py-1 border border-main-dark rounded-lg">
                     Claim Reward now
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </main>
 </div>

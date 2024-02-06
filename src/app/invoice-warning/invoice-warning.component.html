@@ -8,7 +8,7 @@
                 not be able to re-generate another invoice for this particular property for the next 30 minutes.</p>
         </div>
         <div>
-            <button type="button" [routerLink]="'/purchase/invoice/' + id + '/' + userid"
+            <button type="button" (click)="lock()"
                 class="mt-20 w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
                 Next
             </button>
