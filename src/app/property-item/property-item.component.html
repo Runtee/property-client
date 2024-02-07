@@ -9,18 +9,23 @@
             <span class="text-xs text-main-dark">{{item.location}}</span>
         </div>
         <h4 class="text-main-dark font-bold text-sm">{{item.price | currency}}</h4>
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-1">
-                <div class="flex items-center bg-gradient-to-l from-black to-[#000000BF] p-1" *ngIf="item.searched">
-                    <img src="assets/images/personalcard.svg" class="w-3 h-3">
-                    <span class="text-xs font-bold text-white">Search</span>
-                </div>
-                <div class="flex items-center bg-gradient-to-l from-main-dark to-[#7A2D9380] p-1" *ngIf="item.kyc">
-                    <img src="assets/images/personalcard.svg" class="w-3 h-3">
-                    <span class="text-xs font-bold text-white">KYC</span>
-                </div>
+        <div
+            class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-lg p-2 w-full text-main-dark mb-10">
+            <div class="flex items-center">
+                <h2 class="text-xs font-semibold mr-[1px]">CofO</h2>
+                <img *ngIf="!item.c_of_o" src="assets/images/bad.svg" class="" alt="">
+                <img *ngIf="item.c_of_o" src="assets/images/mdi_tick.svg" class="" alt="">
             </div>
-            <img src="assets/images/play-cricle.png" class="" *ngIf="item.doxxed">
+            <div class="flex items-center">
+                <h2 class="text-xs font-semibold mr-[1px]">Search</h2>
+                <img *ngIf="!item.searched" src="assets/images/bad.svg" class="" alt="">
+                <img *ngIf="item.searched" src="assets/images/mdi_tick.svg" class="" alt="">
+            </div>
+            <div class="flex items-center">
+                <h2 class="text-xs font-semibold mr-[1px]">Survey</h2>
+                <img *ngIf="!item.survey" src="assets/images/bad.svg" class="" alt="">
+                <img *ngIf="item.survey" src="assets/images/mdi_tick.svg" class="" alt="">
+            </div>
         </div>
     </div>
 </div>

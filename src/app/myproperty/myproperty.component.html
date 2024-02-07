@@ -37,8 +37,8 @@
                     </div>
                 </div>
                 <div *ngIf="property.status == 'paid' " class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
-                    <div
-                        class="mt-auto w-fit h-fit text-xs text-right font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
+                    <div routerLink="/purchase/complete/{{ property.id }}"
+                        class="mt-auto w-fit h-fit text-xs text-right  cursor-pointer font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
                         Awaiting Confirmation
                     </div>
                 </div>
@@ -57,7 +57,7 @@
         </div>
 
         <div *ngIf="selectedTab === 'cloned'">
-            <h2 *ngIf="!cloneProperties.length" class="font-bold text-sm text-gray-400 text-center mt-10">Properties that was bought through your clone link will show up here</h2>
+            <h2 *ngIf="!cloneProperties.length" class="font-bold text-sm text-gray-400 text-center mt-10">Properties that was sold through your clone link will show up here</h2>
             <div class="relative" *ngFor="let property of cloneProperties">
             </div>
         </div>
@@ -75,12 +75,13 @@
                             <div class="flex items-center py-1">
                                 <img src="assets/images/location.svg" class="w-3 h-3" alt="location">
                                 <span class="text-xs text-main-dark">Enugu, Nigeria</span>
+        
                             </div>
                             <h4 class="text-main-dark font-bold text-sm">{{50000 | currency}}</h4>
                         </div>
                     </div>
                     <div *ngIf="property.status == 'paid' " class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
-                        <div
+                        <div routerLink="/purchase/complete/{{ property.id }}"
                             class="mt-auto w-fit h-fit text-xs text-right font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
                             Awaiting Confirmation
                         </div>

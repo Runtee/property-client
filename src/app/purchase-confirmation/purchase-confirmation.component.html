@@ -1,34 +1,52 @@
-
-<div class="mt-5">
+<div class="mt-5" *ngIf="isConfirmation">
     <app-topbar item="Confirmation"></app-topbar>
     <main class="p-5 pt-0">
         <div class="">
-            <p class="font-semibold text-sm mb-5"> I <span class="text-main-dark"> Andrew Townsen</span>  the buyer hereby confirm that i have inspected all necessary documents pertaining to this document and i am satisfied with the whole process and wish to proceed the buyer hereby confirm that i have inspected all necessary documents pertaining to
-                 this document and i am satisfied with the whole process and wish to proceed.</p>
-            <p class="text-xs text-gray-600 mb-5">* Upon clicking this you cannot undo it unless the other party hasn’t confirmed, after which the agreement is irrevocable.</p>
-                <div class="border-4 border-dashed border-main-light rounded-3xl px-5 py-3 flex flex-col items-center mb-8">
-                    <img src="assets/images/clipboard-text.png" class="">
-                    <p class="text-xs px-3 text-center text-gray-400 font-semibold">Please upload a copy of a court affidavit confirming your acceptance of this property</p>
-                </div>
-                
+            <p class="font-semibold text-sm mb-5"> I <span class="text-main-dark"> Andrew Townsen</span> the buyer
+                hereby confirm that i have inspected all necessary documents pertaining to this document and i am
+                satisfied with the whole process and wish to proceed the buyer hereby confirm that i have inspected all
+                necessary documents pertaining to
+                this document and i am satisfied with the whole process and wish to proceed.</p>
+            <p class="text-xs text-gray-600 mb-5">* Upon clicking this you cannot undo it unless the other party hasn’t
+                confirmed, after which the agreement is irrevocable.</p>
+
+            <!-- I want when i click on this div it will serve as an input that accept files -->
+            <div class="border-4 overflow-auto border-dashed border-main-light rounded-3xl h-auto px-5 py-3 flex flex-col items-center mb-8"
+                (click)="fileInput.click()">
+                <p class="text-xs text-pretty overflow-auto" *ngIf="selectedFile">{{selectedFile.name}}</p>
+                <img src="assets/images/clipboard-text.png" class="" *ngIf="!selectedFile">
+                <p *ngIf="!selectedFile" class="text-xs px-3 text-center text-gray-400 font-semibold">Please upload a
+                    copy of a courttext-wrap
+                    affidavit confirming your acceptance of this property</p>
+            </div>
+
+            <input #fileInput type="file" hidden (change)="onFileSelected($event)">
+
+
 
             <div class="flex gap-2 items-center">
-                <div class="h-5 w-6 border border-main-dark"></div>
+                <div class="">
+                    <input class="h-5 w-6 border border-main-dark" name="agree" type="checkbox" [(ngModel)]="isAgreed">
+                </div>
                 <h2 class="font-bold">I agree and confirm</h2>
             </div>
         </div>
         <div class="">
-        <button type="button"
-            class="mt-20 w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
-            Confirm
-        </button>
+            <button type="button" [disabled]="!selectedFile || !isAgreed"
+                [class.bg-main-inactive]="!selectedFile || !isAgreed" (click)="onConfirm()"
+                class="mt-20 w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+                Confirm
+            </button>
+
         </div>
     </main>
 </div>
 
 <div class="" *ngIf="isAwaiting">
-    <app-all-done title="Awaiting" image="Group 432.svg" body="Awaiting confirmation!" page_link="/my-property" page_to="My Properties"></app-all-done>
+    <app-all-done title="Awaiting" image="Group 432.svg" body="Awaiting confirmation from the seller also" page_link="/my-property"
+        page_to="My Properties"></app-all-done>
 </div>
 <div class="" *ngIf="isComplete">
-    <app-all-done title="Congratulations!" body=" All done!" image="Group 439.png" page_link="/my-property" page_to="My Properties"></app-all-done>
+    <app-all-done title="Congratulations!" body=" All done!" image="Group 439.png" page_link="/my-property"
+        page_to="My Properties"></app-all-done>
 </div>

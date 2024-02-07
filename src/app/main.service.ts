@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { propertyInterface } from './interfaces/interfaces';
+import { propertyInterface, notificationInterface, supportInterface } from './interfaces/interfaces';
 import { CONFIG } from '../environments/environment';
 
 @Injectable({
@@ -156,7 +156,26 @@ export class MainService {
 
   getClonedProperties(): Observable<propertyInterface[]> {
     const url = `${CONFIG.apiUrl}/property/get-clone-properties/`;
-    return this.getRequest(url);
-    
+    return this.getRequest(url); 
   }
+
+  getNotification(): Observable<notificationInterface[]> {
+    const url = `${CONFIG.apiUrl}/notifications/`
+    return this.getRequest(url);
+  }
+
+  readNotification(): Observable<any> {
+    const url = `${CONFIG.apiUrl}/notifications/read/`
+    return this.postRequest(url, {});
+  }
+
+  sendSupport(): Observable<supportInterface> {
+    const url = `${CONFIG.apiUrl}/support/`
+    return this.postRequest(url, {});
+  }
+  submitFile(id: string, file:any): Observable<any> {
+      const url = `${CONFIG.apiUrl}/property/${id}`;
+      return this.postRequestWithMedia(url,{});
+    }
+
 }

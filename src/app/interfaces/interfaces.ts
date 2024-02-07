@@ -30,3 +30,18 @@ export interface propertyCategoryInterface {
     "Land": string;
     "Rent": string;
 }
+
+export interface notificationInterface {
+    'id'?: string;
+    "message"?: string;
+    "category"?: string;
+    "user"?: string;
+    "read"?: string;
+}
+
+
+export interface supportInterface {
+    "email": string;
+    "subject": string;
+    "message": string;
+}

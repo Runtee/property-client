@@ -22,14 +22,27 @@ export class PostComponent {
   // }
   private intervalSubscription: Subscription | null = null;
   constructor(private clipboardService: Clipboard,private mainService: MainService) {} // Inject the ClipboardService
-
-  ngOnInit() {
-    
-    if (this.selectedCard) {
-      console.log(this.selectedCard.lock_timestamp)
+  private isTimestampPassed(lockTimestamp: number | undefined): boolean {
+    if (!lockTimestamp) {
+      return true
     }
-    this.startTrackingTime();
+    const currentTimestamp = new Date().getTime();
+    const lockTimestampValue = new Date(lockTimestamp).getTime();
+    return currentTimestamp > lockTimestampValue;
   }
+  
+  ngOnInit() {
+    if (this.selectedCard) {
+      console.log(this.selectedCard.lock_timestamp);
+      if (this.selectedCard.is_locked && this.isTimestampPassed(this.selectedCard.lock_timestamp)) {
+        this.updateProperty();
+      } else {
+        this.startTrackingTime();
+      }
+    }
+  }
+
+  
 
   ngOnChanges() {
     if (this.selectedCard && this.selectedCard.is_locked) {
@@ -90,8 +103,11 @@ export class PostComponent {
       this.mainService.unlockProperty(this.selectedCard.id).subscribe({
         next: (response) => {
           console.log('Lock Property Response:', response);       
+          // Update selectedCard after unlocking
+          if (this.selectedCard) {
+            this.selectedCard.is_locked = false;
           }
-        ,
+        },
         error: (error) => {
           // Handle HTTP request error
           console.error('Lock Property Error:', error);
@@ -99,8 +115,8 @@ export class PostComponent {
       });
       this.stopTrackingTime();      
     }
-
   }
+  
 
 // Variable to store the timeout reference
 

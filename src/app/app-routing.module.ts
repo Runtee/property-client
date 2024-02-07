@@ -101,7 +101,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
-    path: 'purchase/complete/:id/:userid',
+    path: 'purchase/complete/:id',
     component: PurchaseConfirmationComponent,
     // canActivate: [AuthGuard],
   },
