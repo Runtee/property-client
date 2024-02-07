@@ -1,24 +1,9 @@
 <div class="mt-5">
-    <app-topbar item="Notifications"></app-topbar>
-    <main class="p-5 pt-0 divide-y-2">
-        <div class="mb-2">
-            <h2 class="text-sm font-bold">Your proprerty has just been approved</h2>
-            <p class="text-xs font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptate sit
-                voluptatum illum e </p>
-        </div>
-        <div class="mb-1 py-1">
-            <h2 class="text-sm font-bold">Your proprerty has just been approved</h2>
-            <p class="text-xs font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptate sit
-                voluptatum illum e </p>
-        </div>
-        <div class="mb-1 py-1">
-            <h2 class="text-sm font-bold">Your proprerty has just been approved</h2>
-            <p class="text-xs font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptate sit
-                voluptatum illum e </p>
-        </div>
-    </main>
-
-
-    
-
-
+  <app-topbar item="Notifications"></app-topbar>
+  <main class="p-5 pt-0 divide-y-2" *ngFor="let notification of notifications">
+    <div class="mb-2">
+      <h2 class="text-sm font-bold">{{ notification.category }}</h2>
+      <p class="text-xs font-medium">{{ notification.message }}</p>
+    </div>
+  </main>
+</div>
