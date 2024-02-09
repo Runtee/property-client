@@ -17,12 +17,12 @@ export interface propertyInterface {
     name?: boolean;
     email?: boolean;
     number?: boolean;
-    clonable?:boolean;
-    searched?:boolean;
-    is_locked?:boolean;
-    survey?:boolean;
-    user_id?:string;
-    lock_timestamp?:number;
+    clonable?: boolean;
+    searched?: boolean;
+    is_locked?: boolean;
+    survey?: boolean;
+    user_id?: string;
+    lock_timestamp?: number;
 }
 
 export interface propertyCategoryInterface {
@@ -41,7 +41,18 @@ export interface notificationInterface {
 
 
 export interface supportInterface {
+    'id'?: string;
     "email": string;
     "subject": string;
     "message": string;
+}
+
+export interface userInterface {
+    email: string;
+    email_verified: string;
+    name: string
+    nickname: string
+    picture: string
+    sub: string
+    updated_at: Date
 }

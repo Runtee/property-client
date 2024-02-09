@@ -2,48 +2,29 @@
   <header class="">
     <div class="relative">
       <div class="w-full h-[228px] bg-transparent relative">
-        <img
-          src="assets/images/bg.png"
-          alt=""
-          height="228"
-          [ngClass]="{ 'brightness-[.35]': editOn }"
-          class="w-full h-full"
-        />
-        <img
-          *ngIf="editOn"
-          src="assets/images/cam.svg"
-          alt=""
-          class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2"
-        />
+        <!-- cover image -->
+        <img src="assets/images/bg.png" alt="" height="228" [ngClass]="{ 'brightness-[.35]': editOn }"
+          class="w-full h-full" />
+        <!-- profile image -->
+        <img *ngIf="editOn" src="assets/images/cam.svg" alt=""
+          class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2" />
       </div>
+      <!-- cover image -->
       <div
-        class="absolute -bottom-[30px] left-[20px] bg-gray-300 border-white border-4 rounded-full h-[104px] w-[104px] flex"
-      >
-        <img
-          src="assets/images/avater.png"
-          alt=""
-          [ngClass]="{ 'brightness-[.35]': editOn }"
-          class="rounded-full"
-          width="100"
-          height="100"
-        />
-        <img
-          *ngIf="editOn"
-          src="assets/images/cam.svg"
-          alt=""
-          class="absolute bottom-[20px] left-[48px] transform -translate-y-1/2 -translate-x-1/2"
-        />
+        class="absolute -bottom-[30px] left-[20px] bg-gray-300 border-white border-4 rounded-full h-[104px] w-[104px] flex">
+        <img src="{{user?.picture}}" alt="" [ngClass]="{ 'brightness-[.35]': editOn }" class="rounded-full"
+          width="100" height="100" />
+        <!-- profile image -->
+        <img *ngIf="editOn" src="assets/images/cam.svg" alt=""
+          class="absolute bottom-[20px] left-[48px] transform -translate-y-1/2 -translate-x-1/2" />
       </div>
     </div>
     <div class="mt-[40px] px-5">
       <div class="flex justify-between">
-        <h2 *ngIf="!editOn" class="font-bold">Aaron Sanchez</h2>
-        <input
-          *ngIf="editOn"
-          class="font-bold w-auto outline-none border-b border-black"
-          value="Aaron Sanchez"
-          type="text"
-        />
+        <!-- user name -->
+        <h2 *ngIf="!editOn" class="font-bold">{{user?.name}}</h2>
+        <input *ngIf="editOn" class="font-bold w-auto outline-none border-b border-black" value="{{user?.name}}"
+          type="text" />
         <div *ngIf="!editOn" class="flex gap-4">
           <button routerLink="/notification">
             <img src="assets/images/notification.png" class="" alt="" />
@@ -68,10 +49,7 @@
     <div class="h-[1px] w-full bg-slate-200 my-5"></div>
   </header>
   <main class="px-5">
-    <h2
-      *ngIf="!main_data.length"
-      class="font-bold text-gray-400 text-center mt-20 hidden"
-    >
+    <h2 *ngIf="!main_data.length" class="font-bold text-gray-400 text-center mt-20 hidden">
       No posts yet
     </h2>
     <div *ngIf="main_data.length" class=""></div>
@@ -81,86 +59,42 @@
         <div class="flex w-full items-center">
           <div class="flex gap-2 border rounded-xl p-1 w-full bg-white">
             <div class="bg-white h-[90px] w-[80px]">
-              <img
-                src="assets/images/Rectangle 593.png"
-                class="h-full rounded-xl"
-                width="80"
-              />
+              <img src="assets/images/Rectangle 593.png" class="h-full rounded-xl" width="80" />
             </div>
             <div class="w-full bg-white">
               <h2 class="text-[13px] font-bold">{{ property.title }}</h2>
               <div class="flex items-center py-1">
-                <img
-                  src="assets/images/location.svg"
-                  class="w-3 h-3"
-                  alt="location"
-                />
+                <img src="assets/images/location.svg" class="w-3 h-3" alt="location" />
                 <span class="text-xs text-main-dark">{{
                   property.location
-                }}</span>
+                  }}</span>
               </div>
               <h4 class="text-main-dark font-bold text-xs">
                 {{ property.price | currency }}
               </h4>
               <div
-                class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-md px-[2px] w-[170px] text-main-dark"
-              >
+                class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-md px-[2px] w-[170px] text-main-dark">
                 <div class="flex items-center">
                   <h2 class="text-[10px] font-semibold mr-[1px]">CofO</h2>
-                  <img
-                    *ngIf="!property.c_of_o"
-                    src="assets/images/bad.svg"
-                    class="w-5 h-5"
-                    alt=""
-                  />
-                  <img
-                    *ngIf="property.c_of_o"
-                    src="assets/images/mdi_tick.svg"
-                    class="w-3 h-3"
-                    alt=""
-                  />
+                  <img *ngIf="!property.c_of_o" src="assets/images/bad.svg" class="w-5 h-5" alt="" />
+                  <img *ngIf="property.c_of_o" src="assets/images/mdi_tick.svg" class="w-3 h-3" alt="" />
                 </div>
                 <div class="flex items-center">
                   <h2 class="text-[10px] font-semibold mr-[1px]">Search</h2>
-                  <img
-                    *ngIf="!property.searched"
-                    src="assets/images/bad.svg"
-                    class="w-5 h-5"
-                    alt=""
-                  />
-                  <img
-                    *ngIf="property.searched"
-                    src="assets/images/mdi_tick.svg"
-                    class="w-3 h-3"
-                    alt=""
-                  />
+                  <img *ngIf="!property.searched" src="assets/images/bad.svg" class="w-5 h-5" alt="" />
+                  <img *ngIf="property.searched" src="assets/images/mdi_tick.svg" class="w-3 h-3" alt="" />
                 </div>
                 <div class="flex items-center">
                   <h2 class="text-[10px] font-semibold mr-[1px]">Survey</h2>
-                  <img
-                    *ngIf="!property.survey"
-                    src="assets/images/bad.svg"
-                    class="w-5 h-5"
-                    alt=""
-                  />
-                  <img
-                    *ngIf="property.survey"
-                    src="assets/images/mdi_tick.svg"
-                    class="w-3 h-3"
-                    alt=""
-                  />
+                  <img *ngIf="!property.survey" src="assets/images/bad.svg" class="w-5 h-5" alt="" />
+                  <img *ngIf="property.survey" src="assets/images/mdi_tick.svg" class="w-3 h-3" alt="" />
                 </div>
               </div>
             </div>
           </div>
-          <div
-            class="w-[100px]"
-            routerLink="/proprerty/kyc"
-            *ngIf="!property.kyc"
-          >
+          <div class="w-[100px]" routerLink="/proprerty/kyc" *ngIf="!property.kyc">
             <button
-              class="ml-[2px] px-[2px] py-[2px] w-full rounded-md text-[12px] font-bold border bg-main-dark text-white"
-            >
+              class="ml-[2px] px-[2px] py-[2px] w-full rounded-md text-[12px] font-bold border bg-main-dark text-white">
               Verify KYC
             </button>
           </div>

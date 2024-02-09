@@ -169,9 +169,9 @@ export class MainService {
     return this.postRequest(url, {});
   }
 
-  sendSupport(): Observable<supportInterface> {
+  sendSupport(data:supportInterface): Observable<supportInterface> {
     const url = `${CONFIG.apiUrl}/support/`
-    return this.postRequest(url, {});
+    return this.postRequest(url, data);
   }
   submitFile(id: string, file:any): Observable<any> {
       const url = `${CONFIG.apiUrl}/property/${id}`;

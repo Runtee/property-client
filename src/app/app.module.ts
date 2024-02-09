@@ -45,6 +45,7 @@ import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
 import { KycComponent } from './kyc/kyc.component';
 import { SupportComponent } from './support/support.component';
 import { EmailTagsComponent } from './email-tag/email-tag.component';
+import { NotifyCardComponent } from './notify-card/notify-card.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { EmailTagsComponent } from './email-tag/email-tag.component';
     KycComponent,
     SupportComponent,
     EmailTagsComponent,
+    NotifyCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,7 @@ import { EmailTagsComponent } from './email-tag/email-tag.component';
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       domain: 'dev-hzf3gl655z7ry503.uk.auth0.com',
-      clientId: 'PTkZD8m1LMOlwHynVzJuTnHU4H2XuVvg',
+      clientId: 'ENL5BwciHFv5T54x9dykwTjbWCY57TPh',
       authorizationParams: {
         redirect_uri: window.location.origin
       },

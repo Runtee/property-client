@@ -1,24 +1,64 @@
 <div class="py-5">
     <app-topbar item="Support"></app-topbar>
     <div class="px-5">
-        <h2 class="text-gray-500 text-base mb-4 font-semibold">Send us a message and we will reply to your preferred email address</h2>
-        <form class="">
+        <h2 class="text-gray-500 text-base mb-4 font-semibold">Send us a message and we will reply to your preferred
+            email address</h2>
+
+        <form [formGroup]="supportForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <h3 class="text-sm font-medium mb-2">Preferred Email</h3>
-                <input class="border px-4 py-3 w-full rounded-lg text-sm placeholder:text-gray-500" placeholder="hsg@gmail.com">
+                <input type="email" formControlName="email"
+                    class="border px-4 py-3 w-full rounded-lg text-sm placeholder:text-gray-500"
+                    placeholder="hsg@gmail.com">
+                <div *ngIf="supportForm.get('email')?.invalid && supportForm.get('email')?.touched"
+                    class="text-xs text-red-500">
+                    <div *ngIf="supportForm.get('email')?.errors?.['required']">
+                        Email is required.
+                    </div>
+                    <div *ngIf="supportForm.get('email')?.errors?.['email']" class="text-xs text-red-500">
+                        Please enter a valid email address.
+                    </div>
+                </div>
             </div>
+
+            <div class="mb-3">
+                <h3 class="text-sm font-medium mb-2">Subject</h3>
+                <input type="text" formControlName="subject"
+                    class="border px-4 py-3 w-full rounded-lg text-sm placeholder:text-gray-500"
+                    placeholder="Subject">
+                <div *ngIf="supportForm.get('subject')?.invalid && supportForm.get('subject')?.touched"
+                    class="text-xs text-red-500">
+                    <div *ngIf="supportForm.get('subject')?.errors?.['required']">
+                        Subject is required.
+                    </div>
+                </div>
+            </div>
+
             <div class="mb-3">
                 <h3 class="text-sm font-medium mb-2">Your Message</h3>
-                <textarea class="border px-4 py-3 w-full h-40 rounded-lg text-sm placeholder:text-gray-500" placeholder="Your message here"></textarea>
+                <textarea formControlName="message"
+                    class="border px-4 py-3 w-full h-40 rounded-lg text-sm placeholder:text-gray-500"
+                    placeholder="Your message here"></textarea>
+                <div *ngIf="supportForm.get('message')?.invalid  && supportForm.get('message')?.touched"
+                    class="text-xs text-red-500">
+                    <div *ngIf="supportForm.get('message')?.errors?.['required']">
+                        Message is required.
+                    </div>
+                    <div *ngIf="supportForm.get('message')?.errors?.['minlength']" class="text-xs text-red-500">
+                        Message must be at least {{ supportForm.get('message')?.errors?.['minlength']?.requiredLength }}
+                        characters long.
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4 mt-20">
+                <button type="submit"
+                    class="w-full text-center py-3 text-sm border rounded-lg font-bold bg-main-dark text-white border-main-dark"
+                    disabled [disabled]="supportForm.invalid">
+                    Confirm
+                </button>
             </div>
         </form>
-        <div class="flex flex-col gap-4 mt-20">
-
-            <button type="button"
-                class="w-full text-center py-3 text-sm border rounded-lg font-bold bg-main-dark text-white border-main-dark"
-                >
-                Confirm
-            </button>
-        </div>
     </div>
+    <app-notify-card *ngIf="showCard" [title]="messageTitle" [description]="messageDesc"></app-notify-card>
 </div>

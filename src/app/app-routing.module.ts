@@ -68,7 +68,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile/settings',
@@ -76,12 +76,12 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
-    path: 'profile/support',
+    path: 'settings/support',
     component: SupportComponent,
     // canActivate: [AuthGuard],
   },
   {
-    path: 'profile/change-password',
+    path: 'settings/change-password',
     component: ChangePasswordComponent,
     // canActivate: [AuthGuard],
   },

@@ -1,0 +1,7 @@
+<div *ngIf="showCard" class="bg-white p-5 border-l-4 border-main-light rounded-sm m-5 absolute top-5 -right-5 z-50 w-[80%]">
+    <div class="relative">
+        <p class="text-[#1F1F1F] text-sm font-semibold">{{title}}</p>
+        <p class="text-[#2E384D] text-sm">{{description}}</p>
+        <img (click)="hideCard()" src="assets/images/close-square.png" class="absolute top-0 right-0 cursor-pointer">
+    </div>
+</div>
