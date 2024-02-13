@@ -25,6 +25,8 @@ import { KycSelectComponent } from './kyc-select/kyc-select.component';
 import { KycVideoComponent } from './kyc-video/kyc-video.component';
 import { KycComponent } from './kyc/kyc.component';
 import { SupportComponent } from './support/support.component';
+import { UpdatePostComponent } from './update-post/update-post.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -140,12 +142,17 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
 
-  // {
-  //   path: 'my-property',
-  //   component: MypropertyComponent,
-  //   // canActivate: [AuthGuard],
-  // },
+  {
+    path: 'update-property/:id',
+    component: UpdatePostComponent,
+    // canActivate: [AuthGuard],
+  },
   
+  {
+    path: 'edit-property/:id',
+    component: EditPostComponent,
+    // canActivate: [AuthGuard],
+  },
 
 
 

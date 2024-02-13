@@ -161,7 +161,7 @@
 
                         <label class="relative inline-flex items-center mb-5 cursor-pointer">
                             <input type="checkbox" class="sr-only peer" [(ngModel)]="formDetails.cloningEnabled"
-                            (change)="toggleCloning()">
+                            (change)="toggleCloning()" name="cloningEnabled">
                             <div
                                 class="w-10 h-4 bg-gray-200 peer-focus:outline-none peer-focus:ring-3 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[-2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-blue-600">
                             </div>
@@ -169,12 +169,14 @@
 
                     </div>
                     <!-- if the switch toggled then this div should show -->
-                    <div  *ngIf="showCloningDetails">
-                    <p class="text-xs text-gray-500 mx-[4px] mb-5">
-                        If cloning is enabled, anyone with your cloned link can earn a
-                        <input required class="h-5 w-6 inline-block border font-bold text-center border-main-dark"
-                            [(ngModel)]="formDetails.cloningPercentage"> % profit for successful referrals
-                    </p>
+                    <div *ngIf="showCloningDetails">
+                        <p class="text-xs text-gray-500 mx-[4px] mb-5" *ngIf="formDetails.cloningEnabled">
+                            If cloning is enabled, anyone with your cloned link can earn a
+                            <input [required]="isCloningEnabledRequired"
+                                class="h-5 w-6 inline-block border font-bold text-center border-main-dark"
+                                [(ngModel)]="formDetails.cloningPercentage"
+                                name="cloningPercentage"> % profit for successful referrals
+                        </p>                       
                     <div class="mb-5 w-full">
                         <button type="button" class="flex gap-5 w-full" (click)="selectPublic()">
                             <img src="assets/images/people.svg" class="" *ngIf="formDetails.cloningType=='public'">
@@ -274,7 +276,7 @@
                     class="w-full text-center py-3 border rounded-md font-bold bg-main-dark text-white border-main-dark">
                     Next
                 </button>
-                <button type="button"
+                <button type="button" (click)="goBack()"
                     class="w-full text-center py-3 border rounded-md font-bold text-main-dark border-main-dark">
                     Cancel
                 </button>

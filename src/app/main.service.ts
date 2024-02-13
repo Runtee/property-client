@@ -26,7 +26,7 @@ export class MainService {
     const headers = new HttpHeaders()
       // .set('content-type', 'multipart/form-data')
       .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
-      // .set('Access-Control-Allow-Origin', '*');
+    // .set('Access-Control-Allow-Origin', '*');
     return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
@@ -42,20 +42,20 @@ export class MainService {
   //   return this.http.post<any>(url, formData, { headers })
   //     .pipe(catchError(this.handleError));
   // }
-  
+
 
   private postRequestWithMedia(url: string, data: any): Observable<any> {
     const headers = new HttpHeaders()
-      .set('content-type', 'application/json')
-      // .set('Authorization', 'Bearer your_token_here') // Replace with your actual authentication token
-      // .set('Access-Control-Allow-Origin', '*');
+    // .set('Content-Type', 'multipart/form-data')
+    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+    // .set('Access-Control-Allow-Origin', '*');
     return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
 
   private getRequest(url: string, params?: HttpParams): Observable<any> {
     const headers = new HttpHeaders()
-    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
     // .set('Access-Control-Allow-Origin', '*');
     return this.http.get<any>(url, { headers, params, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -130,7 +130,8 @@ export class MainService {
 
   updateProperty(id: string, updatedProperty: propertyInterface): Observable<any> {
     const url = `${CONFIG.apiUrl}/property/${id}`;
-    return this.postRequest(url, updatedProperty);
+    return this.http.patch(url,updatedProperty ,{ observe: 'body', responseType: 'json' })
+      .pipe(catchError(this.handleError));
   }
 
   deleteProperty(id: string): Observable<any> {
@@ -156,7 +157,7 @@ export class MainService {
 
   getClonedProperties(): Observable<propertyInterface[]> {
     const url = `${CONFIG.apiUrl}/property/get-clone-properties/`;
-    return this.getRequest(url); 
+    return this.getRequest(url);
   }
 
   getNotification(): Observable<notificationInterface[]> {
@@ -169,13 +170,17 @@ export class MainService {
     return this.postRequest(url, {});
   }
 
-  sendSupport(data:supportInterface): Observable<supportInterface> {
+  sendSupport(data: supportInterface): Observable<supportInterface> {
     const url = `${CONFIG.apiUrl}/support/`
     return this.postRequest(url, data);
   }
-  submitFile(id: string, file:any): Observable<any> {
-      const url = `${CONFIG.apiUrl}/property/${id}`;
-      return this.postRequestWithMedia(url,{});
-    }
 
+  submitFile(id: string, property: FormData): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/${id}`;
+    return this.postRequestWithMedia(url, property);
+  }
+  uploadPropertyFile(propertyFileType: FormData): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property_files`;
+    return this.postRequestWithMedia(url, propertyFileType);
+  }
 }

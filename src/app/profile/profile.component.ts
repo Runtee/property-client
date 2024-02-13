@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MainService } from '../main.service';
 import { catchError, throwError } from 'rxjs';
 import { propertyInterface, userInterface } from '../interfaces/interfaces';

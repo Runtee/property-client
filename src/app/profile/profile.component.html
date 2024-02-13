@@ -27,7 +27,8 @@
           type="text" />
         <div *ngIf="!editOn" class="flex gap-4">
           <button routerLink="/notification">
-            <img src="assets/images/notification.png" class="" alt="" />
+            <!-- <img src="assets/images/notification.png" class="" alt="" /> -->
+            <img src="assets/images/notification svg.svg" class="" alt="" />
           </button>
           <button routerLink="/profile/settings">
             <img src="assets/images/settings.svg" class="" alt="" />
@@ -57,7 +58,7 @@
     <div class="" *ngFor="let property of main_data">
       <div class="flex-col gap-2 w-full">
         <div class="flex w-full items-center">
-          <div class="flex gap-2 border rounded-xl p-1 w-full bg-white">
+          <div class="flex gap-2 border rounded-xl p-1 w-full bg-white cursor-pointer" routerLink="/update-property/{{ property.id }}">
             <div class="bg-white h-[90px] w-[80px]">
               <img src="assets/images/Rectangle 593.png" class="h-full rounded-xl" width="80" />
             </div>

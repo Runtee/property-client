@@ -46,6 +46,8 @@ import { KycComponent } from './kyc/kyc.component';
 import { SupportComponent } from './support/support.component';
 import { EmailTagsComponent } from './email-tag/email-tag.component';
 import { NotifyCardComponent } from './notify-card/notify-card.component';
+import { UpdatePostComponent } from './update-post/update-post.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import { NotifyCardComponent } from './notify-card/notify-card.component';
     SupportComponent,
     EmailTagsComponent,
     NotifyCardComponent,
+    UpdatePostComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,

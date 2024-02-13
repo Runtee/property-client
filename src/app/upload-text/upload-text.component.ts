@@ -1,14 +1,15 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-upload-text',
   templateUrl: './upload-text.component.html'
 })
-export class UploadTextComponent {
+export class UploadTextComponent  implements OnInit{
   @Output() next = new EventEmitter<void>();
-  constructor(private mainService: MainService, private router: Router) { }
+  constructor(private mainService: MainService, private router: Router, private location: Location) { }
   formDetails: any = {
     email: "",
     number: "",
@@ -21,7 +22,7 @@ export class UploadTextComponent {
     state: '',
     category: '',
     price: null,
-    cloningEnabled: "true",
+    cloningEnabled: false,
     cloningPercentage: null,
     cloningType:'public',
     specificCloners: [],
@@ -35,13 +36,20 @@ export class UploadTextComponent {
   showCloningDetails: boolean = false;
   showAccountDetails: boolean = false;
   showSelectPeople: boolean = false;
-
+  isCloningEnabledRequired = this.formDetails.cloningEnabled;
+  goBack(): void {
+    
+    this.location.back();
+  }
   selectPublic(){
     this.formDetails.cloningType = "public"
   }
 
   toggleCloning() {
+    
     this.showCloningDetails = !this.showCloningDetails;
+    this.formDetails.cloningEnabled = !this.formDetails.cloningEnabled;
+    this.isCloningEnabledRequired = this.formDetails.cloningEnabled;
   }
 
   toggleAccountDetails() {
@@ -64,11 +72,11 @@ export class UploadTextComponent {
 
   
   ngOnInit(): void {
-    false
     // Retrieve data from localStorage and populate formDetails
     // const storedFormDetails = localStorage.getItem('formDetails');
     // if (storedFormDetails) {
     //   this.formDetails = JSON.parse(storedFormDetails);
+    //   // this.showCloningDetails = this.formDetails.cloningEnabled      
     // }
   }
   onSubmit(e:Event) {    
