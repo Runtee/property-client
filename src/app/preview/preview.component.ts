@@ -50,6 +50,12 @@ export class PreviewComponent {
         }
       }
     }
+    if (!this.formDetails['cloningEnabled']) {
+      formData.delete("specificCloners")
+      formData.delete('cloningPercentage')
+      formData.delete('cloningType')
+      formData.delete('cloningEnabled')
+    }
 
     this.mainService.createProperty(formData)
       .pipe(

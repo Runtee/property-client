@@ -45,10 +45,10 @@ export class UploadTextComponent  implements OnInit{
     this.formDetails.cloningType = "public"
   }
 
-  toggleCloning() {
-    
+  toggleCloning(enabled: boolean) {
+    console.log(this.showCloningDetails, this.formDetails.cloningEnabled);
     this.showCloningDetails = !this.showCloningDetails;
-    this.formDetails.cloningEnabled = !this.formDetails.cloningEnabled;
+    this.formDetails.cloningEnabled = enabled;
     this.isCloningEnabledRequired = this.formDetails.cloningEnabled;
   }
 
@@ -56,7 +56,7 @@ export class UploadTextComponent  implements OnInit{
     this.showAccountDetails = !this.showAccountDetails;
   }
 
-  toggleSelectPeople(){
+  toggleSelectPeople(){    
     this.formDetails.cloningType = "private"
     this.showSelectPeople = !this.showSelectPeople;
   }
@@ -73,11 +73,13 @@ export class UploadTextComponent  implements OnInit{
   
   ngOnInit(): void {
     // Retrieve data from localStorage and populate formDetails
-    // const storedFormDetails = localStorage.getItem('formDetails');
-    // if (storedFormDetails) {
-    //   this.formDetails = JSON.parse(storedFormDetails);
-    //   // this.showCloningDetails = this.formDetails.cloningEnabled      
-    // }
+    const storedFormDetails = localStorage.getItem('formDetails');
+    if (storedFormDetails) {
+      this.formDetails = JSON.parse(storedFormDetails);
+      this.showCloningDetails = this.formDetails.cloningEnabled  
+      console.log(this.showCloningDetails);
+          
+    }
   }
   onSubmit(e:Event) {    
     e.preventDefault()
@@ -99,6 +101,9 @@ export class UploadTextComponent  implements OnInit{
     this.validateRequired('state', 'State is required.');
     this.validateState('state', 'Invalid state selected.');
     this.validateRequired('category', 'Category is required.');
+    if (this.formDetails.cloningEnabled) {
+      this.validateRequired('cloningPercentage', 'cloning percentage is required.');
+    }
     this.validateRequired('price', 'Price is required.');
     this.validatePositiveNumber('price', 'Price must be a positive number.');
 
