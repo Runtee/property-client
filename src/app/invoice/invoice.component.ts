@@ -18,7 +18,7 @@ export class InvoiceComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
-      this.userid = params.get('userid');
+      // this.userid = params.get('userid');
     });
   }
 

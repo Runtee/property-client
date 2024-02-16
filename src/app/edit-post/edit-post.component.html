@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="showEdit">
     <form class="pt-5" (ngSubmit)="onSubmit($event)" (keydown.enter)="$event.preventDefault()" novalidate>
         <header class="p-5 mb-5">
             <div class="relative">
@@ -19,28 +19,30 @@
                         <h2 class="font-bold">Cloning</h2>
 
                         <label class="relative inline-flex items-center mb-5 cursor-pointer">
-                            <input type="checkbox" class="sr-only peer" [(ngModel)]="formDetails.cloningEnabled"
-                                (change)="toggleCloning()">
+                            <input type="checkbox" class="sr-only peer" [ngModel]="formDetails.clonable"
+                                (ngModelChange)="toggleCloning($event)" name="cloningEnabled">
                             <div
                                 class="w-10 h-4 bg-gray-200 peer-focus:outline-none peer-focus:ring-3 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[-2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-blue-600">
                             </div>
                         </label>
-
                     </div>
+
                     <!-- if the switch toggled then this div should show -->
                     <div *ngIf="showCloningDetails">
-                        <p class="text-xs text-gray-500 mx-[4px] mb-5">
+                        <p class="text-xs text-gray-500 mx-[4px] mb-5" *ngIf="formDetails.clonable">
                             If cloning is enabled, anyone with your cloned link can earn a
-                            <input required class="h-5 w-6 inline-block border font-bold text-center border-main-dark"
-                                [(ngModel)]="formDetails.cloningPercentage"> % profit for successful referrals
+                            <input [required]="isCloningEnabledRequired"
+                                class="h-5 w-6 inline-block border font-bold text-center border-main-dark"
+                                [ngClass]="{'border-2 border-red-500': isFormSubmitted && formErrors['cloning_percentage']}"
+                                [(ngModel)]="formDetails.cloning_percentage" name="cloning_percentage"> % profit for
+                            successful referrals
                         </p>
                         <div class="mb-5 w-full">
                             <button type="button" class="flex gap-5 w-full" (click)="selectPublic()">
-                                <img src="assets/images/people.svg" class="" *ngIf="formDetails.cloningType=='public'">
-                                <img src="assets/images/people-2.svg" class=""
-                                    *ngIf="formDetails.cloningType!='public'">
+                                <img src="assets/images/people.svg" class="" *ngIf="formDetails.clone_type=='public'">
+                                <img src="assets/images/people-2.svg" class="" *ngIf="formDetails.clone_type!='public'">
                                 <div class=""
-                                    [ngClass]="formDetails.cloningType!=='public' ? 'text-gray-700' : 'text-main-dark'">
+                                    [ngClass]="formDetails.clone_type!=='public' ? 'text-gray-700' : 'text-main-dark'">
                                     <h2 class="font-bold text-sm text-left">Public Cloning</h2>
                                     <h2 class="text-xs">Anybody can clone this ad</h2>
                                 </div>
@@ -50,23 +52,23 @@
                                 class="flex justify-between w-full items-center mb-5">
                                 <div class="flex gap-5">
                                     <img src="assets/images/user-add.svg" class=""
-                                        *ngIf="formDetails.cloningType!=='private'">
+                                        *ngIf="formDetails.clone_type!=='private'">
                                     <img src="assets/images/user-add-2.svg" class=""
-                                        *ngIf="formDetails.cloningType=='private'">
+                                        *ngIf="formDetails.clone_type=='private'">
                                     <div class=""
-                                        [ngClass]="formDetails.cloningType!=='private' ? 'text-gray-700' : 'text-main-dark'">
+                                        [ngClass]="formDetails.clone_type!=='private' ? 'text-gray-700' : 'text-main-dark'">
                                         <h2 class="font-bold text-sm text-left">Specific people</h2>
                                         <h2 class="text-xs">Choose who you would like to let clone</h2>
                                     </div>
                                 </div>
                                 <button type="button">
-                                    <img src="assets/images/arrow-right.svg" class="ml-auto">
-                                    <!-- <img src="assets/images/arrow-up.svg" class="ml-auto" *ngIf="showSelectPeople">  -->
+                                    <img src="assets/images/arrow-right.svg" class="ml-auto" *ngIf="!showSelectPeople">
+                                    <img src="assets/images/arrow-up.svg" class="ml-auto" *ngIf="showSelectPeople">
                                 </button>
                             </button>
                             <div class="" *ngIf="showSelectPeople">
                                 <!-- <app-email-tags [(emails)]="myInitialEmails"></app-email-tags> -->
-                                <app-email-tags [emails]="formDetails.specificCloners"
+                                <app-email-tags [emails]="formDetails.specific_cloners"
                                     (emailsChange)="onEmailsChange($event)"></app-email-tags>
 
                                 <!-- <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl"
@@ -105,7 +107,7 @@
                             <h3 class="text-sm font-medium mb-2">
                                 Account Name
                             </h3>
-                            <input [(ngModel)]="formDetails.accountName" name="accountName" #accountName="ngModel"
+                            <input [(ngModel)]="formDetails.account_name" name="accountName" #accountName="ngModel"
                                 class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
                                 type="text" placeholder="Account Name" required>
                             <div *ngIf="isFormSubmitted && formErrors['accountName']" class="text-red-500 text-xs mt-1">
@@ -116,7 +118,8 @@
                             <h3 class="text-sm font-medium mb-2">
                                 Account Number
                             </h3>
-                            <input [(ngModel)]="formDetails.accountNumber" name="accountNumber" #accountNumber="ngModel"
+                            <input [(ngModel)]="formDetails.account_number" name="accountNumber"
+                                #accountNumber="ngModel"
                                 class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
                                 type="text" placeholder="Account Number" required>
                             <div *ngIf="isFormSubmitted && formErrors['accountNumber']"
@@ -128,7 +131,7 @@
                             <h3 class="text-sm font-medium mb-2">
                                 Bank Name
                             </h3>
-                            <input [(ngModel)]="formDetails.bankName" name="bankName" #bankName="ngModel"
+                            <input [(ngModel)]="formDetails.bank_name" name="bankName" #bankName="ngModel"
                                 class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm"
                                 type="text" placeholder="Bank name here" required>
                             <div *ngIf="isFormSubmitted && formErrors['bankName']" class="text-red-500 text-xs mt-1">
@@ -153,64 +156,132 @@
     </form>
 </div>
 
-<section>
-    <div class="p-5 pt-0 font-medium">
-        <div class="flex items-center mb-3">
-            <h2 class="text-sm font-bold mr-3">
-                Cloning Details
+<div *ngIf="showPreview">
+    <header class="p-5 mb-5">
+        <div class="relative">
+            <div class="absolute top-0 left-0">
+                <button class="" (click)="goBacktoform()">
+                    <img class="" src="assets/images/arrow-square-left.svg">
+                </button>
+            </div>
+            <h2 class="font-bold text-lg text-center">Preview</h2>
+        </div>
+    </header>
+
+    <div class="">
+
+
+        <div class="p-5 pt-0 font-medium" *ngIf="formDetails?.clonable">
+            <div class="flex items-center mb-3">
+                <h2 class="text-sm font-bold mr-3">
+                    Cloning Details
+                </h2>
+                <div class="text-sm text-gray-500 font-semibold">{{formDetails.cloning_percentage}}%</div>
+            </div>
+            <div class="text-xs font-semibold">
+                Type
+            </div>
+            <div>
+
+                <button type="button" class="flex gap-5 w-full" *ngIf="formDetails.clone_type=='public'">
+                    <img src="assets/images/people.svg" class="">
+                    <div class="" class="text-main-dark">
+                        <h2 class="font-bold text-sm text-left">Public Cloning</h2>
+                        <h2 class="text-xs">Anybody can clone this ad</h2>
+                    </div>
+                </button>
+                <button type="button" class="flex justify-between w-full items-center mb-5"
+                    *ngIf="formDetails.clone_type=='private'">
+                    <div class="flex gap-5">
+                        <img src="assets/images/user-add-2.svg" class="">
+                        <div class="" class="text-main-dark">
+                            <h2 class="font-bold text-sm text-left">Specific people</h2>
+                        </div>
+                    </div>
+                </button>
+
+                <div class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl flex gap-1"
+                    *ngIf="formDetails.clone_type=='private'">
+                    <div *ngFor="let email of formDetails.specific_cloners" class="bg-gray-200 px-1 py-[1px] h-fit m-1 rounded-full flex items-center">{{email}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="p-5 pt-0 font-medium">
+            <h2 class="text-sm font-bold mb-5">
+                Account Details
             </h2>
-            <div class="text-sm text-gray-500 font-semibold">10%</div>
-        </div>
-        <div class="text-xs font-semibold">
-            Type
-        </div>
-        <div>
-            <button type="button" class="flex gap-5 w-full items-center mb-5">
-                <img src="assets/images/user-add.svg" class="">
-                <div class="text-gray-700">
-                    <h2 class="font-bold text-sm text-left">Specific people</h2>
-                    <!-- <h2 class="text-xs">Choose who you woul like to let clone</h2> -->
+
+            <div>
+                <div class="mb-3 flex justify-between gap-2 w-full">
+                    <div class="">
+                        <h3 class="text-xs text-gray-500 mb-1">Account Name</h3>
+                        <h3 class="text-xs text-black">{{formDetails.account_name}}</h3>
+                    </div>
                 </div>
-                <!-- <img src="assets/images/arrow-right.svg" class="ml-auto"> -->
+                <div class="mb-3 flex justify-between gap-2 w-full">
+                    <div class="">
+                        <h3 class="text-xs text-gray-500 mb-1">Account Number</h3>
+                        <h3 class="text-xs text-black">{{formDetails.account_number}}</h3>
+                    </div>
+                </div>
+                <div class="mb-3 flex justify-between gap-2 w-full">
+                    <div class="">
+                        <h3 class="text-xs text-gray-500 mb-1">Bank Name</h3>
+                        <h3 class="text-xs text-black">{{formDetails.bank_name}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-5">
+
+            <button type="button" (click)="upload()"
+                class="h-fit w-full mt-5 text-sm text-center py-3 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+                Update
             </button>
-            <div class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl">
-                <!-- <textarea class="">
-                Please input the emails of the desired cloners
-            </textarea> -->
-            </div>
         </div>
     </div>
-    <div class="p-5 pt-0 font-medium">
-        <h2 class="text-sm font-bold mb-5">
-            Account Details 
-        </h2>
-    
-        <div>
-            <div class="mb-3 flex justify-between gap-2 w-full">
-                <div class="">
-                    <h3 class="text-xs text-gray-500 mb-1">Account Name</h3>
-                    <h3 class="text-xs text-black">Okafor Aaron</h3>
-                </div>
-            </div>
-            <div class="mb-3 flex justify-between gap-2 w-full">
-                <div class="">
-                    <h3 class="text-xs text-gray-500 mb-1">Account Number</h3>
-                    <h3 class="text-xs text-black">78384678438743</h3>
-                </div>
-            </div>
-            <div class="mb-3 flex justify-between gap-2 w-full">
-                <div class="">
-                    <h3 class="text-xs text-gray-500 mb-1">Bank Name</h3>
-                    <h3 class="text-xs text-black">Bank of America</h3>
+    <div *ngIf="isModal" class="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 z-40"></div>
+
+    <div class="absolute top-1/2 left-1/2 z-50" *ngIf="isModal && isLoading">
+        <div class="animate-spin inline-block size-7 border-[3px] border-current border-t-transparent text-main-dark rounded-full"
+            role="status" aria-label="loading">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <!--modal-->
+    <div id="popup-modal" tabindex="-1" *ngIf="isModal && rSuccess"
+        class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 py-10 w-full max-w-md max-h-[400px]">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
+                    <img src="assets/images/Group 418.svg" class="mb-3" alt="">
+                    <h2 class="font-bold text-xl text-main-dark mb-10">Update Succesful!!</h2>
+                    <button class="py-2 w-20 text-center font-bold bg-main-dark border-main-dark text-white rounded"
+                        routerLink="/update-property/{{propertyId}}/{{userid}}">Done</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="p-5">
-    
-        <button type="submit" (click)="upload()"
-            class="w-full mt-5 text-sm text-center py-3 border rounded-md font-bold bg-main-dark text-white border-main-dark">
-            Upload
-        </button>
+
+    <!--modal-->
+    <div id="popup-modal" tabindex="-1" *ngIf="isModal && rError"
+        class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 py-10 w-full max-w-md max-h-[400px]">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
+                    <img src="assets/images/Group 419.svg" class="mb-3" alt="">
+                    <h2 class="font-medium text-xl text-main-dark mb-10">Something went <span
+                            class="text-red-500 font-bold">wrong!!!</span> </h2>
+                    <button
+                        class="py-2 w-40 text-center font-bold bg-white border mb-5 border-main-dark text-main-dark rounded"
+                        (click)="upload()">Retry</button>
+                    <button
+                        class="py-2 w-40 text-center font-bold bg-main-dark border border-main-dark text-white rounded"
+                        (click)="closeModal()">Cancel</button>
+                </div>
+            </div>
         </div>
-</section>
+    </div>
+
+</div>

@@ -9,13 +9,14 @@
     </div>
 </header>
 
-<h2 class="px-5 text-sm font-bold mb-3" *ngIf="!isObjectEmpty(formDetails.image) || !isObjectEmpty(formDetails.video)">
+<h2 class="px-5 text-sm font-bold mb-3"
+    *ngIf="!isObjectEmpty(formDetails?.image) || !isObjectEmpty(formDetails?.video)">
     Media files
 </h2>
 
 <div class="pt-0 p-5 flex items-center justify-between gap-3 w-full mb-5"
-    *ngIf="!isObjectEmpty(formDetails.image) || !isObjectEmpty(formDetails.video)">
-    <img id="uploadedImage" src="" class="h-32 w-full basis-1/2" alt="" *ngIf="formDetails.image">
+    *ngIf="!isObjectEmpty(formDetails?.image) || !isObjectEmpty(formDetails?.video)">
+    <img id="uploadedImage" src="" class="h-32 w-full basis-1/2" alt="" *ngIf="formDetails?.image">
 
     <div class="w-full rounded-lg h-32 basis-1/2" style="position: relative;">
         <video class="h-full brightness-50 w-full" id="uploadedVideo"
@@ -100,19 +101,19 @@
         </div>
     </div>
 </div>
-<div class="p-5 pt-0 font-medium" *ngIf="formDetails?.cloningEnabled">
+<div class="p-5 pt-0 font-medium" *ngIf="formDetails?.clonable">
     <div class="flex items-center mb-3">
         <h2 class="text-sm font-bold mr-3">
             Cloning Details
         </h2>
-        <div class="text-sm text-gray-500 font-semibold">{{formDetails.cloningPercentage}}%</div>
+        <div class="text-sm text-gray-500 font-semibold">{{formDetails?.cloning_percentage}}%</div>
     </div>
     <div class="text-xs font-semibold">
         Type
     </div>
     <div>
 
-        <button type="button" class="flex gap-5 w-full" *ngIf="formDetails.cloningType=='public'">
+        <button type="button" class="flex gap-5 w-full" *ngIf="formDetails?.clone_type=='public'">
             <img src="assets/images/people.svg" class="">
             <div class="" class="text-main-dark">
                 <h2 class="font-bold text-sm text-left">Public Cloning</h2>
@@ -120,7 +121,7 @@
             </div>
         </button>
         <button type="button" class="flex justify-between w-full items-center mb-5"
-            *ngIf="formDetails.cloningType=='private'">
+            *ngIf="formDetails?.clone_type=='private'">
             <div class="flex gap-5">
                 <img src="assets/images/user-add-2.svg" class="">
                 <div class="" class="text-main-dark">
@@ -129,9 +130,10 @@
             </div>
         </button>
 
-        <div class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl"
-            *ngIf="formDetails.cloningType=='private'">
-
+        <div class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl flex gap-1"
+            *ngIf="formDetails?.clone_type=='private'">
+            <div *ngFor="let email of formDetails?.specific_cloners"
+                class="bg-gray-200 px-1 py-[1px] h-fit m-1 rounded-full flex items-center">{{email}}</div>
         </div>
     </div>
 </div>
@@ -144,19 +146,19 @@
         <div class="mb-3 flex justify-between gap-2 w-full">
             <div class="">
                 <h3 class="text-xs text-gray-500 mb-1">Account Name</h3>
-                <h3 class="text-xs text-black">{{formDetails.accountName}}</h3>
+                <h3 class="text-xs text-black">{{formDetails?.account_name}}</h3>
             </div>
         </div>
         <div class="mb-3 flex justify-between gap-2 w-full">
             <div class="">
                 <h3 class="text-xs text-gray-500 mb-1">Account Number</h3>
-                <h3 class="text-xs text-black">{{formDetails.accountNumber}}</h3>
+                <h3 class="text-xs text-black">{{formDetails?.account_number}}</h3>
             </div>
         </div>
         <div class="mb-3 flex justify-between gap-2 w-full">
             <div class="">
                 <h3 class="text-xs text-gray-500 mb-1">Bank Name</h3>
-                <h3 class="text-xs text-black">{{formDetails.bankName}}</h3>
+                <h3 class="text-xs text-black">{{formDetails?.bank_name}}</h3>
             </div>
         </div>
     </div>
@@ -185,8 +187,8 @@
             <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
                 <img src="assets/images/Group 418.svg" class="mb-3" alt="">
                 <h2 class="font-bold text-xl text-main-dark mb-10">Upload Succesful!!</h2>
-                <button
-                    class="py-2 w-20 text-center font-bold bg-main-dark border-main-dark text-white rounded" routerLink="/profile">Done</button>
+                <button class="py-2 w-20 text-center font-bold bg-main-dark border-main-dark text-white rounded"
+                    routerLink="/profile">Done</button>
             </div>
         </div>
     </div>
@@ -199,11 +201,13 @@
         <div class="relative bg-white rounded-lg shadow">
             <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
                 <img src="assets/images/Group 419.svg" class="mb-3" alt="">
-                <h2 class="font-medium text-xl text-main-dark mb-10">Something went <span class="text-red-500 font-bold">wrong!!!</span> </h2>
+                <h2 class="font-medium text-xl text-main-dark mb-10">Something went <span
+                        class="text-red-500 font-bold">wrong!!!</span> </h2>
                 <button
-                    class="py-2 w-40 text-center font-bold bg-white border mb-5 border-main-dark text-main-dark rounded" (click)="upload()">Retry</button>
-                    <button
-                    class="py-2 w-40 text-center font-bold bg-main-dark border border-main-dark text-white rounded" (click)="closeModal()">Cancel</button>
+                    class="py-2 w-40 text-center font-bold bg-white border mb-5 border-main-dark text-main-dark rounded"
+                    (click)="upload()">Retry</button>
+                <button class="py-2 w-40 text-center font-bold bg-main-dark border border-main-dark text-white rounded"
+                    (click)="closeModal()">Cancel</button>
             </div>
         </div>
     </div>

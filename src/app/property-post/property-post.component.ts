@@ -23,8 +23,9 @@ export class PropertyPostComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const itemId = params.get('id');
-      if (itemId) {
-        this.mainService.getPropertyById(itemId)
+      const userid = params.get('userid')
+      if (itemId && userid) {
+        this.mainService.getPropertyById(itemId, userid)
           .pipe(
           catchError((error) => {
             if (error instanceof HttpErrorResponse && error.status === 404) {

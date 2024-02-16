@@ -123,14 +123,17 @@ export class MainService {
     return this.postRequest(url, {});
   }
 
-  getPropertyById(id: string): Observable<propertyInterface> {
-    const url = `${CONFIG.apiUrl}/property/${id}`;
+  getPropertyById(id: string, user_id:string): Observable<propertyInterface> {
+    const url = `${CONFIG.apiUrl}/property/${id}/${user_id}`;
     return this.getRequest(url);
   }
 
   updateProperty(id: string, updatedProperty: propertyInterface): Observable<any> {
+    const headers = new HttpHeaders()
+    // .set('Content-Type', 'multipart/form-data')
+    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
     const url = `${CONFIG.apiUrl}/property/${id}`;
-    return this.http.patch(url,updatedProperty ,{ observe: 'body', responseType: 'json' })
+    return this.http.patch(url,updatedProperty ,{headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
 

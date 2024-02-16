@@ -20,6 +20,7 @@ export class UpdatePostComponent {
   alertTimeout: any;
   copyTab = false
   propertyId :string | null = ""
+  userid :string | null = ""
   isModal = false
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -31,9 +32,10 @@ export class UpdatePostComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.propertyId = params.get('id');
+      this.userid = params.get('userid');
       
-      if (this.propertyId) {
-        this.mainService.getPropertyById(this.propertyId)
+      if (this.propertyId && this.userid ) {
+        this.mainService.getPropertyById(this.propertyId,this.userid )
           .pipe(
             catchError((error) => {
               if (error instanceof HttpErrorResponse && error.status === 404) {

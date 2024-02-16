@@ -103,7 +103,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
-    path: 'purchase/complete/:id',
+    path: 'purchase/complete/:id/:userid',
     component: PurchaseConfirmationComponent,
     // canActivate: [AuthGuard],
   },
@@ -131,7 +131,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'purchase/invoice/:id/:userid',
+    path: 'purchase/invoice/:id',
     component: InvoiceComponent,
     // canActivate: [AuthGuard],
   },
@@ -143,13 +143,13 @@ const routes: Routes = [
   },
 
   {
-    path: 'update-property/:id',
+    path: 'update-property/:id/:userid',
     component: UpdatePostComponent,
     // canActivate: [AuthGuard],
   },
   
   {
-    path: 'edit-property/:id',
+    path: 'edit-property/:id/:userid',
     component: EditPostComponent,
     // canActivate: [AuthGuard],
   },

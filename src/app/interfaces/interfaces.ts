@@ -1,5 +1,5 @@
 export interface propertyInterface {
-    id: string;
+    id?: string;
     title: string;
     price?: number;
     category?: string;
@@ -8,21 +8,33 @@ export interface propertyInterface {
     location?: string;
     city?: string;
     state?: string;
-    image?: string;
-    video?: string;
+    image?: string | Blob;
+    video?: string | Blob;
     status?: string;
     c_of_o?: boolean;
     doxxed?: boolean;
     kyc?: boolean;
-    name?: boolean;
-    email?: boolean;
-    number?: boolean;
+    name?: string;
+    email?: string;
+    number?: string;
     clonable?: boolean;
     searched?: boolean;
     is_locked?: boolean;
     survey?: boolean;
     user_id?: string;
     lock_timestamp?: number;
+    clone_type?: string;
+    cloning_percentage?:number
+    allowed_emails?: string;
+    account_number?: string;
+    bank_name?: string;
+    account_name?: string;
+    cloner_account_number?: string;
+    cloner_bank_name?: string;
+    marked_done_by_buyer?: string;
+    marked_done_by_seller?: string;
+    specific_cloners?: string[]
+    [key: string]: any
 }
 
 export interface propertyCategoryInterface {

@@ -160,8 +160,8 @@
                         <h2 class="font-bold">Cloning</h2>
                     
                         <label class="relative inline-flex items-center mb-5 cursor-pointer">
-                            <input type="checkbox" class="sr-only peer" [ngModel]="formDetails.cloningEnabled"
-                                (ngModelChange)="toggleCloning($event)" name="cloningEnabled">
+                            <input type="checkbox" class="sr-only peer" [ngModel]="formDetails.clonable"
+                                (ngModelChange)="toggleCloning($event)" name="clonable">
                             <div
                                 class="w-10 h-4 bg-gray-200 peer-focus:outline-none peer-focus:ring-3 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[-2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-blue-600">
                             </div>
@@ -170,19 +170,19 @@
                     
                     <!-- if the switch toggled then this div should show -->
                     <div *ngIf="showCloningDetails">
-                        <p class="text-xs text-gray-500 mx-[4px] mb-5" *ngIf="formDetails.cloningEnabled">
+                        <p class="text-xs text-gray-500 mx-[4px] mb-5" *ngIf="formDetails.clonable">
                             If cloning is enabled, anyone with your cloned link can earn a
                             <input [required]="isCloningEnabledRequired"
                                    class="h-5 w-6 inline-block border font-bold text-center border-main-dark" 
-                                   [ngClass]="{'border-2 border-red-500': isFormSubmitted && formErrors['cloningPercentage']}"
-                                   [(ngModel)]="formDetails.cloningPercentage"
-                                   name="cloningPercentage"> % profit for successful referrals
+                                   [ngClass]="{'border-2 border-red-500': isFormSubmitted && formErrors['cloning_percentage']}"
+                                   [(ngModel)]="formDetails.cloning_percentage"
+                                   name="cloning_percentage"> % profit for successful referrals
                         </p>                                            
                     <div class="mb-5 w-full">
                         <button type="button" class="flex gap-5 w-full" (click)="selectPublic()">
-                            <img src="assets/images/people.svg" class="" *ngIf="formDetails.cloningType=='public'">
-                            <img src="assets/images/people-2.svg" class="" *ngIf="formDetails.cloningType!='public'">
-                            <div class="" [ngClass]="formDetails.cloningType!=='public' ? 'text-gray-700' : 'text-main-dark'">
+                            <img src="assets/images/people.svg" class="" *ngIf="formDetails.clone_type=='public'">
+                            <img src="assets/images/people-2.svg" class="" *ngIf="formDetails.clone_type!='public'">
+                            <div class="" [ngClass]="formDetails.clone_type!=='public' ? 'text-gray-700' : 'text-main-dark'">
                                 <h2 class="font-bold text-sm text-left">Public Cloning</h2>
                                 <h2 class="text-xs">Anybody can clone this ad</h2>
                             </div>
@@ -190,21 +190,21 @@
                         <div class="w-full h-[1px] border border-gray-300 my-3"></div>
                         <button (click)="toggleSelectPeople()" type="button" class="flex justify-between w-full items-center mb-5">
                             <div class="flex gap-5">
-                                <img src="assets/images/user-add.svg" class="" *ngIf="formDetails.cloningType!=='private'">
-                                <img src="assets/images/user-add-2.svg" class="" *ngIf="formDetails.cloningType=='private'">
-                                <div class="" [ngClass]="formDetails.cloningType!=='private' ? 'text-gray-700' : 'text-main-dark'">
+                                <img src="assets/images/user-add.svg" class="" *ngIf="formDetails.clone_type!=='private'">
+                                <img src="assets/images/user-add-2.svg" class="" *ngIf="formDetails.clone_type=='private'">
+                                <div class="" [ngClass]="formDetails.clone_type!=='private' ? 'text-gray-700' : 'text-main-dark'">
                                 <h2 class="font-bold text-sm text-left">Specific people</h2>
                                 <h2 class="text-xs">Choose who you would like to let clone</h2>
                             </div>
                         </div>
                             <button type="button">
-                            <img src="assets/images/arrow-right.svg" class="ml-auto" >
-                            <!-- <img src="assets/images/arrow-up.svg" class="ml-auto" *ngIf="showSelectPeople">  -->
+                                <img src="assets/images/arrow-right.svg" class="ml-auto" *ngIf="!showSelectPeople">
+                                <img src="assets/images/arrow-up.svg" class="ml-auto" *ngIf="showSelectPeople">
                         </button>                           
                         </button>
                         <div class="" *ngIf="showSelectPeople">
                             <!-- <app-email-tags [(emails)]="myInitialEmails"></app-email-tags> -->
-                            <app-email-tags [emails]="formDetails.specificCloners" (emailsChange)="onEmailsChange($event)"></app-email-tags>
+                            <app-email-tags [emails]="formDetails.specific_cloners" (emailsChange)="onEmailsChange($event)"></app-email-tags>
 
                             <!-- <textarea class="w-full px-3 py-2 h-32 border border-main-dark rounded-2xl"
                                 [(ngModel)]="formDetails.specificCloners"
@@ -239,7 +239,7 @@
                         <h3 class="text-sm font-medium mb-2">
                             Account Name
                         </h3>
-                        <input [(ngModel)]="formDetails.accountName" name="accountName" #accountName="ngModel"
+                        <input [(ngModel)]="formDetails.account_name" name="accountName" #accountName="ngModel"
                             class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
                             placeholder="Account Name" required>
                         <div *ngIf="isFormSubmitted && formErrors['accountName']" class="text-red-500 text-xs mt-1">
@@ -250,7 +250,7 @@
                         <h3 class="text-sm font-medium mb-2">
                             Account Number
                         </h3>
-                        <input [(ngModel)]="formDetails.accountNumber" name="accountNumber" #accountNumber="ngModel"
+                        <input [(ngModel)]="formDetails.account_number" name="accountNumber" #accountNumber="ngModel"
                             class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
                             placeholder="Account Number" required>
                         <div *ngIf="isFormSubmitted && formErrors['accountNumber']" class="text-red-500 text-xs mt-1">
@@ -261,7 +261,7 @@
                         <h3 class="text-sm font-medium mb-2">
                             Bank Name
                         </h3>
-                        <input [(ngModel)]="formDetails.bankName" name="bankName" #bankName="ngModel"
+                        <input [(ngModel)]="formDetails.bank_name" name="bankName" #bankName="ngModel"
                             class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
                             placeholder="Bank name here" required>
                         <div *ngIf="isFormSubmitted && formErrors['bankName']" class="text-red-500 text-xs mt-1">

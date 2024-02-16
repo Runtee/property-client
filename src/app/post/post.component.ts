@@ -99,7 +99,7 @@ export class PostComponent {
   }
 
   private updateProperty() {
-    if (this.selectedCard) {
+    if (this.selectedCard?.id) {
       this.mainService.unlockProperty(this.selectedCard.id).subscribe({
         next: (response) => {
           console.log('Lock Property Response:', response);       

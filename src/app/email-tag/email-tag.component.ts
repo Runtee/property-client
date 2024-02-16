@@ -25,13 +25,16 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   `,
 })
 export class EmailTagsComponent {
-  @Input() emails: string[] = [];
+  @Input() emails: string[] | undefined = [];
   @Output() emailsChange = new EventEmitter<string[]>();
 
   newEmail = '';
 
   addEmail() {
     this.newEmail =this.newEmail.trim();
+    console.log(this.emails);
+    
+    if (!this.emails) return
     
     if (this.newEmail && this.isValidEmail(this.newEmail)) {
       this.emails.push(this.newEmail);
@@ -50,11 +53,13 @@ export class EmailTagsComponent {
   }
 
   removeEmail(email: string) {
+    if (!this.emails) return
     this.emails = this.emails.filter((e) => e !== email);
     this.emitChanges();
   }
 
   private emitChanges() {
+    if (!this.emails) return
     this.emailsChange.emit([...this.emails]);
   }
 

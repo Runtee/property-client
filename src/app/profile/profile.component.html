@@ -58,7 +58,7 @@
     <div class="" *ngFor="let property of main_data">
       <div class="flex-col gap-2 w-full">
         <div class="flex w-full items-center">
-          <div class="flex gap-2 border rounded-xl p-1 w-full bg-white cursor-pointer" routerLink="/update-property/{{ property.id }}">
+          <div class="flex gap-2 border rounded-xl p-1 w-full bg-white cursor-pointer" routerLink="/update-property/{{ property.id }}/{{property.user_id}}">
             <div class="bg-white h-[90px] w-[80px]">
               <img src="assets/images/Rectangle 593.png" class="h-full rounded-xl" width="80" />
             </div>

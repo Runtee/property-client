@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="flex justify-between">
-                        <button (click)="editPost()"
+                        <button (click)="editPost()" routerLink="/edit-property/{{propertyId}}/{{selectedCard.user_id}}"
                             class="px-4 h-fit py-1 w-28 text-main-dark border outline-none border-main-dark rounded font-bold">
                             Edit
                         </button>

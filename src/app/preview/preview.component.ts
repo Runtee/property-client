@@ -10,7 +10,7 @@ import { catchError, finalize, tap, throwError } from 'rxjs';
   styles: ''
 })
 export class PreviewComponent {
-  formDetails: propertyInterface | any = null
+  formDetails: propertyInterface | null = null
   @Output() back = new EventEmitter<void>();
   isModal = false
   isLoading = false;
@@ -33,8 +33,10 @@ export class PreviewComponent {
 
 
   async upload() {
+    this.rError = false
     this.isLoading = true
     this.isModal = true
+    this.rSuccess = false
     const formData = new FormData();
     console.log(this.formDetails);
 
@@ -50,11 +52,11 @@ export class PreviewComponent {
         }
       }
     }
-    if (!this.formDetails['cloningEnabled']) {
-      formData.delete("specificCloners")
-      formData.delete('cloningPercentage')
-      formData.delete('cloningType')
-      formData.delete('cloningEnabled')
+    if (!this.formDetails?.clonable) {
+      formData.delete("specific_cloners")
+      formData.delete('cloning_percentage')
+      formData.delete('cloning_type')
+      formData.delete('clonable')
     }
 
     this.mainService.createProperty(formData)

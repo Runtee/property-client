@@ -1,16 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MainService } from '../main.service';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { propertyInterface } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-upload-text',
   templateUrl: './upload-text.component.html'
 })
-export class UploadTextComponent  implements OnInit{
+export class UploadTextComponent implements OnInit {
   @Output() next = new EventEmitter<void>();
-  constructor(private mainService: MainService, private router: Router, private location: Location) { }
-  formDetails: any = {
+  formDetails: propertyInterface = {
     email: "",
     number: "",
     name: "",
@@ -21,71 +20,75 @@ export class UploadTextComponent  implements OnInit{
     city: '',
     state: '',
     category: '',
-    price: null,
-    cloningEnabled: false,
-    cloningPercentage: null,
-    cloningType:'public',
-    specificCloners: [],
-    accountName: '',
-    accountNumber: '',
-    bankName: '',
+    price: undefined,
+    clonable: false,
+    cloning_percentage: undefined,
+    clone_type: 'public',
+    specific_cloners: [],
+    account_name: '',
+    account_number: '',
+    bank_name: '',
   };
   formErrors: any = {};
   validStates = ['Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara', 'FCT'];
-  isFormSubmitted: boolean = false
+  isFormSubmitted: boolean = false;
   showCloningDetails: boolean = false;
   showAccountDetails: boolean = false;
   showSelectPeople: boolean = false;
-  isCloningEnabledRequired = this.formDetails.cloningEnabled;
+
+  isCloningEnabledRequired: boolean = this.formDetails.clonable==undefined ? false : this.formDetails.clonable;
+
+  constructor(private mainService: MainService, private location: Location) { }
+
+  ngOnInit(): void {
+    // Retrieve data from localStorage and populate formDetails
+    const storedFormDetails = localStorage.getItem('formDetails');
+    if (storedFormDetails) {
+      this.formDetails = JSON.parse(storedFormDetails);
+      if (this.formDetails.clonable) {
+        this.showCloningDetails = this.formDetails.clonable;
+      }
+      if (!this.formDetails.specific_cloners) {
+        this.formDetails.specific_cloners = [];
+      }
+    }
+  }
+
   goBack(): void {
-    
     this.location.back();
   }
-  selectPublic(){
-    this.formDetails.cloningType = "public"
+
+  selectPublic() {
+    this.formDetails.clone_type = "public";
   }
 
   toggleCloning(enabled: boolean) {
-    console.log(this.showCloningDetails, this.formDetails.cloningEnabled);
+    console.log(this.showCloningDetails, this.formDetails.clonable);
     this.showCloningDetails = !this.showCloningDetails;
-    this.formDetails.cloningEnabled = enabled;
-    this.isCloningEnabledRequired = this.formDetails.cloningEnabled;
+    this.formDetails.clonable = enabled;
+    this.isCloningEnabledRequired = this.formDetails.clonable;
   }
 
   toggleAccountDetails() {
     this.showAccountDetails = !this.showAccountDetails;
   }
 
-  toggleSelectPeople(){    
-    this.formDetails.cloningType = "private"
+  toggleSelectPeople() {
+    this.formDetails.clone_type = "private";
     this.showSelectPeople = !this.showSelectPeople;
   }
 
   onEmailsChange(updatedEmails: string[]) {
-    
-    
-    this.formDetails.specificCloners = [...updatedEmails];
+    this.formDetails.specific_cloners = [...updatedEmails];
     // Ensure that newEmail is cleared to avoid duplicate entry issues
     // this.formDetails.specificCloners = [];
   }
-  
 
-  
-  ngOnInit(): void {
-    // Retrieve data from localStorage and populate formDetails
-    const storedFormDetails = localStorage.getItem('formDetails');
-    if (storedFormDetails) {
-      this.formDetails = JSON.parse(storedFormDetails);
-      this.showCloningDetails = this.formDetails.cloningEnabled  
-      console.log(this.showCloningDetails);
-          
-    }
-  }
-  onSubmit(e:Event) {    
-    e.preventDefault()
+  onSubmit(e: Event) {
+    e.preventDefault();
     // Reset form errors
     this.formErrors = {};
-    this.isFormSubmitted = true
+    this.isFormSubmitted = true;
     // Validate personal details
     this.validateRequired('email', 'Email is required.');
     this.validateRequired('number', 'Number is required.');
@@ -101,8 +104,8 @@ export class UploadTextComponent  implements OnInit{
     this.validateRequired('state', 'State is required.');
     this.validateState('state', 'Invalid state selected.');
     this.validateRequired('category', 'Category is required.');
-    if (this.formDetails.cloningEnabled) {
-      this.validateRequired('cloningPercentage', 'cloning percentage is required.');
+    if (this.formDetails.clonable) {
+      this.validateRequired('cloning_percentage', 'Cloning percentage is required.');
     }
     this.validateRequired('price', 'Price is required.');
     this.validatePositiveNumber('price', 'Price must be a positive number.');
@@ -120,14 +123,12 @@ export class UploadTextComponent  implements OnInit{
   }
 
   validateRequired(field: string, errorMessage: string) {
-    // Use type assertion to tell TypeScript that `this` has an index signature
     if (!this.formDetails[field]) {
       this.formErrors[field] = errorMessage;
     }
   }
 
   validateMaxLength(field: string, maxLength: number, errorMessage: string) {
-    // Use type assertion to tell TypeScript that `this` has an index signature
     if (this.formDetails[field] && this.formDetails[field].length > maxLength) {
       this.formErrors[field] = errorMessage;
     }
@@ -141,10 +142,8 @@ export class UploadTextComponent  implements OnInit{
 
   validatePositiveNumber(field: string, errorMessage: string) {
     const number = parseFloat(this.formDetails[field]);
-    // Use type assertion to tell TypeScript that `this` has an index signature
     if (isNaN(number) || number <= 0) {
       this.formErrors[field] = errorMessage;
     }
   }
-
 }
