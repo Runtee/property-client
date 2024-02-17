@@ -31,6 +31,7 @@ export interface propertyInterface {
     account_name?: string;
     cloner_account_number?: string;
     cloner_bank_name?: string;
+    cloner_account_name?: string;
     marked_done_by_buyer?: string;
     marked_done_by_seller?: string;
     specific_cloners?: string[]
@@ -68,3 +69,5 @@ export interface userInterface {
     sub: string
     updated_at: Date
 }
+/*
+*/

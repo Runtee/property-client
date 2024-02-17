@@ -27,7 +27,7 @@ export class PurchaseConfirmationComponent {
     if (this.selectedFile && this.isAgreed) {
       console.log(this.isAgreed);
       
-      this.mainService.submitFile("",this.selectedFile)
+      // this.mainService.submitFile("",this.selectedFile)
       // .subscribe({
       //   next: response => {
       //     // Handle successful file submission

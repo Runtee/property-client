@@ -128,6 +128,11 @@ export class MainService {
     return this.getRequest(url);
   }
 
+  getPropertyByIdOnly(id: string): Observable<propertyInterface> {
+    const url = `${CONFIG.apiUrl}/property/${id}`;
+    return this.getRequest(url);
+  }
+
   updateProperty(id: string, updatedProperty: propertyInterface): Observable<any> {
     const headers = new HttpHeaders()
     // .set('Content-Type', 'multipart/form-data')
@@ -156,9 +161,9 @@ export class MainService {
     return this.postRequest(url, {});
   }
 
-  addClonerAccountDetails(id: string): Observable<propertyInterface> {
+  addClonerAccountDetails(id: string,details:any): Observable<propertyInterface> {
     const url = `${CONFIG.apiUrl}/property/${id}/add-clone-account/`;
-    return this.postRequest(url, {});
+    return this.postRequest(url, details);
   }
 
   getClonedProperties(): Observable<propertyInterface[]> {

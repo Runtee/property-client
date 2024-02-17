@@ -33,6 +33,9 @@ export class SupportComponent {
           console.log('Support message submitted successfully:', response);
           this.supportForm.reset();
           this.showCard = true
+          setTimeout(() => {
+            this.showCard = false;
+          }, 5000);
         },
         error: error => {
           // Handle error submission
@@ -42,6 +45,9 @@ export class SupportComponent {
           this.supportForm.reset();
           this.showCard = true
           console.error('Error submitting support message:', error);
+          setTimeout(() => {
+            this.showCard = false;
+          }, 5000);
         }
       });
     } else {

@@ -27,6 +27,7 @@ import { KycComponent } from './kyc/kyc.component';
 import { SupportComponent } from './support/support.component';
 import { UpdatePostComponent } from './update-post/update-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -153,8 +154,12 @@ const routes: Routes = [
     component: EditPostComponent,
     // canActivate: [AuthGuard],
   },
-
-
+  {
+    path: 'claim-reward/:id/:userid',
+    component: ClaimRewardComponent,
+    // canActivate: [AuthGuard],
+  },
+  
 
 ];
 

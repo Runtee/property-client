@@ -1,41 +1,41 @@
-<div class="">
+<div class="" *ngIf="!clonerAccountExists">
     <app-topbar item="Account Details"></app-topbar>
 
     <!-- form -->
-    <div class="px-5">
+    <div class="px-5" *ngIf="showForm">
         <form [formGroup]="claimForm" (ngSubmit)="onSubmit()">
             <p class="text-xs font-medium text-gray-500 mb-5">Please input your payment account details </p>
             <div class="mb-4">
                 <h3 class="text-sm font-medium mb-2">
                     Account Name
                 </h3>
-                <input formControlName="accountName"
+                <input formControlName="account_name"
                     class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
                     placeholder="Account Name">
                 <!-- Display validation error message if the field is touched and invalid -->
-                <div *ngIf="claimForm?.get('accountName')?.touched && claimForm?.get('accountName')?.hasError('required')"
+                <div *ngIf="(claimForm?.get('account_name')?.touched) && claimForm?.get('account_name')?.hasError('required')"
                     class="text-red-500 text-xs mt-1">Account Name is required</div>
             </div>
             <div class="mb-4">
                 <h3 class="text-sm font-medium mb-2">
                     Account Number
                 </h3>
-                <input formControlName="accountNumber"
+                <input formControlName="account_number"
                     class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
                     placeholder="Account Number">
                 <!-- Display validation error message if the field is touched and invalid -->
-                <div *ngIf="claimForm.get('accountNumber')?.touched && claimForm.get('accountNumber')?.hasError('required')"
+                <div *ngIf="claimForm.get('account_number')?.touched && claimForm.get('account_number')?.hasError('required')"
                     class="text-red-500 text-xs mt-1">Account Number is required</div>
             </div>
             <div class="mb-4">
                 <h3 class="text-sm font-medium mb-2">
                     Bank Name
                 </h3>
-                <input formControlName="bankName"
+                <input formControlName="bank_name"
                     class="border border-main-dark rounded-md outline-none w-full py-3 px-4 text-sm" type="text"
                     placeholder="Bank name here">
                 <!-- Display validation error message if the field is touched and invalid -->
-                <div *ngIf="claimForm.get('bankName')?.touched && claimForm.get('bankName')?.hasError('required')"
+                <div *ngIf="claimForm.get('bank_name')?.touched && claimForm.get('bank_name')?.hasError('required')"
                     class="text-red-500 text-xs mt-1">Bank Name is required</div>
             </div>
             <button type="submit"
@@ -47,27 +47,27 @@
 
 
     <!-- preview -->
-    <div class="px-4">
+    <div class="px-5" *ngIf="showPreview">
         <div class="mb-3 flex justify-between gap-2 w-full">
             <div class="">
                 <h3 class="text-xs text-gray-500 mb-1">Account Name</h3>
-                <h3 class="text-xs text-black">Okafor Aaron</h3>
+                <h3 class="text-xs text-black">{{this.claimForm.value.account_name}}</h3>
             </div>
         </div>
         <div class="mb-3 flex justify-between gap-2 w-full">
             <div class="">
                 <h3 class="text-xs text-gray-500 mb-1">Account Number</h3>
-                <h3 class="text-xs text-black">78384678438743</h3>
+                <h3 class="text-xs text-black">{{this.claimForm.value.account_number}}</h3>
             </div>
         </div>
         <div class="mb-3 flex justify-between gap-2 w-full">
             <div class="">
                 <h3 class="text-xs text-gray-500 mb-1">Bank Name</h3>
-                <h3 class="text-xs text-black">Bank of America</h3>
+                <h3 class="text-xs text-black">{{this.claimForm.value.bank_name}}</h3>
             </div>
         </div>
 
-        <button type="button"
+        <button type="button" (click)="onConfirm()"
             class="mt-20 w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
             Confirm
         </button>
@@ -75,7 +75,9 @@
 
 </div>
 <!-- success -->
-<div class="">
+<div class="" *ngIf="clonerAccountExists">
     <app-all-done title="Done" body="Your money will be sent soon." image="Group 431.svg" page_link="/my-property"
         page_to="My Properties"></app-all-done>
 </div>
+<app-notify-card *ngIf="showMessage" [title]="messageTitle" [description]='description'></app-notify-card>
+<app-modal [loading]="loading"></app-modal>
