@@ -1,10 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { propertyInterface } from '../interfaces/interfaces';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MainService } from '../main.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, finalize, of, throwError } from 'rxjs';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, finalize, of, throwError } from 'rxjs';
+import { propertyInterface } from '../interfaces/interfaces';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-update-post',
@@ -15,27 +15,38 @@ export class UpdatePostComponent {
   filteredData: propertyInterface[] = [];
   selectedCard: propertyInterface | null = null;
   isLoading = true;
-  showCopiedAlert = false
+  showCopiedAlert = false;
   is404 = false;
   alertTimeout: any;
-  copyTab = false
-  propertyId :string | null = ""
-  userid :string | null = ""
-  isModal = false
+  copyTab = false;
+  propertyId: string | null = '';
+  userid: string | null = '';
+  isModalLoading = false;
+  showMessage: boolean = false;
+  messageTitle: string = '';
+  description: string = '';
+  isModal = false;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('searchfileInput') searchfileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('CofOfileInput') CofOfileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('contentContainer') contentContainer!: ElementRef;
 
-  constructor(private clipboardService: Clipboard, private router: Router, private route: ActivatedRoute, private mainService: MainService) { }
+  constructor(
+    private clipboardService: Clipboard,
+    private router: Router,
+    private route: ActivatedRoute,
+    private mainService: MainService
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.propertyId = params.get('id');
       this.userid = params.get('userid');
-      
-      if (this.propertyId && this.userid ) {
-        this.mainService.getPropertyById(this.propertyId,this.userid )
+
+      if (this.propertyId && this.userid) {
+        this.mainService
+          .getPropertyById(this.propertyId, this.userid)
           .pipe(
             catchError((error) => {
               if (error instanceof HttpErrorResponse && error.status === 404) {
@@ -55,7 +66,8 @@ export class UpdatePostComponent {
       }
     });
 
-    this.mainService.getTrendings()
+    this.mainService
+      .getTrendings()
       .pipe(
         catchError((error) => {
           console.error('Error fetching trending data:', error);
@@ -107,24 +119,106 @@ export class UpdatePostComponent {
     clearTimeout(this.alertTimeout);
   }
 
-  onFileSelected(event: any, category:any) {
-    if (!this.propertyId) return
+  onFileSelected(event: any, category: any) {
+    if (!this.propertyId) return;
+    this.isModalLoading = true;
+    this.showMessage = false;
+    this.messageTitle = '';
+    this.description = '';
     const selectedFile = event.target.files[0];
     const formData = new FormData();
-    formData.append("media_file", selectedFile);
-    formData.append("property_id", this.propertyId)
-    formData.append("property_kyc_type", category)
+    formData.append('media_file', selectedFile);
+    formData.append('property_id', this.propertyId);
+    formData.append('property_kyc_type', category);
 
-    this.mainService.uploadPropertyFile(formData)
-
+    this.mainService
+      .uploadPropertyFile(formData)
+      .pipe(
+        catchError((error) => {
+          if (this.contentContainer) {
+            this.contentContainer.nativeElement.scrollIntoView({
+              behavior: 'smooth',
+            });
+          }
+          this.showMessage = true;
+          this.isModalLoading = false;
+          this.messageTitle = 'Error';
+          this.description = 'Something went wrong';
+          console.error('Unknown error:', error.string);
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 5000);
+          return throwError(() => new Error('Something went wrong'));
+        })
+      )
+      .subscribe((event: HttpEvent<any>) => {
+        if (this.contentContainer) {
+          this.contentContainer.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+          });
+        }
+        this.isModalLoading = false;
+        this.showMessage = true;
+        this.messageTitle = 'Success';
+        this.description = 'Uploaded Successfuly';
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 5000);
+      });
   }
-closeModal(){
-  this.isModal = false
+  closeModal() {}
+  deletePost() {
+    this.closeModel();
+    this.isModalLoading = true;
+    this.showMessage = false;
+    this.messageTitle = '';
+    this.description = '';
+    if (!this.propertyId) return;
+    this.mainService
+      .deleteProperty(this.propertyId)
+      .pipe(
+        catchError((error) => {
 
-}
-  editPost(){}
-  deletePost(){}
-  openModal(){
-    this.isModal = true
+          console.log(error, "ttttttttttttttttttt");
+          
+          if (this.contentContainer) {
+            this.contentContainer.nativeElement.scrollIntoView({
+              behavior: 'smooth',
+            });
+          }
+          this.showMessage = true;
+          this.isModalLoading = false;
+          this.messageTitle = 'Error';
+          this.description = 'Something went wrong';
+          console.error('Unknown error:', error.string);
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 5000);
+          return throwError(() => new Error('Something went wrong'));
+        })
+      )
+      .subscribe((event: HttpEvent<any>) => {
+        console.log(event, "ppppppp");
+        
+        if (this.contentContainer) {
+          this.contentContainer.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+          });
+        }
+        this.isModalLoading = false;
+        this.showMessage = true;
+        this.messageTitle = 'Success';
+        this.description = 'Deleted Successfuly';
+        setTimeout(() => {
+          this.showMessage = false;
+          this.router.navigate(['/profile'])
+        }, 2000);
+      });
+  }
+  openModal() {
+    this.isModal = true;
+  }
+  closeModel() {
+    this.isModal = false;
   }
 }

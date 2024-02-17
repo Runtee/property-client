@@ -138,8 +138,11 @@ export class MainService {
   }
 
   deleteProperty(id: string): Observable<any> {
+    const headers = new HttpHeaders()
+    // .set('Content-Type', 'multipart/form-data')
+    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
     const url = `${CONFIG.apiUrl}/property/${id}`;
-    return this.http.delete(url, { observe: 'body', responseType: 'json' })
+    return this.http.delete(url, {headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
 

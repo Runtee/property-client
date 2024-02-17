@@ -48,6 +48,7 @@ import { EmailTagsComponent } from './email-tag/email-tag.component';
 import { NotifyCardComponent } from './notify-card/notify-card.component';
 import { UpdatePostComponent } from './update-post/update-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     NotifyCardComponent,
     UpdatePostComponent,
     EditPostComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

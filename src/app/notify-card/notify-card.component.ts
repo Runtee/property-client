@@ -6,17 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styles: ``
 })
 
-export class NotifyCardComponent implements OnInit {
-  showCard: boolean = true;
+export class NotifyCardComponent {
   @Input() title: string = ""
   @Input() description: string = ""
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.hideCard();
-    }, 4000);
-  }
-
-  hideCard() {
-    this.showCard = false;
-  }
+  
 }

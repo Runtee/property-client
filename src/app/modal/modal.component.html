@@ -1,0 +1,45 @@
+<div *ngIf="loading || success || error" class="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 z-[400]"></div>
+
+<div class="absolute top-1/2 left-1/2 z-[500]" *ngIf="loading">
+    <div class="animate-spin inline-block size-7 border-[10px] border-current border-t-transparent text-white rounded-full"
+        role="status" aria-label="loading">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<!--modal-->
+<div id="popup-modal" tabindex="-1" *ngIf="success"
+    class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[500] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 py-10 w-full max-w-md max-h-[400px]">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
+                <img src="assets/images/Group 418.svg" class="mb-3" alt="">
+                <h2 class="font-bold text-xl text-main-dark mb-10">Upload Succesful!!</h2>
+                <button class="py-2 w-20 text-center font-bold bg-main-dark border-main-dark text-white rounded"
+                    routerLink="{{doneLink}}">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modal-->
+<div id="popup-modal" tabindex="-1" *ngIf="error"
+    class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[500] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 py-10 w-full max-w-md max-h-[400px]">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="p-4 md:p-5 text-center flex flex-col items-center justify-center">
+                <img src="assets/images/Group 419.svg" class="mb-3" alt="">
+                <h2 class="font-medium text-xl text-main-dark">Something went <span
+                        class="text-red-500 font-bold">wrong!!!</span> </h2>
+                        <p class="text-sm text-red-500">{{ message }}</p>
+                        <div class=" mb-10"></div>
+
+                <button
+                    class="py-2 w-40 text-center font-bold bg-white border mb-5 border-main-dark text-main-dark rounded"
+                    (click)="retry()">Retry</button>
+                <button class="py-2 w-40 text-center font-bold bg-main-dark border border-main-dark text-white rounded"
+                    (click)="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
