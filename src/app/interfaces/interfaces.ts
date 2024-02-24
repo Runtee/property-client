@@ -32,8 +32,8 @@ export interface propertyInterface {
     cloner_account_number?: string;
     cloner_bank_name?: string;
     cloner_account_name?: string;
-    marked_done_by_buyer?: string;
-    marked_done_by_seller?: string;
+    marked_done_by_buyer?: boolean;
+    marked_done_by_seller?: boolean;
     specific_cloners?: string[]
     [key: string]: any
 }

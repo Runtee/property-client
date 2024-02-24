@@ -1,9 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MainService } from '../main.service';
+import { Component } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { propertyInterface, userInterface } from '../interfaces/interfaces';
-// import { AuthService } from '@auth0/auth0-spa-js';
-import { AuthService,User } from '@auth0/auth0-angular';
+import { propertyInterface } from '../interfaces/interfaces';
+import { MainService } from '../main.service';
+import { HttpClient } from '@angular/common/http';
+import { AuthService, User } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +15,13 @@ export class ProfileComponent {
   isLoading = true;
   user: User | null = null
   main_data: propertyInterface[] = []
+  token : string = ""
 
   constructor(
     private mainService: MainService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private http: HttpClient,
+    ) { }
   ngOnInit(): void { 
     this.authService.isAuthenticated$.subscribe(isAuthenticated => {
       if (isAuthenticated) {
@@ -31,8 +34,7 @@ export class ProfileComponent {
         });
       }
     });
-    
-
+    this.authService.getAccessTokenSilently().subscribe(data=>this.token=data)
     // Fetch trending data when the component is initialized
     this.mainService.getAuthUserProperty()
       .pipe(
@@ -44,20 +46,8 @@ export class ProfileComponent {
         this.main_data = data;
         this.isLoading = false;
       });
+    
   }
-  // updateProfile(updatedData: userInterface) {
-  //   // Call your backend API to update user profile data
-  //   // (e.g., using HttpClient or a dedicated service)
-  //   this.authService.user$({ ...updatedData }).subscribe(
-  //     () => {
-  //       // Update local user object and display success message
-  //       this.user = { ...this.user, ...updatedData };
-  //     },
-  //     error => {
-  //       // Handle update errors gracefully
-  //     }
-  //   );
-  // }
 
   edit() {
     this.editOn = !this.editOn

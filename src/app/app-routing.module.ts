@@ -99,7 +99,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
-    path: 'purchase/invoice-awaiting/:id/:userid',
+    path: 'purchase/invoice-awaiting',
     component: InvoiceAwaitingComponent,
     // canActivate: [AuthGuard],
   },

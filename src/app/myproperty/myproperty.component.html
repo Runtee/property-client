@@ -40,6 +40,7 @@
                     <div *ngIf="property.status == 'paid' "
                         class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
                         <div routerLink="/purchase/complete/{{ property.id }}/{{property.user_id}}"
+                        [queryParams]="{ type: 'seller' }"
                             class="mt-auto w-fit h-fit text-xs text-right  cursor-pointer font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
                             Awaiting Confirmation
                         </div>
@@ -114,7 +115,8 @@
                     </div>
                     <div *ngIf="property.status == 'paid' "
                         class="absolute top-0 h-[88px] flex justify-end w-full p-1 bg-slate-100 bg-opacity-50">
-                        <div routerLink="/purchase/complete/{{ property.id }}/{{property.user_id}}"
+                        <div routerLink="/purchase/complete/{{ property.id }}/{{property.user_id}}?type=buyer"
+                        [queryParams]="{ type: 'buyer' }"
                             class="mt-auto w-fit h-fit text-xs text-right font-semibold text-main-dark px-2 py-1 border border-main-dark rounded-lg">
                             Awaiting Confirmation
                         </div>

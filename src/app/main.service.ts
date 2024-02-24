@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { propertyInterface, notificationInterface, supportInterface } from './interfaces/interfaces';
 import { CONFIG } from '../environments/environment';
+import { data } from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class MainService {
   private postRequest(url: string, data: any): Observable<any> {
     const headers = new HttpHeaders()
       // .set('content-type', 'multipart/form-data')
-      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+      // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
     // .set('Access-Control-Allow-Origin', '*');
     return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -47,7 +48,7 @@ export class MainService {
   private postRequestWithMedia(url: string, data: any): Observable<any> {
     const headers = new HttpHeaders()
     // .set('Content-Type', 'multipart/form-data')
-    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+    // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
     // .set('Access-Control-Allow-Origin', '*');
     return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -55,7 +56,7 @@ export class MainService {
 
   private getRequest(url: string, params?: HttpParams): Observable<any> {
     const headers = new HttpHeaders()
-      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+      // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
     // .set('Access-Control-Allow-Origin', '*');
     return this.http.get<any>(url, { headers, params, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -83,7 +84,7 @@ export class MainService {
   }
 
   createProperty(property: FormData): Observable<any> {
-    const url = `${CONFIG.apiUrl}/property`;
+    const url = `${CONFIG.apiUrl}/property-create`;
     return this.postRequestWithMedia(url, property);
   }
 
@@ -136,7 +137,7 @@ export class MainService {
   updateProperty(id: string, updatedProperty: propertyInterface): Observable<any> {
     const headers = new HttpHeaders()
     // .set('Content-Type', 'multipart/form-data')
-    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
+    // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
     const url = `${CONFIG.apiUrl}/property/${id}`;
     return this.http.patch(url,updatedProperty ,{headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -145,7 +146,7 @@ export class MainService {
   deleteProperty(id: string): Observable<any> {
     const headers = new HttpHeaders()
     // .set('Content-Type', 'multipart/form-data')
-    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
+    // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
     const url = `${CONFIG.apiUrl}/property/${id}`;
     return this.http.delete(url, {headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -187,11 +188,21 @@ export class MainService {
   }
 
   submitFile(id: string, property: FormData): Observable<any> {
-    const url = `${CONFIG.apiUrl}/property/${id}`;
+    const url = `${CONFIG.apiUrl}/property/mark-sold-or-bought/${id}`;
     return this.postRequestWithMedia(url, property);
   }
   uploadPropertyFile(propertyFileType: FormData): Observable<any> {
-    const url = `${CONFIG.apiUrl}/property_files`;
+    const url = `${CONFIG.apiUrl}/create-property-file/`;
     return this.postRequestWithMedia(url, propertyFileType);
   }
+  makePayment(body:any):Observable<any>{
+    const url = `${CONFIG.apiUrl}/payment/`;
+    return this.postRequest(url,body)
+  }
+  verifyPayment(reference:string):Observable<any>{
+    const url = `${CONFIG.apiUrl}/payment/verify/${reference}/`
+    return this.getRequest(url)
+  }
+
+
 }

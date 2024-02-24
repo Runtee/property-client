@@ -50,6 +50,10 @@ import { UpdatePostComponent } from './update-post/update-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { ModalComponent } from './modal/modal.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import {environment as env} from '../environments/environment'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,14 +108,26 @@ import { ModalComponent } from './modal/modal.component';
     ReactiveFormsModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
-      domain: 'dev-hzf3gl655z7ry503.uk.auth0.com',
-      clientId: 'ENL5BwciHFv5T54x9dykwTjbWCY57TPh',
+      ...env.auth,
+      httpInterceptor: {
+        allowedList: [{
+          uri: 'http://127.0.0.1:8000/*',
+        }], // Allow all requests under http://localhost:8000     
+       },
       authorizationParams: {
-        redirect_uri: window.location.origin
-      },
+        redirect_uri: window.location.origin,
+        audience:" http://127.0.0.1:8000/",
+
+      }
     }),
   ],
-  providers: [],
+  providers:[
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
