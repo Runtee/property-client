@@ -2,15 +2,18 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { propertyInterface, notificationInterface, supportInterface } from './interfaces/interfaces';
+import {
+  propertyInterface,
+  notificationInterface,
+  supportInterface,
+} from './interfaces/interfaces';
 import { CONFIG } from '../environments/environment';
 import { data } from './data';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MainService {
-
   private formData: any = null;
 
   setFormData(data: any): void {
@@ -21,14 +24,15 @@ export class MainService {
     return this.formData;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private postRequest(url: string, data: any): Observable<any> {
-    const headers = new HttpHeaders()
-      // .set('content-type', 'multipart/form-data')
-      // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+    const headers = new HttpHeaders();
+    // .set('content-type', 'multipart/form-data')
+    // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
     // .set('Access-Control-Allow-Origin', '*');
-    return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
+    return this.http
+      .post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
   // private postRequestWithMedia(url: string, data: any, file?: File): Observable<any> {
@@ -39,26 +43,27 @@ export class MainService {
   //   if (file) {
   //     formData.append('file', file, file.name); // Use a meaningful key for the file
   //   }
-  //   const headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });  
+  //   const headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data' });
   //   return this.http.post<any>(url, formData, { headers })
   //     .pipe(catchError(this.handleError));
   // }
 
-
   private postRequestWithMedia(url: string, data: any): Observable<any> {
-    const headers = new HttpHeaders()
+    const headers = new HttpHeaders();
     // .set('Content-Type', 'multipart/form-data')
     // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
     // .set('Access-Control-Allow-Origin', '*');
-    return this.http.post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
+    return this.http
+      .post<any>(url, data, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
 
   private getRequest(url: string, params?: HttpParams): Observable<any> {
-    const headers = new HttpHeaders()
-      // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
+    const headers = new HttpHeaders();
+    // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds') // Replace with your actual authentication token
     // .set('Access-Control-Allow-Origin', '*');
-    return this.http.get<any>(url, { headers, params, observe: 'body', responseType: 'json' })
+    return this.http
+      .get<any>(url, { headers, params, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
 
@@ -124,7 +129,7 @@ export class MainService {
     return this.postRequest(url, {});
   }
 
-  getPropertyById(id: string, user_id:string): Observable<propertyInterface> {
+  getPropertyById(id: string, user_id: string): Observable<propertyInterface> {
     const url = `${CONFIG.apiUrl}/property/${id}/${user_id}`;
     return this.getRequest(url);
   }
@@ -134,21 +139,30 @@ export class MainService {
     return this.getRequest(url);
   }
 
-  updateProperty(id: string, updatedProperty: propertyInterface): Observable<any> {
-    const headers = new HttpHeaders()
+  updateProperty(
+    id: string,
+    updatedProperty: propertyInterface
+  ): Observable<any> {
+    const headers = new HttpHeaders();
     // .set('Content-Type', 'multipart/form-data')
     // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
     const url = `${CONFIG.apiUrl}/property/${id}`;
-    return this.http.patch(url,updatedProperty ,{headers, observe: 'body', responseType: 'json' })
+    return this.http
+      .patch(url, updatedProperty, {
+        headers,
+        observe: 'body',
+        responseType: 'json',
+      })
       .pipe(catchError(this.handleError));
   }
 
   deleteProperty(id: string): Observable<any> {
-    const headers = new HttpHeaders()
+    const headers = new HttpHeaders();
     // .set('Content-Type', 'multipart/form-data')
     // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
     const url = `${CONFIG.apiUrl}/property/${id}`;
-    return this.http.delete(url, {headers, observe: 'body', responseType: 'json' })
+    return this.http
+      .delete(url, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
   }
 
@@ -162,7 +176,10 @@ export class MainService {
     return this.postRequest(url, {});
   }
 
-  addClonerAccountDetails(id: string,details:any): Observable<propertyInterface> {
+  addClonerAccountDetails(
+    id: string,
+    details: any
+  ): Observable<propertyInterface> {
     const url = `${CONFIG.apiUrl}/property/${id}/add-clone-account/`;
     return this.postRequest(url, details);
   }
@@ -173,17 +190,17 @@ export class MainService {
   }
 
   getNotification(): Observable<notificationInterface[]> {
-    const url = `${CONFIG.apiUrl}/notifications/`
+    const url = `${CONFIG.apiUrl}/notifications/`;
     return this.getRequest(url);
   }
 
   readNotification(): Observable<any> {
-    const url = `${CONFIG.apiUrl}/notifications/read/`
+    const url = `${CONFIG.apiUrl}/notifications/read/`;
     return this.postRequest(url, {});
   }
 
   sendSupport(data: supportInterface): Observable<supportInterface> {
-    const url = `${CONFIG.apiUrl}/support/`
+    const url = `${CONFIG.apiUrl}/support/`;
     return this.postRequest(url, data);
   }
 
@@ -195,14 +212,17 @@ export class MainService {
     const url = `${CONFIG.apiUrl}/create-property-file/`;
     return this.postRequestWithMedia(url, propertyFileType);
   }
-  makePayment(body:any):Observable<any>{
+  makePayment(body: any): Observable<any> {
     const url = `${CONFIG.apiUrl}/payment/`;
-    return this.postRequest(url,body)
+    return this.postRequest(url, body);
   }
-  verifyPayment(reference:string):Observable<any>{
-    const url = `${CONFIG.apiUrl}/payment/verify/${reference}/`
-    return this.getRequest(url)
+  verifyPayment(reference: string): Observable<any> {
+    const url = `${CONFIG.apiUrl}/payment/verify/${reference}/`;
+    return this.getRequest(url);
   }
 
-
+  cloneProperty(property_id: string): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/can-clone/${property_id}/`;
+    return this.postRequest(url, {});
+  }
 }

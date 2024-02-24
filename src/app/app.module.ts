@@ -112,7 +112,10 @@ import {environment as env} from '../environments/environment'
       httpInterceptor: {
         allowedList: [{
           uri: 'http://127.0.0.1:8000/*',
-        }], // Allow all requests under http://localhost:8000     
+          allowAnonymous: true
+        },
+      ], // Allow all requests under http://localhost:8000    
+         
        },
       authorizationParams: {
         redirect_uri: window.location.origin,

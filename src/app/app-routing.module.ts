@@ -1,33 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { SearchComponent } from './search/search.component';
-import { UploadComponent } from './upload/upload.component';
-import { UploadMediaComponent } from './upload-media/upload-media.component';
-import { FilterComponent } from './filter/filter.component';
-import { SavedComponent } from './saved/saved.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { PropertyPostComponent } from './property-post/property-post.component';
-import { OnboardingComponent } from './onboarding/onboarding.component';
 import { AuthGuard } from '@auth0/auth0-angular';
-import { Trending2Component } from './trending2/trending2.component';
-import { PreviewComponent } from './preview/preview.component';
-import { NotificationsComponent } from './notifications/notifications.component';
+import { AboutComponent } from './about/about.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 import { InvoiceAwaitingComponent } from './invoice-awaiting/invoice-awaiting.component';
 import { InvoiceWarningComponent } from './invoice-warning/invoice-warning.component';
 import { InvoiceComponent } from './invoice/invoice.component';
-import { MypropertyComponent } from './myproperty/myproperty.component';
-import { PurchaseConfirmationComponent } from './purchase-confirmation/purchase-confirmation.component';
-import { KycSelectComponent } from './kyc-select/kyc-select.component';
-import { KycVideoComponent } from './kyc-video/kyc-video.component';
 import { KycComponent } from './kyc/kyc.component';
+import { MypropertyComponent } from './myproperty/myproperty.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { OnboardingComponent } from './onboarding/onboarding.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PropertyPostComponent } from './property-post/property-post.component';
+import { PurchaseConfirmationComponent } from './purchase-confirmation/purchase-confirmation.component';
+import { SavedComponent } from './saved/saved.component';
+import { SearchComponent } from './search/search.component';
+import { SettingsComponent } from './settings/settings.component';
 import { SupportComponent } from './support/support.component';
+import { Trending2Component } from './trending2/trending2.component';
 import { UpdatePostComponent } from './update-post/update-post.component';
-import { EditPostComponent } from './edit-post/edit-post.component';
-import { ClaimRewardComponent } from './claim-reward/claim-reward.component';
+import { UploadComponent } from './upload/upload.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -45,7 +39,7 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'search',
@@ -56,17 +50,12 @@ const routes: Routes = [
   {
     path: 'upload',
     component: UploadComponent,
-    // canActivate: [AuthGuard],
-  },
-  {
-    path: 'upload-preview',
-    component: PreviewComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'saved',
     component: SavedComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile',
@@ -76,17 +65,17 @@ const routes: Routes = [
   {
     path: 'profile/settings',
     component: SettingsComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'settings/support',
     component: SupportComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'settings/change-password',
     component: ChangePasswordComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'property/:id/:userid',
@@ -96,7 +85,7 @@ const routes: Routes = [
   {
     path: 'purchase/invoice/:id/:userid',
     component: InvoiceComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'purchase/invoice-awaiting',
@@ -106,58 +95,52 @@ const routes: Routes = [
   {
     path: 'purchase/complete/:id/:userid',
     component: PurchaseConfirmationComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'purchase/invoice-warning/:id/:userid',
     component: InvoiceWarningComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'notification',
     component: NotificationsComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'my-property',
     component: MypropertyComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'proprerty/kyc',
     component: KycComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'purchase/invoice/:id',
     component: InvoiceComponent,
-    // canActivate: [AuthGuard],
-  },
-
-  {
-    path: 'kyc',
-    component: KycVideoComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'update-property/:id/:userid',
     component: UpdatePostComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   
   {
     path: 'edit-property/:id/:userid',
     component: EditPostComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'claim-reward/:id/:userid',
     component: ClaimRewardComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   
 

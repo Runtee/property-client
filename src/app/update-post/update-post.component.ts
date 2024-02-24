@@ -94,8 +94,9 @@ export class UpdatePostComponent {
 
   // To copy to clipboard
   copy_to_clipboard() {
-    const currentURL = window.location.href;
-    this.clipboardService.copy(currentURL);
+    const currentDomain = window.location.origin;
+    const link = `${currentDomain}/property/${this.selectedCard?.id}/${this.selectedCard?.user_id}`
+    this.clipboardService.copy(link);
     this.showCopiedAlert = true;
 
     // Hide the alert after 2 seconds

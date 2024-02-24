@@ -15,13 +15,13 @@ export class PostComponent {
   remainingTime: string = '';
   showCopiedAlert: boolean = false;
   copyTab = false;
-  alertTimeout: any; 
+  alertTimeout: any;
   // if (selectedCard:propertyInterface) {
   //   selectedCard.locktimestamp = "1706834824025"
   //   selectedCard.is_locked = true
   // }
   private intervalSubscription: Subscription | null = null;
-  constructor(private clipboardService: Clipboard,private mainService: MainService) {} // Inject the ClipboardService
+  constructor(private clipboardService: Clipboard, private mainService: MainService) { } // Inject the ClipboardService
   private isTimestampPassed(lockTimestamp: number | undefined): boolean {
     if (!lockTimestamp) {
       return true
@@ -30,7 +30,7 @@ export class PostComponent {
     const lockTimestampValue = new Date(lockTimestamp).getTime();
     return currentTimestamp > lockTimestampValue;
   }
-  
+
   ngOnInit() {
     if (this.selectedCard) {
       console.log(this.selectedCard.lock_timestamp);
@@ -42,7 +42,7 @@ export class PostComponent {
     }
   }
 
-  
+
 
   ngOnChanges() {
     if (this.selectedCard && this.selectedCard.is_locked) {
@@ -75,20 +75,20 @@ export class PostComponent {
   }
 
   private calculateRemainingTime(): string {
-    if (this.selectedCard?.lock_timestamp) {      
+    if (this.selectedCard?.lock_timestamp) {
       const lockTimestamp = new Date(this.selectedCard.lock_timestamp);
       const now = new Date();
       const differenceInSeconds = Math.floor((lockTimestamp.getTime() - now.getTime()) / 1000);
-  
+
       if (differenceInSeconds <= 0) {
         return '00 : 00';
       }
-  
+
       const minutes = Math.floor(differenceInSeconds / 60);
       const seconds = differenceInSeconds % 60;
       this.remainingTime = `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`
       return `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
-    }  
+    }
     return '';
   }
 
@@ -102,7 +102,7 @@ export class PostComponent {
     if (this.selectedCard?.id) {
       this.mainService.unlockProperty(this.selectedCard.id).subscribe({
         next: (response) => {
-          console.log('Lock Property Response:', response);       
+          console.log('Lock Property Response:', response);
           // Update selectedCard after unlocking
           if (this.selectedCard) {
             this.selectedCard.is_locked = false;
@@ -113,12 +113,12 @@ export class PostComponent {
           console.error('Lock Property Error:', error);
         }
       });
-      this.stopTrackingTime();      
+      this.stopTrackingTime();
     }
   }
-  
 
-// Variable to store the timeout reference
+
+  // Variable to store the timeout reference
 
   opencopyTab() {
     this.copyTab = !this.copyTab;
@@ -126,8 +126,9 @@ export class PostComponent {
 
   // To copy to clipboard
   copy_to_clipboard() {
-    const currentURL = window.location.href;
-    this.clipboardService.copy(currentURL);
+    const currentDomain = window.location.origin;
+    const link = `${currentDomain}/property/${this.selectedCard?.id}/${this.selectedCard?.user_id}`
+    this.clipboardService.copy(link);
     this.showCopiedAlert = true;
 
     // Hide the alert after 2 seconds
@@ -149,5 +150,27 @@ export class PostComponent {
   // Function to clear the timeout for the copied alert
   clearAlertTimeout() {
     clearTimeout(this.alertTimeout);
+  }
+
+  cloneProperty() {
+    if (this.selectedCard?.id) {
+      this.mainService.cloneProperty(this.selectedCard.id)
+      .subscribe({
+        next: (response) => {
+          if (response.can_clone) {
+            const currentDomain = window.location.origin;
+            const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`
+          }
+          else{
+            console.log('cant clone');
+            
+          }          
+        },
+        error: (error) => {
+          console.error(error)
+
+        }
+      })
+    }
   }
 }
