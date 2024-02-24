@@ -80,7 +80,7 @@
 </main>
 
 <div *ngIf="showCopiedAlert"
-    class="absolute -bottom-20 right-[48px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
+    class="absolute top-10 right-[6px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
     <p class="font-bold px-5 text-sm">Link Copied</p>
     <div class="flex gap-2 h-10 px-2">
         <div class="w-[1px] bg-white h-[100%]"></div>
@@ -89,14 +89,15 @@
 </div>
 
 <div *ngIf="showCloneAlert"
-    class="absolute -bottom-20 right-[48px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
+    class="absolute top-10 right-[6px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
     <p class="font-bold px-5 text-sm">Clone link Copied</p>
     <div class="flex gap-2 h-10 px-2">
         <div class="w-[1px] bg-white h-[100%]"></div>
         <img src="assets/images/good.svg" class="w-8 h-9 cursor-pointer">
     </div>
 </div>
-
+<app-notify-card *ngIf="showMessage" [title]="messageTitle" [description]='description'></app-notify-card>
+<app-modal [loading]="isModalLoading"></app-modal>
 <div class=""  *ngIf="!selectedCard">
     <div class="">
         <h1 class="text-2xl text-main-dark">Invaild Link</h1>

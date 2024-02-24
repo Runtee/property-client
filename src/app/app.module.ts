@@ -111,7 +111,7 @@ import {environment as env} from '../environments/environment'
       ...env.auth,
       httpInterceptor: {
         allowedList: [{
-          uri: 'http://127.0.0.1:8000/*',
+          uri: 'https://property-production.up.railway.app/*',
           allowAnonymous: true
         },
       ], // Allow all requests under http://localhost:8000    

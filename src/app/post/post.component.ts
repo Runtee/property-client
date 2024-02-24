@@ -16,7 +16,11 @@ export class PostComponent {
   showCopiedAlert: boolean = false;
   copyTab = false;
   alertTimeout: any;
-  showCloneAlert= false
+  showCloneAlert= false;
+  showMessage = false
+messageTitle = ""
+description = ""
+isModalLoading = false
   // if (selectedCard:propertyInterface) {
   //   selectedCard.locktimestamp = "1706834824025"
   //   selectedCard.is_locked = true
@@ -123,6 +127,12 @@ export class PostComponent {
 
   opencopyTab() {
     this.copyTab = !this.copyTab;
+    if (this.copyTab) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        // behavior: 'smooth' // Optional: Use smooth scrolling animation
+      });      
+    }
   }
 
   // To copy to clipboard
@@ -130,6 +140,10 @@ export class PostComponent {
     const currentDomain = window.location.origin;
     const link = `${currentDomain}/property/${this.selectedCard?.id}/${this.selectedCard?.user_id}`
     this.clipboardService.copy(link);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     this.showCopiedAlert = true;
 
     // Hide the alert after 2 seconds
@@ -155,24 +169,47 @@ export class PostComponent {
 
   cloneProperty() {
     if (this.selectedCard?.id) {
+      this.isModalLoading = true
       this.mainService.cloneProperty(this.selectedCard.id)
       .subscribe({
         next: (response) => {
+          this.isModalLoading = false
           if (response.can_clone) {
             const currentDomain = window.location.origin;
             const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`
             this.clipboardService.copy(link);
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
             this.showCloneAlert = true
             this.alertTimeout = setTimeout(() => {
               this.showCloneAlert = false;
             }, 3000);
           }
           else{
+            this.messageTitle = "Error"
+            this.description = "You can't clone this advert"
             console.log('cant clone');
+            this.showMessage = true
+            this.alertTimeout = setTimeout(() => {
+              this.showMessage = false;
+            }, 5000);
             
           }          
         },
         error: (error) => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          this.isModalLoading = false
+          this.messageTitle = "Error"
+            this.description = "Error cloning advert"
+            this.showMessage = true
+            this.alertTimeout = setTimeout(() => {
+              this.showMessage = false;
+            }, 3000);
           console.error(error)
 
         }
