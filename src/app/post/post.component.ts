@@ -16,6 +16,7 @@ export class PostComponent {
   showCopiedAlert: boolean = false;
   copyTab = false;
   alertTimeout: any;
+  showCloneAlert= false
   // if (selectedCard:propertyInterface) {
   //   selectedCard.locktimestamp = "1706834824025"
   //   selectedCard.is_locked = true
@@ -160,6 +161,8 @@ export class PostComponent {
           if (response.can_clone) {
             const currentDomain = window.location.origin;
             const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`
+            this.clipboardService.copy(link);
+            this.showCloneAlert = true
           }
           else{
             console.log('cant clone');
