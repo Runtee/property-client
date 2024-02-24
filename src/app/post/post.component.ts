@@ -163,6 +163,9 @@ export class PostComponent {
             const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`
             this.clipboardService.copy(link);
             this.showCloneAlert = true
+            this.alertTimeout = setTimeout(() => {
+              this.showCloneAlert = false;
+            }, 3000);
           }
           else{
             console.log('cant clone');
