@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainService } from '../main.service';
 import { catchError, throwError } from 'rxjs';
+import { propertyInterface } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-invoice',
@@ -13,14 +14,26 @@ export class InvoiceComponent {
 
   id: string | null = '';
   userid: string | null = '';
+  property: propertyInterface | null = null
 
   constructor(private router: Router, private route: ActivatedRoute, private mainService: MainService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
-      // this.userid = params.get('userid');
+      this.userid = params.get('userid');
     });
+    if (this.id && this.userid) {
+      this.mainService.getPropertyById(this.id,this.userid).subscribe({
+        next: (response:propertyInterface)=>{
+          this.property = response
+        },
+        error: (error)=>{
+            console.log(error);
+            
+        }
+      })      
+    }
   }
 
   downloadInvoice() {
@@ -38,10 +51,15 @@ export class InvoiceComponent {
   }
   
   confirmPayment() {
+    const currentDomain = window.location.origin;
+    const link = `${currentDomain}/purchase/invoice-awaiting`
+            
     const data = {
       property_id: this.id,
       payment_channel: "paystack",
-      clone_id: this.userid
+      clone_id: this.userid,
+      type_of_transaction: "property",
+      callback: link
     };
   
     this.mainService.makePayment(data)

@@ -12,6 +12,7 @@
                     <span class="text-xs font-medium">{{selectedCard.location}}</span>
                 </div>
                 <h1 *ngIf="selectedCard.kyc" class="text-sm text-yellow-500 font-bold mb-2">KYC Verified</h1>
+
             </div>
             <div class="w-full basis-3/5 h-[150px] rounded-lg" *ngIf="selectedCard.doxxed">
                 <video class="h-full w-full object-cover rounded-lg brightness-50" src="assets/videos/banner.webm"
@@ -19,7 +20,9 @@
                 <img src="assets/images/play-cricle.svg"
                     class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
             </div>
+           
         </div>
+        <h2 class="text-main-dark font-bold">{{selectedCard.price| currency: "NGN"}}</h2>
         <div class="text-xs mb-4">{{selectedCard.description}}</div>
         <div class="flex items-center justify-between gap-1 w-full mb-5">
             <img src="assets/images/Rectangle 596.png" class="h-32 w-full basis-1/2" alt="">

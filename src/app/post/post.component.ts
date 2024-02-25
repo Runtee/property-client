@@ -188,6 +188,10 @@ isModalLoading = false
             }, 3000);
           }
           else{
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
             this.messageTitle = "Error"
             this.description = "You can't clone this advert"
             console.log('cant clone');

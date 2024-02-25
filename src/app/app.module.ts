@@ -53,6 +53,8 @@ import { ModalComponent } from './modal/modal.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import {environment as env} from '../environments/environment'
+import { TrendWarningComponent } from './trend-warning/trend-warning.component';
+import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +100,8 @@ import {environment as env} from '../environments/environment'
     UpdatePostComponent,
     EditPostComponent,
     ModalComponent,
+    TrendWarningComponent,
+    TrendAwaitingComponent,
   ],
   imports: [
     BrowserModule,

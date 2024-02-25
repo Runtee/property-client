@@ -22,6 +22,8 @@ import { SupportComponent } from './support/support.component';
 import { Trending2Component } from './trending2/trending2.component';
 import { UpdatePostComponent } from './update-post/update-post.component';
 import { UploadComponent } from './upload/upload.component';
+import { TrendWarningComponent } from './trend-warning/trend-warning.component';
+import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -140,6 +142,16 @@ const routes: Routes = [
   {
     path: 'claim-reward/:id/:userid',
     component: ClaimRewardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'trending-pay/:id/:userid',
+    component: TrendWarningComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'trending-confirm',
+    component: TrendAwaitingComponent,
     canActivate: [AuthGuard],
   },
   

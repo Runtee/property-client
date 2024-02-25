@@ -13,6 +13,7 @@ export interface propertyInterface {
     status?: string;
     c_of_o?: boolean;
     doxxed?: boolean;
+    is_trending?: boolean;
     kyc?: boolean;
     name?: string;
     email?: string;
