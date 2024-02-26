@@ -97,7 +97,7 @@
                         </button>
                         <button class="py-1 relative" (click)="opencopyTab()">
                             <img src="assets/images/solar_share-line-duotone.svg" class="ml-auto" alt="">
-                            <div class="bg-main-light absolute -top-[150%] right-0 z-[50] flex gap-5 rounded-xl px-5 py-1 border border-main-light w-[150px]"
+                            <div class="bg-main-light absolute -top-[150%] right-0 z-[51] flex gap-5 rounded-xl px-5 py-1 border border-main-light w-fit"
                                 *ngIf="copyTab">
                                 <button
                                     class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold"
@@ -105,11 +105,11 @@
                                     <img src="assets/images/ph_link-duotone.svg" class="" alt="">
                                     Copy Link
                                 </button>
-                                <button
+                                <!-- <button
                                     class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold">
                                     <img src="assets/images/ic_twotone-cyclone.svg" class="" alt="">
                                     Clone
-                                </button>
+                                </button> -->
                             </div>
                         </button>
                     </div>
@@ -117,8 +117,8 @@
             </main>
 
             <div *ngIf="showCopiedAlert"
-                class="absolute -bottom-20 right-[48px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
-                <p class="font-bold px-5 text-sm">Link Copied</p>
+            class="absolute top-10 right-[6px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
+            <p class="font-bold px-5 text-sm">Link Copied</p>
                 <div class="flex gap-2 h-10 px-2">
                     <div class="w-[1px] bg-white h-[100%]"></div>
                     <img src="assets/images/good.svg" class="w-8 h-9 cursor-pointer">

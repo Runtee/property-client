@@ -115,7 +115,7 @@ import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.componen
       ...env.auth,
       httpInterceptor: {
         allowedList: [{
-          uri: 'https://property-production.up.railway.app/*',
+          uri: 'http://127.0.0.1:8000/*',
           allowAnonymous: true
         },
       ], // Allow all requests under http://localhost:8000    

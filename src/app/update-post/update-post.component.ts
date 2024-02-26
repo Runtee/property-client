@@ -90,13 +90,29 @@ export class UpdatePostComponent {
 
   opencopyTab() {
     this.copyTab = !this.copyTab;
+    if (this.copyTab) {
+      this.scrollToBottom();
+    }
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+  scrollToBottom(){
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });  
+  }
   // To copy to clipboard
   copy_to_clipboard() {
     const currentDomain = window.location.origin;
-    const link = `${currentDomain}/property/${this.selectedCard?.id}/${this.selectedCard?.user_id}`
+    const link = `${currentDomain}/property/${this.selectedCard?.id}/${this.selectedCard?.user_id}`;
     this.clipboardService.copy(link);
+    this.scrollToTop();
     this.showCopiedAlert = true;
 
     // Hide the alert after 2 seconds
@@ -136,11 +152,7 @@ export class UpdatePostComponent {
       .uploadPropertyFile(formData)
       .pipe(
         catchError((error) => {
-          if (this.contentContainer) {
-            this.contentContainer.nativeElement.scrollIntoView({
-              behavior: 'smooth',
-            });
-          }
+          this.scrollToTop()
           this.showMessage = true;
           this.isModalLoading = false;
           this.messageTitle = 'Error';
@@ -152,12 +164,11 @@ export class UpdatePostComponent {
           return throwError(() => new Error('Something went wrong'));
         })
       )
-      .subscribe((event: HttpEvent<any>) => {
-        if (this.contentContainer) {
-          this.contentContainer.nativeElement.scrollIntoView({
-            behavior: 'smooth',
-          });
-        }
+      .subscribe((data: propertyInterface) => {
+        this.selectedCard = data
+        console.log(data);
+        
+        this.scrollToTop()
         this.isModalLoading = false;
         this.showMessage = true;
         this.messageTitle = 'Success';
@@ -181,12 +192,8 @@ export class UpdatePostComponent {
         catchError((error) => {
 
           console.log(error, "ttttttttttttttttttt");
+          this.scrollToTop();
           
-          if (this.contentContainer) {
-            this.contentContainer.nativeElement.scrollIntoView({
-              behavior: 'smooth',
-            });
-          }
           this.showMessage = true;
           this.isModalLoading = false;
           this.messageTitle = 'Error';
@@ -201,11 +208,7 @@ export class UpdatePostComponent {
       .subscribe((event: HttpEvent<any>) => {
         console.log(event, "ppppppp");
         
-        if (this.contentContainer) {
-          this.contentContainer.nativeElement.scrollIntoView({
-            behavior: 'smooth',
-          });
-        }
+        this.scrollToTop()
         this.isModalLoading = false;
         this.showMessage = true;
         this.messageTitle = 'Success';

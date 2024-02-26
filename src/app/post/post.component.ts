@@ -4,11 +4,12 @@ import { interval, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MainService } from '../main.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styles: ``
+  styles: ``,
 })
 export class PostComponent {
   @Input() selectedCard: propertyInterface | null = null;
@@ -16,20 +17,24 @@ export class PostComponent {
   showCopiedAlert: boolean = false;
   copyTab = false;
   alertTimeout: any;
-  showCloneAlert= false;
-  showMessage = false
-messageTitle = ""
-description = ""
-isModalLoading = false
+  showCloneAlert = false;
+  showMessage = false;
+  messageTitle = '';
+  description = '';
+  isModalLoading = false;
   // if (selectedCard:propertyInterface) {
   //   selectedCard.locktimestamp = "1706834824025"
   //   selectedCard.is_locked = true
   // }
   private intervalSubscription: Subscription | null = null;
-  constructor(private clipboardService: Clipboard, private mainService: MainService) { } // Inject the ClipboardService
+  constructor(
+    private clipboardService: Clipboard,
+    private mainService: MainService,
+    private authService: AuthService,
+  ) {} // Inject the ClipboardService
   private isTimestampPassed(lockTimestamp: number | undefined): boolean {
     if (!lockTimestamp) {
-      return true
+      return true;
     }
     const currentTimestamp = new Date().getTime();
     const lockTimestampValue = new Date(lockTimestamp).getTime();
@@ -39,15 +44,16 @@ isModalLoading = false
   ngOnInit() {
     if (this.selectedCard) {
       console.log(this.selectedCard.lock_timestamp);
-      if (this.selectedCard.is_locked && this.isTimestampPassed(this.selectedCard.lock_timestamp)) {
+      if (
+        this.selectedCard.is_locked &&
+        this.isTimestampPassed(this.selectedCard.lock_timestamp)
+      ) {
         this.updateProperty();
       } else {
         this.startTrackingTime();
       }
     }
   }
-
-
 
   ngOnChanges() {
     if (this.selectedCard && this.selectedCard.is_locked) {
@@ -83,7 +89,9 @@ isModalLoading = false
     if (this.selectedCard?.lock_timestamp) {
       const lockTimestamp = new Date(this.selectedCard.lock_timestamp);
       const now = new Date();
-      const differenceInSeconds = Math.floor((lockTimestamp.getTime() - now.getTime()) / 1000);
+      const differenceInSeconds = Math.floor(
+        (lockTimestamp.getTime() - now.getTime()) / 1000
+      );
 
       if (differenceInSeconds <= 0) {
         return '00 : 00';
@@ -91,8 +99,12 @@ isModalLoading = false
 
       const minutes = Math.floor(differenceInSeconds / 60);
       const seconds = differenceInSeconds % 60;
-      this.remainingTime = `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`
-      return `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+      this.remainingTime = `${minutes.toString().padStart(2, '0')} : ${seconds
+        .toString()
+        .padStart(2, '0')}`;
+      return `${minutes.toString().padStart(2, '0')} : ${seconds
+        .toString()
+        .padStart(2, '0')}`;
     }
     return '';
   }
@@ -116,34 +128,39 @@ isModalLoading = false
         error: (error) => {
           // Handle HTTP request error
           console.error('Lock Property Error:', error);
-        }
+        },
       });
       this.stopTrackingTime();
     }
   }
-
 
   // Variable to store the timeout reference
 
   opencopyTab() {
     this.copyTab = !this.copyTab;
     if (this.copyTab) {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        // behavior: 'smooth' // Optional: Use smooth scrolling animation
-      });      
+      this.scrollToBottom();
     }
+  }
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+  scrollToBottom() {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
   // To copy to clipboard
   copy_to_clipboard() {
     const currentDomain = window.location.origin;
-    const link = `${currentDomain}/property/${this.selectedCard?.id}/${this.selectedCard?.user_id}`
+    const link = `${currentDomain}/property/${this.selectedCard?.id}/${this.selectedCard?.user_id}`;
     this.clipboardService.copy(link);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    this.scrollToTop();
     this.showCopiedAlert = true;
 
     // Hide the alert after 2 seconds
@@ -169,55 +186,62 @@ isModalLoading = false
 
   cloneProperty() {
     if (this.selectedCard?.id) {
-      this.isModalLoading = true
-      this.mainService.cloneProperty(this.selectedCard.id)
-      .subscribe({
+      this.isModalLoading = true;
+      this.mainService.cloneProperty(this.selectedCard.id).subscribe({
         next: (response) => {
-          this.isModalLoading = false
+          this.isModalLoading = false;
           if (response.can_clone) {
             const currentDomain = window.location.origin;
-            const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`
+            const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`;
             this.clipboardService.copy(link);
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            });
-            this.showCloneAlert = true
+            this.scrollToTop();
+            this.showCloneAlert = true;
             this.alertTimeout = setTimeout(() => {
               this.showCloneAlert = false;
             }, 3000);
-          }
-          else{
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            });
-            this.messageTitle = "Error"
-            this.description = "You can't clone this advert"
+
+            if (this.selectedCard?.id) {
+              try {
+                this.mainService.saveProperty(this.selectedCard.id)              
+              } catch (error) {
+                console.log("property save error", error);
+                
+              }
+            }
+
+          } else {
+            this.scrollToTop();
+            this.messageTitle = 'Error';
+            this.description = "You can't clone this advert";
             console.log('cant clone');
-            this.showMessage = true
+            this.showMessage = true;
             this.alertTimeout = setTimeout(() => {
               this.showMessage = false;
             }, 5000);
-            
-          }          
+          }
         },
         error: (error) => {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-          this.isModalLoading = false
-          this.messageTitle = "Error"
-            this.description = "Error cloning advert"
-            this.showMessage = true
-            this.alertTimeout = setTimeout(() => {
-              this.showMessage = false;
-            }, 3000);
-          console.error(error)
-
-        }
-      })
+          this.scrollToTop();
+          this.isModalLoading = false;
+          this.messageTitle = 'Error';
+          this.description = 'Error cloning advert';
+          this.showMessage = true;
+          this.alertTimeout = setTimeout(() => {
+            this.showMessage = false;
+          }, 3000);
+          console.error(error);
+        },
+      });
     }
   }
+
+  // checkSavedProperty(){
+  //   this.mainService.checkifpropertyissave(this.selectedCard.id)
+  // }
+  // savedProperty(){
+  //   this.mainService.saveProperty(id)
+  // }
+  // unsavedProperty(){
+  //   this.mainService.removepropertyfromwislist(id)
+  // }
 }

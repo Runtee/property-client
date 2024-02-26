@@ -22,7 +22,24 @@
             </div>
            
         </div>
-        <h2 class="text-main-dark font-bold">{{selectedCard.price| currency: "NGN"}}</h2>
+        <div class="flex justify-between items-center gap-3 w-fit">
+            <h2 class="text-main-dark font-bold">{{ selectedCard.price | currency: "NGN" }}</h2>
+            <!-- <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
+              <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
+            </ng-container> -->
+          
+            <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && checkSavedProperty()"> -->
+              <!-- Show if the user is authenticated and the property is saved -->
+              <!-- <button class="text-sm bg-main-inactive rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
+            </ng-container>
+           -->
+            <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && !checkSavedProperty()"> -->
+              <!-- Show if the user is authenticated and the property is not saved -->
+              <!-- <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" (click)="unsavedProperty(selectedCard.id)">Unsave</button>
+            </ng-container> -->
+          </div>
+          
+        
         <div class="text-xs mb-4">{{selectedCard.description}}</div>
         <div class="flex items-center justify-between gap-1 w-full mb-5">
             <img src="assets/images/Rectangle 596.png" class="h-32 w-full basis-1/2" alt="">

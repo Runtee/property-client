@@ -129,6 +129,16 @@ export class MainService {
     return this.postRequest(url, {});
   }
 
+  checkSaveProperties(propertyId: string): Observable<propertyInterface[]> {
+    const url = `${CONFIG.apiUrl}/property/wishlist-check/${propertyId}`;
+    return this.getRequest(url);
+  }
+
+  deleteSaveProperties(propertyId: string): Observable<propertyInterface[]> {
+    const url = `${CONFIG.apiUrl}/property/wishlist-delete/${propertyId}`;
+    return this.getRequest(url);
+  }
+
   getPropertyById(id: string, user_id: string): Observable<propertyInterface> {
     const url = `${CONFIG.apiUrl}/property/${id}/${user_id}`;
     return this.getRequest(url);
