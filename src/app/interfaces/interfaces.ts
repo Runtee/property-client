@@ -9,7 +9,7 @@ export interface propertyInterface {
     city?: string;
     state?: string;
     image?: string | Blob;
-    video?: string | Blob;
+    video_file?: string | Blob;
     status?: string;
     c_of_o?: boolean;
     doxxed?: boolean;

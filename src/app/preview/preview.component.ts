@@ -47,8 +47,8 @@ export class PreviewComponent {
         if (key == 'image' && !(this.formDetails?.image instanceof Blob)) {
           formData.delete("image")
         }
-        if (key == 'video' && !(this.formDetails?.image instanceof Blob)) {
-          formData.delete("video")
+        if (key == 'video_file' && !(this.formDetails?.image instanceof Blob)) {
+          formData.delete("video_file")
         }
       }
     }
@@ -70,6 +70,7 @@ export class PreviewComponent {
         })
       )
       .subscribe(() => {
+        localStorage.removeItem('formDetails')
         this.isLoading = false;
         this.rSuccess = true
         console.log('Property created successfully!');
@@ -96,7 +97,7 @@ this.isModal = false
   }
 
   loadVideo() {
-    if (this.formDetails?.video && this.formDetails?.video instanceof Blob) {
+    if (this.formDetails?.video_file && this.formDetails?.video_file instanceof Blob) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         // Update the video source
@@ -106,7 +107,7 @@ this.isModal = false
           videoElement.load();
         }
       };
-      reader.readAsDataURL(this.formDetails?.video);
+      reader.readAsDataURL(this.formDetails?.video_file);
     }
   }
   isObjectEmpty(obj: any): boolean {

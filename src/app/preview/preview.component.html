@@ -10,12 +10,12 @@
 </header>
 
 <h2 class="px-5 text-sm font-bold mb-3"
-    *ngIf="!isObjectEmpty(formDetails?.image) || !isObjectEmpty(formDetails?.video)">
+    *ngIf="!isObjectEmpty(formDetails?.image) || !isObjectEmpty(formDetails?.video_file)">
     Media files
 </h2>
 
 <div class="pt-0 p-5 flex items-center justify-between gap-3 w-full mb-5"
-    *ngIf="!isObjectEmpty(formDetails?.image) || !isObjectEmpty(formDetails?.video)">
+    *ngIf="!isObjectEmpty(formDetails?.image) || !isObjectEmpty(formDetails?.video_file)">
     <img id="uploadedImage" src="" class="h-32 w-full basis-1/2" alt="" *ngIf="formDetails?.image">
 
     <div class="w-full rounded-lg h-32 basis-1/2" style="position: relative;">

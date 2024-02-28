@@ -30,7 +30,7 @@ export class UploadMediaComponent {
       this.formDetails = storedFormData ? JSON.parse(storedFormData) : {};
     }
     this.selectedImage =  this.formDetails.image instanceof Blob ? this.formDetails.image : null
-    this.selectedVideo = this.formDetails.video instanceof Blob ? this.formDetails.video : null
+    this.selectedVideo = this.formDetails.video_file instanceof Blob ? this.formDetails.video_file : null
     this.loadImage()
     this.loadVideo()
   }
@@ -43,7 +43,7 @@ export class UploadMediaComponent {
     const formData = new FormData();
 
     if (this.selectedVideo) {
-      this.formDetails["video"] = this.selectedVideo
+      this.formDetails["video_file"] = this.selectedVideo
     }
     if (this.selectedImage) {
       this.formDetails["image"] = this.selectedImage
@@ -132,7 +132,7 @@ export class UploadMediaComponent {
 
   removeVideoFile(): void {
     this.selectedVideo = null;
-    this.formDetails["video"] = null
+    this.formDetails["video_file"] = null
     this.mainService.setFormData(this.formDetails);
     this.loadVideo();
   }

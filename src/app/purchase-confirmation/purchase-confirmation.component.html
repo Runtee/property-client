@@ -2,12 +2,12 @@
     <app-topbar item="Confirmation"></app-topbar>
     <main class="p-5 pt-0">
         <div class="">
-            <p class="font-semibold text-sm mb-5"> I <span class="text-main-dark"> Andrew Townsen</span> the buyer
+            <p class="font-semibold text-sm mb-5" *ngIf="type=='buyer'"> I <span class="text-main-dark"> Andrew Townsen</span> the buyer
                 hereby confirm that i have inspected all necessary documents pertaining to this document and i am
                 satisfied with the whole process and wish to proceed the buyer hereby confirm that i have inspected all
                 necessary documents pertaining to
                 this document and i am satisfied with the whole process and wish to proceed.</p>
-            <p class="font-semibold text-sm mb-5">I <span class="text-main-dark"> Timothy Brownson</span> the seller hereby confirm that i have inspected all necessary documents pertaining to this document and i am satisfied with the whole process and wish to proceed.</p>
+            <p class="font-semibold text-sm mb-5"  *ngIf="type=='seller'">I <span class="text-main-dark"> Timothy Brownson</span> the seller hereby confirm that i have inspected all necessary documents pertaining to this document and i am satisfied with the whole process and wish to proceed.</p>
             <p class="text-xs text-gray-600 mb-5">* Upon clicking this you cannot undo it unless the other party hasn’t
                 confirmed, after which the agreement is irrevocable.</p>
 

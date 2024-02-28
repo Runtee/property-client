@@ -1,103 +1,115 @@
-<main class="relative p-4 pt-5 m-3 shadow-xl rounded-3xl bg-white" *ngIf="selectedCard">
-    <div *ngIf="selectedCard.clonable"
-        class="absolute top-0 left-0 bg-main-dark text-xs text-white w-fit px-4 rounded-tl-3xl rounded-br-3xl py-[2px] font-semibold">
-        Clonable
-    </div>
-    <div class="flex flex-col gap-4 mb-4">
-        <div class="flex justify-between items-start mb-4">
-            <div class="w-full flex flex-col">
-                <h1 class="text-lg text-main-dark font-bold mb-2">{{selectedCard.title}}</h1>
-                <div class="flex items-baseline gap-1 mb-2">
-                    <img src="assets/images/location-b.svg" class="">
-                    <span class="text-xs font-medium">{{selectedCard.location}}</span>
+<div class="relative">
+    <div *ngIf="selectedCard?.status !== 'unsold' || selectedCard?.is_deleted" class="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-50 z-[100]"></div>
+
+    <main class="relative p-4 pt-5 m-3 shadow-xl rounded-3xl" *ngIf="selectedCard">
+
+        <div *ngIf="selectedCard.clonable"
+            class="absolute top-0 left-0 bg-main-dark text-xs text-white w-fit px-4 rounded-tl-3xl rounded-br-3xl py-[2px] font-semibold">
+            Clonable
+        </div>
+        <div class="flex flex-col gap-4 mb-4">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-full flex flex-col">
+                    <h1 class="text-lg text-main-dark font-bold mb-2">{{selectedCard.title}}</h1>
+                    <div class="flex items-baseline gap-1 mb-2">
+                        <img src="assets/images/location-b.svg" class="">
+                        <span class="text-xs font-medium">{{selectedCard.location}}</span>
+                    </div>
+                    <h1 *ngIf="selectedCard.kyc" class="text-sm text-yellow-500 font-bold mb-2">KYC Verified</h1>
+
                 </div>
-                <h1 *ngIf="selectedCard.kyc" class="text-sm text-yellow-500 font-bold mb-2">KYC Verified</h1>
+                <div class="w-full basis-3/5 h-[150px] rounded-lg" *ngIf="selectedCard.doxxed">
+                    <video class="h-full w-full object-cover rounded-lg brightness-50" src="assets/videos/banner.webm"
+                        poster="assets/images/Rectangle 594.png"></video>
+                    <img src="assets/images/play-cricle.svg"
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
+                </div>
 
             </div>
-            <div class="w-full basis-3/5 h-[150px] rounded-lg" *ngIf="selectedCard.doxxed">
-                <video class="h-full w-full object-cover rounded-lg brightness-50" src="assets/videos/banner.webm"
-                    poster="assets/images/Rectangle 594.png"></video>
-                <img src="assets/images/play-cricle.svg"
-                    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
-            </div>
-           
-        </div>
-        <div class="flex justify-between items-center gap-3 w-fit">
-            <h2 class="text-main-dark font-bold">{{ selectedCard.price | currency: "NGN" }}</h2>
-            <!-- <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
+            <div class="flex justify-between items-center gap-3 w-fit">
+                <h2 class="text-main-dark font-bold">{{ selectedCard.price | currency: "NGN" }}</h2>
+                <!-- <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
               <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
             </ng-container> -->
-          
-            <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && checkSavedProperty()"> -->
-              <!-- Show if the user is authenticated and the property is saved -->
-              <!-- <button class="text-sm bg-main-inactive rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
+
+                <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && checkSavedProperty()"> -->
+                <!-- Show if the user is authenticated and the property is saved -->
+                <!-- <button class="text-sm bg-main-inactive rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
             </ng-container>
            -->
-            <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && !checkSavedProperty()"> -->
-              <!-- Show if the user is authenticated and the property is not saved -->
-              <!-- <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" (click)="unsavedProperty(selectedCard.id)">Unsave</button>
+                <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && !checkSavedProperty()"> -->
+                <!-- Show if the user is authenticated and the property is not saved -->
+                <!-- <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" (click)="unsavedProperty(selectedCard.id)">Unsave</button>
             </ng-container> -->
-          </div>
-          
-        
-        <div class="text-xs mb-4">{{selectedCard.description}}</div>
-        <div class="flex items-center justify-between gap-1 w-full mb-5">
-            <img src="assets/images/Rectangle 596.png" class="h-32 w-full basis-1/2" alt="">
-            <div class="w-full rounded-lg h-32 basis-1/2 relative">
-                <video class="h-full w-full object-cover rounded-lg brightness-50" src="assets/videos/banner.webm"
-                    poster="assets/images/Rectangle 597.png"></video>
-                <img src="assets/images/play-cricle.svg"
-                    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
             </div>
-        </div>
-        <div class="mb-5" *ngIf="selectedCard?.is_locked">
-            <h2 class="text-sm font-bold text-main-dark">Available in:</h2>
-            <h2 class="text-sm font-bold text-red-500">{{ remainingTime }}</h2>
-          </div>          
-        <div
-            class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-lg p-2 w-full text-main-dark mb-10">
-            <div class="flex items-center">
-                <h2 class="text-xs font-semibold mr-[1px]">CofO</h2>
-                <img *ngIf="!selectedCard.c_of_o" src="assets/images/bad.svg" class="" alt="">
-                <img *ngIf="selectedCard.c_of_o" src="assets/images/mdi_tick.svg" class="" alt="">
-            </div>
-            <div class="flex items-center">
-                <h2 class="text-xs font-semibold mr-[1px]">Search</h2>
-                <img *ngIf="!selectedCard.searched" src="assets/images/bad.svg" class="" alt="">
-                <img *ngIf="selectedCard.searched" src="assets/images/mdi_tick.svg" class="" alt="">
-            </div>
-            <div class="flex items-center">
-                <h2 class="text-xs font-semibold mr-[1px]">Survey</h2>
-                <img *ngIf="!selectedCard.survey" src="assets/images/bad.svg" class="" alt="">
-                <img *ngIf="selectedCard.survey" src="assets/images/mdi_tick.svg" class="" alt="">
-            </div>
-        </div>
-        <div class="flex justify-between">
-            <button
-                [ngClass]="{'bg-main-inactive': selectedCard.is_locked, 'bg-main-dark': !selectedCard.is_locked, 'cursor-not-allowed': selectedCard.is_locked}"
-                class="px-4 py-1 h-fit w-28 text-white border outline-none border-main-dark rounded font-bold"
-                [routerLink]="!selectedCard.is_locked ? '/purchase/invoice-warning/'+selectedCard.id+ '/'+ selectedCard.user_id : null">
-                Purchase
-            </button>
 
-            <button class="py-1" (click)="opencopyTab()">
-                <img src="assets/images/solar_share-line-duotone.svg" class="ml-auto" alt="">
-                <div class="bg-main-light flex gap-5 rounded-xl px-5 py-1 border border-main-light w-fit"
-                    *ngIf="copyTab">
-                    <button class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold"
-                        (click)="copy_to_clipboard()">
-                        <img src="assets/images/ph_link-duotone.svg" class="" alt="">
-                        Copy Link
-                    </button>
-                    <button *ngIf="selectedCard.clonable" (click)="cloneProperty()" class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold">
-                        <img src="assets/images/ic_twotone-cyclone.svg" class="" alt="">
-                        Clone
-                    </button>
+
+            <div class="text-xs mb-4">{{selectedCard.description}}</div>
+            <div class="flex items-center justify-between gap-1 w-full mb-5">
+                <img src="assets/images/Rectangle 596.png" class="h-32 w-full basis-1/2" alt="">
+                <div class="w-full rounded-lg h-32 basis-1/2 relative">
+                    <video class="h-full w-full object-cover rounded-lg brightness-50" src="assets/videos/banner.webm"
+                        poster="assets/images/Rectangle 597.png"></video>
+                    <img src="assets/images/play-cricle.svg"
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
                 </div>
-            </button>
+            </div>
+            <div class="mb-5" *ngIf="selectedCard?.is_locked">
+                <h2 class="text-sm font-bold text-main-dark">Available in:</h2>
+                <h2 class="text-sm font-bold text-red-500">{{ remainingTime }}</h2>
+            </div>
+            <div
+                class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-lg p-2 w-full text-main-dark mb-10">
+                <div class="flex items-center">
+                    <h2 class="text-xs font-semibold mr-[1px]">CofO</h2>
+                    <img *ngIf="!selectedCard.c_of_o" src="assets/images/bad.svg" class="" alt="">
+                    <img *ngIf="selectedCard.c_of_o" src="assets/images/mdi_tick.svg" class="" alt="">
+                </div>
+                <div class="flex items-center">
+                    <h2 class="text-xs font-semibold mr-[1px]">Search</h2>
+                    <img *ngIf="!selectedCard.searched" src="assets/images/bad.svg" class="" alt="">
+                    <img *ngIf="selectedCard.searched" src="assets/images/mdi_tick.svg" class="" alt="">
+                </div>
+                <div class="flex items-center">
+                    <h2 class="text-xs font-semibold mr-[1px]">Survey</h2>
+                    <img *ngIf="!selectedCard.survey" src="assets/images/bad.svg" class="" alt="">
+                    <img *ngIf="selectedCard.survey" src="assets/images/mdi_tick.svg" class="" alt="">
+                </div>
+            </div>
+            <div class="flex justify-between">
+                <button
+                *ngIf="!(selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)"
+                    [ngClass]="{'bg-main-inactive': selectedCard.is_locked, 'bg-main-dark': !selectedCard.is_locked, 'cursor-not-allowed': selectedCard.is_locked}"
+                    class="px-4 py-1 h-fit w-28 text-white border outline-none border-main-dark rounded font-bold"
+                    [routerLink]="!selectedCard.is_locked ? '/purchase/invoice-warning/'+selectedCard.id+ '/'+ selectedCard.user_id : null">
+                    Purchase
+                </button>
+
+                <button class="py-1" (click)="opencopyTab()">
+                    <img src="assets/images/solar_share-line-duotone.svg" class="ml-auto" alt="">
+                    <div class="bg-main-light flex gap-5 rounded-xl px-5 py-1 border border-main-light w-fit"
+                        *ngIf="copyTab">
+                        <button class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold"
+                            (click)="copy_to_clipboard()">
+                            <img src="assets/images/ph_link-duotone.svg" class="" alt="">
+                            Copy Link
+                        </button>
+                        <button *ngIf="selectedCard.clonable" (click)="cloneProperty()"
+                            class="flex flex-col gap-1 text-[10px] text-main-dark items-center font-semibold">
+                            <img src="assets/images/ic_twotone-cyclone.svg" class="" alt="">
+                            Clone
+                        </button>
+                    </div>
+                </button>
+            </div>
         </div>
+    </main>
+    <div class="absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101]" *ngIf="selectedCard?.status !== 'unsold' || selectedCard?.is_deleted">
+        <h2 class="rotate-[320deg] text-2xl md:text-3xl font-bold text-main-dark">Property has been {{selectedCard?.is_deleted? 'deleted':selectedCard?.status}}</h2>
     </div>
-</main>
+    
+</div>
+
 
 <div *ngIf="showCopiedAlert"
     class="absolute top-10 right-[6px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
@@ -118,7 +130,7 @@
 </div>
 <app-notify-card *ngIf="showMessage" [title]="messageTitle" [description]='description'></app-notify-card>
 <app-modal [loading]="isModalLoading"></app-modal>
-<div class=""  *ngIf="!selectedCard">
+<div class="" *ngIf="!selectedCard">
     <div class="">
         <h1 class="text-2xl text-main-dark">Invaild Link</h1>
     </div>

@@ -195,6 +195,9 @@ export class PostComponent {
             const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`;
             this.clipboardService.copy(link);
             this.scrollToTop();
+            if (this.selectedCard?.id) {
+              this.mainService.saveProperty(this.selectedCard.id)              
+            }
             this.showCloneAlert = true;
             this.alertTimeout = setTimeout(() => {
               this.showCloneAlert = false;
