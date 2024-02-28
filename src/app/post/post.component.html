@@ -1,5 +1,5 @@
 <div class="relative">
-    <div *ngIf="selectedCard?.status !== 'unsold' || selectedCard?.is_deleted" class="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-50 z-[100]"></div>
+    <div *ngIf="selectedCard && (selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)" class="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-50 z-[100]"></div>
 
     <main class="relative p-4 pt-5 m-3 shadow-xl rounded-3xl" *ngIf="selectedCard">
 
@@ -104,8 +104,8 @@
             </div>
         </div>
     </main>
-    <div class="absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101]" *ngIf="selectedCard?.status !== 'unsold' || selectedCard?.is_deleted">
-        <h2 class="rotate-[320deg] text-2xl md:text-3xl font-bold text-main-dark">Property has been {{selectedCard?.is_deleted? 'deleted':selectedCard?.status}}</h2>
+    <div class="absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101]" *ngIf="selectedCard && (selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)">
+        <h2 class="rotate-[320deg] text-2xl md:text-3xl font-bold text-main-dark">Property has been {{selectedCard.is_deleted? 'deleted':selectedCard.status}}</h2>
     </div>
     
 </div>
