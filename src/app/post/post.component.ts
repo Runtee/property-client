@@ -22,6 +22,7 @@ export class PostComponent {
   messageTitle = '';
   description = '';
   isModalLoading = false;
+  @Input() userid : string | null="";
   // if (selectedCard:propertyInterface) {
   //   selectedCard.locktimestamp = "1706834824025"
   //   selectedCard.is_locked = true

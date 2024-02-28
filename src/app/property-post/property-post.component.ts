@@ -17,6 +17,7 @@ export class PropertyPostComponent implements OnInit {
   selectedCard: propertyInterface | null = null;
   isLoading = true;
   is404 = true;
+  userid: string |null = ""
 
   constructor(private router: Router, private route: ActivatedRoute, private mainService: MainService) {}
 
@@ -24,6 +25,7 @@ export class PropertyPostComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const itemId = params.get('id');
       const userid = params.get('userid')
+      this.userid = userid
       if (itemId && userid) {
         this.mainService.getPropertyById(itemId, userid)
           .pipe(
