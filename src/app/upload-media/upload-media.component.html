@@ -12,79 +12,34 @@
             </div>
         </div>
     </header>
-    <main class="p-5">
-        <h2 class="font-bold mb-5">Upload the property image or video if any</h2>
-        <div class="mb-10">
-            <h2 class="font-semibold text-sm">Image</h2>
-            <div class="relative border rounded-lg h-48 border-main-dark">
-                <div class="w-full h-full bg-slate-50 rounded-lg" *ngIf="!selectedImage"></div>
-                <img id="uploadedImage" class="w-full h-48 brightness-50" src="" alt="" *ngIf="selectedImage">
-                <div class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                    <button (click)="selectImageFile()">
-                        <img src="assets/images/icons8-camera-30.png" class="w-6 h-6">
-                    </button>
-                    <input type="file" #imageInput [style.display]="'none'" accept="image/*"
-                        (change)="onImageChange($event)">
-                </div>
+    <main class="px-5">
+        <div class="flex gap-2 flex-wrap">
+            <!-- Display images -->
+            <div *ngFor="let media of mediaFiles; let i = index" class="relative w-fit border-main-dark border rounded">
+                <ng-container *ngIf="media.type === 'image'">
+                    <img class="w-28 h-28 rounded" [src]="media.url" alt="Uploaded Image">
+                </ng-container>
+                <ng-container *ngIf="media.type === 'video'">
+                    <video class="w-28 h-28 rounded" [src]="media.url" controls>
+                        Your browser does not support the video tag.
+                    </video>
+                </ng-container>
                 <div class="absolute top-2 right-1">
-                    <button (click)="removeImageFile()">
-                        <img src="assets/images/close.svg" class="w-6 h-6">
+                    <button (click)="removeMedia(i)">
+                        <img src="assets/images/close.svg" class="w-6 h-6" alt="Remove Media">
                     </button>
                 </div>
             </div>
-        </div>
-        <div class="">
-            <h2 class="font-semibold text-sm">Video</h2>
-            <div class="relative border rounded-lg h-48 border-main-dark">
-                <div class="w-full h-full bg-slate-50 rounded-lg" *ngIf="!selectedVideo"></div>
-                <video id="uploadedVideo" class="w-full h-48 brightness-50" src="" alt="" controls
-                    *ngIf="selectedVideo"></video>
-                <div class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                    <button (click)="selectVideoFile()">
-                        <img src="assets/images/icons8-video-50.png" class="w-6 h-6">
-                    </button>
-                    <input type="file" #videoInput [style.display]="'none'" accept="video/*"
-                        (change)="onVideoChange($event)">
-                </div>
-                <div class="absolute top-2 right-1">
-                    <button (click)="removeVideoFile()">
-                        <img src="assets/images/close.svg" class="w-6 h-6">
-                    </button>
-                </div>
+            <!-- Upload button -->
+            <div (click)="mediaInput.click()"
+                 class="w-28 h-28 border-main-dark border rounded flex items-center justify-center cursor-pointer">
+                <img src="assets/images/camera.png" alt="Upload Media">
             </div>
+            <!-- File input -->
+            <input type="file" #mediaInput [style.display]="'none'" accept="image/*, video/*" multiple
+                   (change)="onMediaChange($event)">
         </div>
     </main>
+    
+    
 </div>
-
-<!-- <div *ngIf="isModal" class="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 z-40"></div> -->
-<!--modal-->
-<!-- <div id="popup-modal" tabindex="-1" *ngIf="isModal"
-    class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-lg shadow">
-            <button type="button"
-                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                (click)="closeModal()"
-                >
-                <span class="sr-only">Close modal</span>
-            </button>
-            <div class="p-4 md:p-5 text-center">
-                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to post the add</h3>
-                <button data-modal-hide="popup-modal" type="button"
-                (click)="onConfrim()"
-                    class="text-white bg-main-dark hover:bg-[#7A2D9395] focus:ring-4 focus:outline-none focus:bg-[#7A2D9395] font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
-                    Yes
-                </button>
-                <button data-modal-hide="popup-modal" type="button"
-                    (click)="closeModal()"
-                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">No,
-                    cancel</button>
-            </div>
-        </div>
-    </div>
-</div> -->

@@ -170,7 +170,7 @@ export class MainService {
     const headers = new HttpHeaders();
     // .set('Content-Type', 'multipart/form-data')
     // .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NzU5Mzk1LCJpYXQiOjE3MDcxNjczOTUsImp0aSI6ImJhMGRhNWQ1Y2FjZDRkOGVhNGQ4NWQ2MTkyYmZlMDlmIiwidXNlcl9pZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiIsImZpcnN0X25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibGFzdF9uYW1lIjoiYWRtaW4iLCJpZCI6Ijg1ZjdhZTdhLWJiYTYtNDc0Mi05NmZhLTIyNTkzYjg2OTU1MiJ9.IlWy6glxw2PGkeuEOt4kGTDQaFtsI4Z1tfpKwwRS7Ds')
-    const url = `${CONFIG.apiUrl}/property/${id}`;
+    const url = `${CONFIG.apiUrl}/property/${id}/delete`;
     return this.http
       .delete(url, { headers, observe: 'body', responseType: 'json' })
       .pipe(catchError(this.handleError));
@@ -235,4 +235,15 @@ export class MainService {
     const url = `${CONFIG.apiUrl}/property/can-clone/${property_id}/`;
     return this.postRequest(url, {});
   }
+
+  mediaProperty(property_id: string, data:any): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/media/${property_id}`;
+    return this.postRequestWithMedia(url, data);
+  }
+
+  wishlistCheck(property_id: string): Observable<boolean> {
+    const url = `${CONFIG.apiUrl}/property/wishlist-check/${property_id}`;
+    return this.getRequest(url);
+  }
+
 }

@@ -5,11 +5,12 @@ import { MainService } from '../main.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-property-post',
   templateUrl: './property-post.component.html',
-  styleUrls: ['./property-post.component.css']
+  styleUrls: ['./property-post.component.css'],
 })
 export class PropertyPostComponent implements OnInit {
   main_data: propertyInterface[] = [];
@@ -17,37 +18,49 @@ export class PropertyPostComponent implements OnInit {
   selectedCard: propertyInterface | null = null;
   isLoading = true;
   is404 = true;
-  userid: string |null = ""
-
-  constructor(private router: Router, private route: ActivatedRoute, private mainService: MainService) {}
+  userid: string | null = '';
+  isAuthenticated = false
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private mainService: MainService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const itemId = params.get('id');
-      const userid = params.get('userid')
-      this.userid = userid
+      const userid = params.get('userid');
+      this.userid = userid;
+      
+      this.authService.isAuthenticated$.subscribe(isAuth => {
+        this.isAuthenticated = isAuth;
+      });
+    
       if (itemId && userid) {
-        this.mainService.getPropertyById(itemId, userid)
+        this.mainService
+          .getPropertyById(itemId, userid)
           .pipe(
-          catchError((error) => {
-            if (error instanceof HttpErrorResponse && error.status === 404) {
-              this.is404 = true;              
-            } else {
-              console.error('Error fetching property data:', error);
-              return throwError(() => new Error('Something went wrong'));
-            }
-            return of(null);
-          })
-        )
+            catchError((error) => {
+              if (error instanceof HttpErrorResponse && error.status === 404) {
+                this.is404 = true;
+              } else {
+                console.error('Error fetching property data:', error);
+                return throwError(() => new Error('Something went wrong'));
+              }
+              return of(null);
+            })
+          )
           .subscribe((item: propertyInterface | null) => {
-          if (item !== null) {
-            this.selectedCard = item;
-          }
-        });
+            if (item !== null) {
+              this.selectedCard = item;
+            }
+          });
       }
     });
 
-    this.mainService.getTrendings()
+    this.mainService
+      .getTrendings()
       .pipe(
         catchError((error) => {
           console.error('Error fetching trending data:', error);

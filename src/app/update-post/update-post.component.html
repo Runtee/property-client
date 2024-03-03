@@ -51,13 +51,25 @@
                     </div>
                     <h2 class="text-main-dark font-bold">{{selectedCard.price | currency: "NGN"}}</h2>
                     <div class="text-xs mb-4">{{selectedCard.description}}</div>
-                    <div class="flex items-center justify-between gap-1 w-full mb-5">
-                        <img src="assets/images/Rectangle 596.png" class="h-32 w-full basis-1/2" alt="">
-                        <div class="w-full rounded-lg h-32 basis-1/2 relative">
-                            <video class="h-full w-full object-cover rounded-lg brightness-50"
-                                src="assets/videos/banner.webm" poster="assets/images/Rectangle 597.png"></video>
-                            <img src="assets/images/play-cricle.svg"
-                                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
+                    <div class="block overflow-auto">
+                        <div class="flex gap-1 w-fit mb-5 overflow-y-hidden overflow-x-scroll">
+                            <div *ngFor="let media of selectedCard.property_media; let i = index"
+                                class="w-48 relative border-main-dark border rounded  overflow-y-hidden overflow-x-scroll">
+                                <ng-container *ngIf="media.media_type === 'image'" class="w-full">
+                                    <img (click)="showModal(api+media.media_file, media.media_type)"
+                                        class="h-28 w-full rounded" [src]="api+media.media_file" alt="Uploaded Image">
+                                </ng-container>
+
+                                <ng-container *ngIf="media.media_type === 'video'" class="w-full">
+                                    <video class="w-full h-28 rounded relative"
+                                        (click)="showModal(api+media.media_file, media.media_type)"
+                                        [src]="api+media.media_file" controls>
+                                        Your browser does not support the video tag.
+                                        <img src="assets/images/play-cricle.svg"
+                                            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
+                                    </video>
+                                </ng-container>
+                            </div>
                         </div>
                     </div>
                     <div
@@ -117,8 +129,8 @@
             </main>
 
             <div *ngIf="showCopiedAlert"
-            class="absolute top-10 right-[6px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
-            <p class="font-bold px-5 text-sm">Link Copied</p>
+                class="absolute top-10 right-[6px] w-72 bg-main-dark text-white h-10 flex py-[1px] items-center justify-between rounded">
+                <p class="font-bold px-5 text-sm">Link Copied</p>
                 <div class="flex gap-2 h-10 px-2">
                     <div class="w-[1px] bg-white h-[100%]"></div>
                     <img src="assets/images/good.svg" class="w-8 h-9 cursor-pointer">
@@ -148,7 +160,7 @@
         <div class="relative bg-white rounded-lg shadow">
             <button type="button"
                 class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                (click)="closeModal()">
+                (click)="view_closeModal()">
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="p-4 md:p-5 text-center">
@@ -170,4 +182,24 @@
             </div>
         </div>
     </div>
+</div>
+<div *ngIf="imageModal"
+    class="fixed top-0 left-0 z-[301] w-screen h-screen bg-black/70 flex justify-center items-center">
+
+    <!-- The close button -->
+    <a class="fixed z-[302] top-6 right-8 text-white text-5xl font-bold" (click)="closeModal()">&times;</a>
+
+    <!-- A big image will be displayed here -->
+    <ng-container *ngIf="media_type === 'image'">
+        <div class="w-full md:w-auto">
+            <img [src]="modalImg" class="w-full md:max-w-[800px] max-h-[600px] object-cover" />
+        </div>
+    </ng-container>
+    <ng-container *ngIf="media_type === 'video'" class="w-full md:w-auto">
+        <video class="w-full md:max-w-[800px] max-h-[600px] object-cover" [src]="modalImg" controls>
+            Your browser does not support the video tag.
+            <img src="assets/images/play-cricle.svg"
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
+        </video>
+    </ng-container>
 </div>

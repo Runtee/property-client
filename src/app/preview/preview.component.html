@@ -14,15 +14,16 @@
     Media files
 </h2>
 
-<div class="pt-0 p-5 flex items-center justify-between gap-3 w-full mb-5"
-    *ngIf="!isObjectEmpty(formDetails?.image) || !isObjectEmpty(formDetails?.video_file)">
-    <img id="uploadedImage" src="" class="h-32 w-full basis-1/2" alt="" *ngIf="formDetails?.image">
-
-    <div class="w-full rounded-lg h-32 basis-1/2" style="position: relative;">
-        <video class="h-full brightness-50 w-full" id="uploadedVideo"
-            style="object-fit: cover; width: 100%; border-radius: 0.5rem;"></video>
-        <img src="assets/images/play-cricle.svg"
-            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
+<div class="pt-0 p-5 flex items-center justify-between gap-3 w-full mb-5">
+    <div *ngFor="let media of mediaFiles; let i = index" class="relative w-fit border-main-dark border rounded">
+        <ng-container *ngIf="media.type === 'image'">
+            <img class="w-28 h-28 rounded" [src]="media.url" alt="Uploaded Image">
+        </ng-container>
+        <ng-container *ngIf="media.type === 'video'">
+            <video class="w-28 h-28 rounded" [src]="media.url" controls>
+                Your browser does not support the video tag.
+            </video>
+        </ng-container>
     </div>
 </div>
 

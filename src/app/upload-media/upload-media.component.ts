@@ -1,139 +1,78 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
-import { catchError, finalize, throwError } from 'rxjs';
 import { propertyInterface } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-upload-media',
   templateUrl: './upload-media.component.html',
-  styles: ``
+  styles: ``,
 })
 export class UploadMediaComponent {
-  selectedImage: File | null = null;
-  selectedVideo: File | null = null;
-  isModal: boolean = false
-  isLoading = true
+  mediaFiles: { type: string; url: string; file: File }[] = [];
   formDetails: any = {};
   @Output() back = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 
-  constructor(private mainService: MainService, private router: Router) { }
+  constructor(private mainService: MainService, private router: Router) {}
 
   ngOnInit(): void {
     // Retrieve form data from the shared service
-    // this.formDetails = this.mainService.getFormData();
     this.formDetails = this.mainService.getFormData();
-    
+
     const storedFormData = localStorage.getItem('formDetails');
     if (!this.formDetails || Object.keys(this.formDetails).length === 0) {
       this.formDetails = storedFormData ? JSON.parse(storedFormData) : {};
     }
-    this.selectedImage =  this.formDetails.image instanceof Blob ? this.formDetails.image : null
-    this.selectedVideo = this.formDetails.video_file instanceof Blob ? this.formDetails.video_file : null
-    this.loadImage()
-    this.loadVideo()
+    this.mediaFiles = this.formDetails.mediaFiles? this.formDetails.mediaFiles : [];
   }
 
   ngOnDestroy(): void {
-    localStorage.setItem('formDetails', JSON.stringify(this.formDetails));
+    // localStorage.setItem('formDetails', JSON.stringify(this.formDetails));
   }
 
   onConfrim() {
-    const formData = new FormData();
 
-    if (this.selectedVideo) {
-      this.formDetails["video_file"] = this.selectedVideo
+    if (this.mediaFiles.length) {
+      this.formDetails['mediaFiles'] = this.mediaFiles;
     }
-    if (this.selectedImage) {
-      this.formDetails["image"] = this.selectedImage
-    }
-    localStorage.setItem('formData', JSON.stringify(formData));
     this.mainService.setFormData(this.formDetails);
-    this.next.emit()
+    this.next.emit();
   }
 
-  openModal() {
-    this.isModal = true
-  }
-  closeModal() {
-    this.isModal = false
-  }
-
-  onImageChange(event: any) {
+  onMediaChange(event: any) {
     const files = event.target.files;
-    if (files && files.length > 0) {
-      this.selectedImage = files[0];
-      this.loadImage();
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (file.type.startsWith('image')) {
+            this.mediaFiles.push({
+              type: 'image',
+              url: reader.result as string,
+              file:file,
+            })
+            console.log(file);
+            ;
+          } else if (file.type.startsWith('video')) {
+            this.mediaFiles.push({
+              type: 'video',
+              url: reader.result as string,
+              file: file,
+            });
+          }
+        };
+        reader.readAsDataURL(file);
+      }
     }
   }
 
-  onVideoChange(event: any) {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      this.selectedVideo = files[0];
-      this.loadVideo();
-    }
-  }
-
-  loadImage() {
-    if (this.selectedImage && this.selectedImage instanceof Blob) {
-      console.log((this.selectedImage))
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        // Update the image source
-        const imageElement = document.getElementById('uploadedImage') as HTMLImageElement;
-        if (imageElement) {
-          imageElement.src = e.target.result;
-        }
-      };
-      reader.readAsDataURL(this.selectedImage);
-    }
-  }
-
-  loadVideo() {
-    if (this.selectedVideo && this.selectedVideo instanceof Blob) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        // Update the video source
-        const videoElement = document.getElementById('uploadedVideo') as HTMLVideoElement;
-        if (videoElement) {
-          videoElement.src = e.target.result;
-          videoElement.load();
-        }
-      };
-      reader.readAsDataURL(this.selectedVideo);
-    }
-  }
-  @ViewChild('videoInput') videoInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('imageInput') imageInput!: ElementRef<HTMLInputElement>;
-
-  selectVideoFile(): void {
-    if (this.videoInput) {
-      this.videoInput.nativeElement.click();
-    }
-  }
-
-  selectImageFile(): void {
-    if (this.imageInput) {
-      this.imageInput.nativeElement.click();
-    }
-  }
-
-  removeImageFile(): void {
-    this.selectedImage = null;
-    this.formDetails["image"] = null
-    this.mainService.setFormData(this.formDetails);
-    const imageElement = document.getElementById('uploadedImage') as HTMLImageElement;
-    if (imageElement) {
-      imageElement.src = '';
-    }
-  }
-
-  removeVideoFile(): void {
-    this.selectedVideo = null;
-    this.formDetails["video_file"] = null
-    this.mainService.setFormData(this.formDetails);
-    this.loadVideo();
+  removeMedia(index: number) {
+    this.mediaFiles.splice(index, 1);
   }
 }

@@ -1,5 +1,6 @@
 <div class="relative">
-    <div *ngIf="selectedCard && (selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)" class="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-50 z-[100]"></div>
+    <div *ngIf="selectedCard && (selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)"
+        class="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-50 z-[100]"></div>
 
     <main class="relative p-4 pt-5 m-3 shadow-xl rounded-3xl" *ngIf="selectedCard">
 
@@ -26,33 +27,44 @@
                 </div>
 
             </div>
-            <div class="flex justify-between items-center gap-3 w-fit">
+            <div class="flex justify-between items-center gap-4 w-fit">
                 <h2 class="text-main-dark font-bold">{{ selectedCard.price | currency: "NGN" }}</h2>
-                <!-- <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
-              <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
-            </ng-container> -->
-
-                <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && checkSavedProperty()"> -->
-                <!-- Show if the user is authenticated and the property is saved -->
-                <!-- <button class="text-sm bg-main-inactive rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
+                <ng-container *ngIf="!isAuthenticated">
+              <button class="text-sm bg-main-inactive rounded-2xl text-white px-3 py-1 font-bold" disabled>Save</button>
             </ng-container>
-           -->
-                <!-- <ng-container *ngIf="(authService.isAuthenticated$ | async) && !checkSavedProperty()"> -->
-                <!-- Show if the user is authenticated and the property is not saved -->
-                <!-- <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" (click)="unsavedProperty(selectedCard.id)">Unsave</button>
-            </ng-container> -->
+
+                <ng-container *ngIf="isAuthenticated && !isSavedProperty">
+                <!-- Show if the user is authenticated and the property is unsaved -->
+                <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" (click)="savedProperty()">Save</button>
+            </ng-container>
+           
+                <ng-container *ngIf="isAuthenticated && isSavedProperty">
+                <!-- Show if the user is authenticated and the property is saved -->
+                <button class="text-sm bg-main-dark rounded-2xl text-white px-3 py-1 font-bold" (click)="unsavedProperty()">Unsave</button>
+            </ng-container>
             </div>
 
 
             <div class="text-xs mb-4">{{selectedCard.description}}</div>
-            <div class="flex items-center justify-between gap-1 w-full mb-5">
-                <img src="assets/images/Rectangle 596.png" class="h-32 w-full basis-1/2" alt="">
-                <div class="w-full rounded-lg h-32 basis-1/2 relative">
-                    <video class="h-full w-full object-cover rounded-lg brightness-50" src="assets/videos/banner.webm"
-                        poster="assets/images/Rectangle 597.png"></video>
-                    <img src="assets/images/play-cricle.svg"
-                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
+            <div class="block overflow-auto">
+            <div class="flex gap-1 w-fit mb-5 overflow-y-hidden overflow-x-scroll">
+                <div *ngFor="let media of selectedCard.property_media; let i = index"
+                    class="w-48 relative border-main-dark border rounded  overflow-y-hidden overflow-x-scroll">
+                    <ng-container *ngIf="media.media_type === 'image'" class="w-full">
+                        <img (click)="showModal(api+media.media_file, media.media_type)" class="h-28 w-full rounded"
+                            [src]="api+media.media_file" alt="Uploaded Image">
+                    </ng-container>
+
+                    <ng-container *ngIf="media.media_type === 'video'" class="w-full">
+                        <video
+                            class="w-full h-28 rounded relative" (click)="showModal(api+media.media_file, media.media_type)" [src]="api+media.media_file" controls>
+                            Your browser does not support the video tag.
+                            <img src="assets/images/play-cricle.svg"
+                                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
+                        </video>
+                    </ng-container>
                 </div>
+            </div>
             </div>
             <div class="mb-5" *ngIf="selectedCard?.is_locked">
                 <h2 class="text-sm font-bold text-main-dark">Available in:</h2>
@@ -77,8 +89,7 @@
                 </div>
             </div>
             <div class="flex justify-between">
-                <button
-                *ngIf="!(selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)"
+                <button *ngIf="!(selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)"
                     [ngClass]="{'bg-main-inactive': selectedCard.is_locked, 'bg-main-dark': !selectedCard.is_locked, 'cursor-not-allowed': selectedCard.is_locked}"
                     class="px-4 py-1 h-fit w-28 text-white border outline-none border-main-dark rounded font-bold"
                     [routerLink]="!selectedCard.is_locked ? '/purchase/invoice-warning/'+selectedCard.id+ '/'+ userid : null">
@@ -104,10 +115,12 @@
             </div>
         </div>
     </main>
-    <div class="absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101]" *ngIf="selectedCard && (selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)">
-        <h2 class="rotate-[320deg] text-2xl md:text-3xl font-bold text-main-dark">Property has been {{selectedCard.is_deleted? 'deleted':selectedCard.status}}</h2>
+    <div class="absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101]"
+        *ngIf="selectedCard && (selectedCard?.status !== 'unsold' || selectedCard?.is_deleted)">
+        <h2 class="rotate-[320deg] text-2xl md:text-3xl font-bold text-main-dark">Property has been
+            {{selectedCard.is_deleted? 'deleted':selectedCard.status}}</h2>
     </div>
-    
+
 </div>
 
 
@@ -134,4 +147,25 @@
     <div class="">
         <h1 class="text-2xl text-main-dark">Invaild Link</h1>
     </div>
+</div>
+
+<div *ngIf="imageModal"
+    class="fixed top-0 left-0 z-[301] w-screen h-screen bg-black/70 flex justify-center items-center">
+
+    <!-- The close button -->
+    <a class="fixed z-[302] top-6 right-8 text-white text-5xl font-bold" (click)="closeModal()">&times;</a>
+
+    <!-- A big image will be displayed here -->
+    <ng-container *ngIf="media_type === 'image'">
+        <div class="w-full md:w-auto">
+            <img [src]="modalImg" class="w-full md:max-w-[800px] max-h-[600px] object-cover" />
+        </div>
+    </ng-container>
+    <ng-container *ngIf="media_type === 'video'" class="w-full md:w-auto">
+        <video class="w-full md:max-w-[800px] max-h-[600px] object-cover" [src]="modalImg" controls>
+            Your browser does not support the video tag.
+            <img src="assets/images/play-cricle.svg"
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
+        </video>
+    </ng-container>
 </div>

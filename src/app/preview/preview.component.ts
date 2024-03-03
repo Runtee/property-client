@@ -2,116 +2,115 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
 import { propertyInterface } from '../interfaces/interfaces';
-import { catchError, finalize, tap, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
-  styles: ''
+  styles: '',
 })
 export class PreviewComponent {
-  formDetails: propertyInterface | null = null
+  formDetails: propertyInterface | null | any = null;
   @Output() back = new EventEmitter<void>();
-  isModal = false
+  isModal = false;
   isLoading = false;
-  rSuccess = false
-  rError = false
+  rSuccess = false;
+  rError = false;
+  mediaFiles: { type: string; url: string; file: File }[] = [];
 
-  constructor(private mainService: MainService, private router: Router) { }
+  constructor(private mainService: MainService, private router: Router) {}
 
   ngOnInit(): void {
-    // Retrieve form data from the shared service
-    this.formDetails = this.mainService.getFormData();
-
-    if (!this.formDetails || Object.keys(this.formDetails).length === 0) {
-      const storedFormData = localStorage.getItem('formDetails');
-      this.formDetails = storedFormData ? JSON.parse(storedFormData) : {};
-    }
-    this.loadImage()
-    this.loadVideo()
+    this.loadFormData();
   }
 
-
   async upload() {
-    this.rError = false
-    this.isLoading = true
-    this.isModal = true
-    this.rSuccess = false
-    const formData = new FormData();
-    console.log(this.formDetails);
+    this.resetUploadStatus();
+    this.isLoading = true;
+    this.isModal = true;
 
-
-    for (const key in this.formDetails) {
-      if (this.formDetails[key] !== null && this.formDetails[key] !== undefined) {
-        formData.append(key, this.formDetails[key]);
-        if (key == 'image' && !(this.formDetails?.image instanceof Blob)) {
-          formData.delete("image")
-        }
-        if (key == 'video_file' && !(this.formDetails?.image instanceof Blob)) {
-          formData.delete("video_file")
-        }
-      }
-    }
-    if (!this.formDetails?.clonable) {
-      formData.delete("specific_cloners")
-      formData.delete('cloning_percentage')
-      formData.delete('cloning_type')
-      formData.delete('clonable')
-    }
+    const formData = this.prepareFormData();
 
     this.mainService.createProperty(formData)
       .pipe(
-        catchError(error => {
-          this.isLoading = false;
-            this.rError = true
-            console.error('Unknown error:', error);
-            return throwError(() => new Error('Something went wrong'));
-          
+        catchError((error) => {
+          this.handleError(error);
+          throw error;
         })
       )
-      .subscribe(() => {
-        localStorage.removeItem('formDetails')
-        this.isLoading = false;
-        this.rSuccess = true
-        console.log('Property created successfully!');
+      .subscribe((data: propertyInterface) => {
+        if (data.id) {
+          this.uploadMediaFiles(data.id);
+          this.handleSuccess();
+        }
+  
       });
-    // localStorage.removeItem("formDetails")
-
   }
+
   closeModal() {
-this.isModal = false
-  }
-  loadImage() {
-    if (this.formDetails?.image && this.formDetails?.image instanceof Blob) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        // Update the video source
-        const videoElement = document.getElementById('uploadedImage') as HTMLVideoElement;
-        if (videoElement) {
-          videoElement.src = e.target.result;
-          videoElement.load();
-        }
-      };
-      reader.readAsDataURL(this.formDetails.image);
-    }
+    this.isModal = false;
   }
 
-  loadVideo() {
-    if (this.formDetails?.video_file && this.formDetails?.video_file instanceof Blob) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        // Update the video source
-        const videoElement = document.getElementById('uploadedVideo') as HTMLVideoElement;
-        if (videoElement) {
-          videoElement.src = e.target.result;
-          videoElement.load();
-        }
-      };
-      reader.readAsDataURL(this.formDetails?.video_file);
-    }
-  }
   isObjectEmpty(obj: any): boolean {
-    if (!obj) return true
-    return Object.keys(obj).length === 0;
+    return !obj || Object.keys(obj).length === 0;
+  }
+
+  private loadFormData(): void {
+    this.formDetails = this.mainService.getFormData() || JSON.parse(localStorage.getItem('formDetails') || '{}');
+    this.mediaFiles = this.formDetails?.mediaFiles || [];
+  }
+
+  private prepareFormData(): FormData {
+    const formData = new FormData();
+    Object.keys(this.formDetails).forEach((key) => {
+      if (this.formDetails[key] !== null && this.formDetails[key] !== undefined && this.formDetails[key]!=="mediaFiles") {
+        formData.append(key, this.formDetails[key]);
+      }
+    });
+
+    if (!this.formDetails?.clonable) {
+      formData.delete('specific_cloners');
+      formData.delete('cloning_percentage');
+      formData.delete('cloning_type');
+      formData.delete('clonable');
+    }
+
+    return formData;
+  }
+
+  private uploadMediaFiles(propertyId: string): void {
+    this.mediaFiles.forEach((mediaFile) => {
+      if (mediaFile.file instanceof Blob) {
+        const formData = new FormData();
+        formData.append('media_file', mediaFile.file);
+        formData.append('media_type', mediaFile.type);
+        this.mainService.mediaProperty(propertyId, formData).subscribe({
+          next: () => console.log('Media file uploaded successfully'),
+          error: (error) => console.error('Error uploading media file:', error),
+        });
+      } else {
+        console.warn(`Skipping media file with invalid format: ${mediaFile.url}`);
+      }
+    });
+  }
+
+  private resetUploadStatus(): void {
+    this.rError = false;
+    this.isLoading = true;
+    this.isModal = true;
+    this.rSuccess = false;
+  }
+
+  private handleError(error: any): void {
+    console.error('Unknown error:', error);
+    this.isLoading = false;
+    this.rError = true;
+  }
+
+  private handleSuccess(): void {
+    this.isLoading = false;
+    this.rSuccess = true;
+    console.log('Property created successfully!');
+    localStorage.removeItem("formDetails")
   }
 }

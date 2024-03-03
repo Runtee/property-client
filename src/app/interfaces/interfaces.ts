@@ -37,9 +37,13 @@ export interface propertyInterface {
     marked_done_by_seller?: boolean;
     specific_cloners?: string[];
     is_deleted?: boolean;
+    property_media?: property_media[];
     [key: string]: any
 }
-
+interface property_media{
+    media_type?: string
+    media_file?:string
+}
 export interface propertyCategoryInterface {
     "Real Estate": string;
     "Land": string;

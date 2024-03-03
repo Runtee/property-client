@@ -52,7 +52,7 @@ import { ModalComponent } from './modal/modal.component';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
-import { environment as env } from '../environments/environment';
+import {environment as env} from '../environments/environment'
 import { TrendWarningComponent } from './trend-warning/trend-warning.component';
 import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.component';
 
@@ -114,26 +114,27 @@ import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.componen
     AuthModule.forRoot({
       ...env.auth,
       httpInterceptor: {
-        allowedList: [
-          {
-            uri: 'https://property-production.up.railway.app/*',
-            allowAnonymous: true,
-          },
-        ], // Allow all requests under http://localhost:8000
-      },
+        allowedList: [{
+          uri: 'http://127.0.0.1:8000/*',
+          allowAnonymous: true
+        },
+      ], // Allow all requests under http://localhost:8000    
+         
+       },
       authorizationParams: {
         redirect_uri: window.location.origin,
-        audience: ' http://127.0.0.1:8000/',
-      },
+        audience:" http://127.0.0.1:8000/",
+
+      }
     }),
   ],
-  providers: [
+  providers:[
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

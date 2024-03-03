@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, finalize, of, throwError } from 'rxjs';
 import { propertyInterface } from '../interfaces/interfaces';
 import { MainService } from '../main.service';
+import { URL } from '../../environments/environment';
 
 @Component({
   selector: 'app-update-post',
@@ -201,7 +202,7 @@ export class UpdatePostComponent {
           console.error('Unknown error:', error.string);
           setTimeout(() => {
             this.showMessage = false;
-          }, 5000);
+          }, 2000);
           return throwError(() => new Error('Something went wrong'));
         })
       )
@@ -215,8 +216,9 @@ export class UpdatePostComponent {
         this.description = 'Deleted Successfuly';
         setTimeout(() => {
           this.showMessage = false;
-          this.router.navigate(['/profile'])
         }, 2000);
+        this.router.navigate(['/profile'])
+
       });
   }
   openModal() {
@@ -225,4 +227,22 @@ export class UpdatePostComponent {
   closeModel() {
     this.isModal = false;
   }
+
+  api = URL
+  
+  imageModal = false
+  modalImg =""
+  view_closeModal() {
+    this.imageModal = false
+    console.log(this.imageModal);
+    
+}
+media_type: string =""
+showModal(src:string, media_type:string) {
+  this.imageModal = true
+  this.modalImg = src;
+  this.media_type =  media_type
+  console.log(media_type);
+  
+}
 }

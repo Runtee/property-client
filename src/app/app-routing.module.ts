@@ -24,6 +24,7 @@ import { UpdatePostComponent } from './update-post/update-post.component';
 import { UploadComponent } from './upload/upload.component';
 import { TrendWarningComponent } from './trend-warning/trend-warning.component';
 import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.component';
+import { UploadMediaComponent } from './upload-media/upload-media.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -54,6 +55,12 @@ const routes: Routes = [
     component: UploadComponent,
     canActivate: [AuthGuard],
   },
+    // { path: "payment", component: PaymentComponent },
+    {
+      path: 'upload-media',
+      component: UploadMediaComponent,
+      canActivate: [AuthGuard],
+    },
   {
     path: 'saved',
     component: SavedComponent,

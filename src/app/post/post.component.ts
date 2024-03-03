@@ -4,8 +4,7 @@ import { interval, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MainService } from '../main.service';
-import { AuthService } from '@auth0/auth0-angular';
-
+import {URL} from "../../environments/environment"
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -23,6 +22,9 @@ export class PostComponent {
   description = '';
   isModalLoading = false;
   @Input() userid : string | null="";
+  api = URL
+  @Input() isAuthenticated : boolean = false 
+  isSavedProperty = false
   // if (selectedCard:propertyInterface) {
   //   selectedCard.locktimestamp = "1706834824025"
   //   selectedCard.is_locked = true
@@ -31,7 +33,6 @@ export class PostComponent {
   constructor(
     private clipboardService: Clipboard,
     private mainService: MainService,
-    private authService: AuthService,
   ) {} // Inject the ClipboardService
   private isTimestampPassed(lockTimestamp: number | undefined): boolean {
     if (!lockTimestamp) {
@@ -44,7 +45,8 @@ export class PostComponent {
 
   ngOnInit() {
     if (this.selectedCard) {
-      console.log(this.selectedCard.lock_timestamp);
+      console.log(this.selectedCard);
+      this.checkSavedProperty()
       if (
         this.selectedCard.is_locked &&
         this.isTimestampPassed(this.selectedCard.lock_timestamp)
@@ -196,23 +198,20 @@ export class PostComponent {
             const link = `${currentDomain}/property/${this.selectedCard?.id}/${response.user_id}`;
             this.clipboardService.copy(link);
             this.scrollToTop();
-            if (this.selectedCard?.id) {
-              this.mainService.saveProperty(this.selectedCard.id)              
-            }
             this.showCloneAlert = true;
             this.alertTimeout = setTimeout(() => {
               this.showCloneAlert = false;
             }, 3000);
-
             if (this.selectedCard?.id) {
-              try {
-                this.mainService.saveProperty(this.selectedCard.id)              
-              } catch (error) {
-                console.log("property save error", error);
-                
-              }
+              this.mainService.saveProperty(this.selectedCard.id).subscribe({
+                next: () => {
+                  console.log('Property saved successfully!');
+                },
+                error: (error) => {
+                  console.log("Property save error:", error);
+                }
+              });              
             }
-
           } else {
             this.scrollToTop();
             this.messageTitle = 'Error';
@@ -238,14 +237,61 @@ export class PostComponent {
       });
     }
   }
+  
 
-  // checkSavedProperty(){
-  //   this.mainService.checkifpropertyissave(this.selectedCard.id)
-  // }
-  // savedProperty(){
-  //   this.mainService.saveProperty(id)
-  // }
-  // unsavedProperty(){
-  //   this.mainService.removepropertyfromwislist(id)
-  // }
+  checkSavedProperty(){
+    if (this.selectedCard?.id) {
+      this.mainService.wishlistCheck(this.selectedCard.id).subscribe({
+        next:(data)=>{
+          this.isSavedProperty = data ? data : false
+          return data
+        },
+        error: (error)=>{
+            return false
+        }
+      })
+    }
+    return(false)
+  }
+  savedProperty(){
+    if (this.selectedCard?.id) {
+      this.mainService.saveProperty(this.selectedCard.id).subscribe({
+        next:()=>{
+          this.isSavedProperty = true
+        },
+        error: (error)=>{
+            return false
+        }
+      })
+    }
+  }
+
+  unsavedProperty(){
+    if (this.selectedCard?.id) {
+      this.mainService.saveProperty(this.selectedCard.id).subscribe({
+        next:()=>{
+          this.isSavedProperty = false
+        },
+        error: (error)=>{
+            return false
+        }
+      })
+    }
+
+  }
+  imageModal = false
+  modalImg =""
+  closeModal() {
+    this.imageModal = false
+    console.log(this.imageModal);
+    
+}
+media_type: string =""
+showModal(src:string, media_type:string) {
+  this.imageModal = true
+  this.modalImg = src;
+  this.media_type =  media_type
+  console.log(media_type);
+  
+}
 }
