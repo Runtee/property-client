@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -55,6 +55,9 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import {environment as env} from '../environments/environment'
 import { TrendWarningComponent } from './trend-warning/trend-warning.component';
 import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.component';
+import { MetaMapComponent } from './meta-map/meta-map.component';
+import { VerificationDirective } from './verification.directive';
+import { KycCompleteComponent } from './kyc-complete/kyc-complete.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +105,9 @@ import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.componen
     ModalComponent,
     TrendWarningComponent,
     TrendAwaitingComponent,
+    MetaMapComponent,
+    VerificationDirective,
+    KycCompleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,7 +121,7 @@ import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.componen
       ...env.auth,
       httpInterceptor: {
         allowedList: [{
-          uri: 'https://property-production.up.railway.app/*',
+          uri: 'https://venta.up.railway.app/*',
           allowAnonymous: true
         },
       ], // Allow all requests under http://localhost:8000    
@@ -135,6 +141,7 @@ import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.componen
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

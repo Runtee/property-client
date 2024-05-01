@@ -51,13 +51,13 @@
                 <div *ngFor="let media of selectedCard.property_media; let i = index"
                     class="w-48 relative border-main-dark border rounded  overflow-y-hidden overflow-x-scroll">
                     <ng-container *ngIf="media.media_type === 'image'" class="w-full">
-                        <img (click)="showModal(api+media.media_file, media.media_type)" class="h-28 w-full rounded"
-                            [src]="api+media.media_file" alt="Uploaded Image">
+                        <img (click)="showModal(''+media.media_file, media.media_type)" class="h-28 w-full rounded cursor-pointer"
+                            [src]="media.media_file" alt="Uploaded Image">
                     </ng-container>
 
                     <ng-container *ngIf="media.media_type === 'video'" class="w-full">
                         <video
-                            class="w-full h-28 rounded relative" (click)="showModal(api+media.media_file, media.media_type)" [src]="api+media.media_file" controls>
+                            class="w-full h-28 rounded relative" (click)="showModal(''+media.media_file, media.media_type)" [src]="media.media_file" controls>
                             Your browser does not support the video tag.
                             <img src="assets/images/play-cricle.svg"
                                 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 cursor-pointer">
@@ -153,7 +153,7 @@
     class="fixed top-0 left-0 z-[301] w-screen h-screen bg-black/70 flex justify-center items-center">
 
     <!-- The close button -->
-    <a class="fixed z-[302] top-6 right-8 text-white text-5xl font-bold" (click)="closeModal()">&times;</a>
+    <a class="fixed z-[302] top-6 right-8 text-white text-5xl font-bold cursor-pointer" (click)="closeModal()">&times;</a>
 
     <!-- A big image will be displayed here -->
     <ng-container *ngIf="media_type === 'image'">

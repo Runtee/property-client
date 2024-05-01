@@ -246,4 +246,9 @@ export class MainService {
     return this.getRequest(url);
   }
 
+  kycProperty(property_id: string): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/kyc/${property_id}`;
+    return this.postRequest(url, {});
+  }
+
 }

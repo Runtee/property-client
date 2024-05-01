@@ -25,6 +25,7 @@ import { UploadComponent } from './upload/upload.component';
 import { TrendWarningComponent } from './trend-warning/trend-warning.component';
 import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.component';
 import { UploadMediaComponent } from './upload-media/upload-media.component';
+import { KycCompleteComponent } from './kyc-complete/kyc-complete.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -124,7 +125,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'proprerty/kyc',
+    path: 'proprerty/kyc/:id',
     component: KycComponent,
     canActivate: [AuthGuard],
   },
@@ -161,8 +162,13 @@ const routes: Routes = [
     component: TrendAwaitingComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'property/complete',
+    component: KycCompleteComponent,
+    canActivate: [AuthGuard],
+  },
   
-
+  
 ];
 
 @NgModule({
