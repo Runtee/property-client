@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainService } from '../main.service';
-import { catchError, throwError } from 'rxjs';
+import { catchError, of, throwError } from 'rxjs';
 import { propertyInterface } from '../interfaces/interfaces';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-trend-warning',
@@ -13,11 +14,12 @@ export class TrendWarningComponent implements OnInit {
   id: string | null = '';
   userid: string | null = '';
   selectedCard : null | propertyInterface= null; 
-  isModalLoading = false;
+  isModalLoading = true;
   showMessage = false;
   messageTitle = '';
   description = '';
   canPay = false
+  is404 = false;
   // selectedItem: propertyInterface| null = null
 
   constructor(
@@ -31,9 +33,34 @@ export class TrendWarningComponent implements OnInit {
       this.id = params.get('id');
       this.userid = params.get('userid');
     });
-    if (this.selectedCard?.c_of_o && this.selectedCard.kyc) {
-      this.canPay = true
+    if(!this.id || !this.userid){
+      return
     }
+    this.mainService
+          .getPropertyById(this.id, this.userid)
+          .pipe(
+            catchError((error) => {
+              if (error instanceof HttpErrorResponse && error.status === 404) {
+                this.is404 = true;
+              } else {
+                console.error('Error fetching property data:', error);
+                return throwError(() => new Error('Something went wrong'));
+              }
+              return of(null);
+            })
+          )
+          .subscribe((item: propertyInterface | null) => {
+            if (item !== null) {
+              this.selectedCard = item;
+              console.log(this.selectedCard?.c_of_o && this.selectedCard.kyc)
+              if (this.selectedCard?.c_of_o && this.selectedCard.kyc) {
+                this.canPay = true
+              }
+              this.isModalLoading =false
+              
+            }
+          });
+           
   }
 
   confirmPayment() {
