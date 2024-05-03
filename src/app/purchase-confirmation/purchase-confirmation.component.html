@@ -42,6 +42,7 @@
         </div>
     </main>
 </div>
+<app-modal [loading]="isModalLoading"></app-modal>
 
 <div class="" *ngIf="isAwaiting">
     <app-all-done title="Awaiting" image="Group 432.svg" body="Awaiting confirmation from the {{optype}} also" page_link="/my-property"

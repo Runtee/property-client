@@ -18,6 +18,7 @@ export class PurchaseConfirmationComponent {
   propertyId: string | null = '';
   userid: string | null = '';
   optype: string = ""
+  isModalLoading = true
 
   @ViewChild('fileInput') fileInput!: ElementRef; // Initialize with '!' operator
 
@@ -41,15 +42,21 @@ export class PurchaseConfirmationComponent {
           if (this.type === "seller" && response.marked_done_by_seller) {
             this.isConfirmation = false;
             this.isAwaiting = true;
+            this.isModalLoading = false
+
           }
           if (this.type === "buyer" && response.marked_done_by_buyer) {
             this.isConfirmation = false;
             this.isAwaiting = true;
+            this.isModalLoading = false
+
           }
           if (response.marked_done_by_buyer && response.marked_done_by_seller) {
             this.isConfirmation = false;
             this.isAwaiting = false;
             this.isComplete = true;
+            this.isModalLoading = false
+
             if (response.status !== "sold" && this.propertyId) {
               this.mainService.updateProperty(this.propertyId, { title: response.title, status: "sold" }).subscribe({
                 next: (response: any) => {
@@ -87,6 +94,7 @@ export class PurchaseConfirmationComponent {
   onConfirm() {
     if (!this.propertyId) return
     if (this.selectedFile && this.isAgreed) {
+      this.isModalLoading = true
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
       formData.append('type_of_client', this.type);
@@ -98,14 +106,19 @@ export class PurchaseConfirmationComponent {
           this.isConfirmation = false;
           this.isAwaiting = true;
           console.log('File submitted successfully:', response);
+          this.isModalLoading = false
         },
         error: (error) => {
           // Handle file submission errors
           console.error('Error submitting file:', error);
+          this.isModalLoading = false
+
         },
       });
     } else {
       // Handle missing file or unchecked checkbox
+      this.isModalLoading = false
+
       console.error('Please select a file and agree to the terms.');
     }
   }
