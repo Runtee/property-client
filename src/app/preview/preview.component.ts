@@ -17,6 +17,7 @@ export class PreviewComponent {
   rSuccess = false;
   rError = false;
   mediaFiles: { type: string; url: string; file: File }[] = [];
+  isAgreed: boolean = false;
 
   constructor(private mainService: MainService, private router: Router) {}
 
