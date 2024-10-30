@@ -27,9 +27,14 @@
                 <img src="assets/images/banner.png" class="w-full h-full object-cover">
             </div>
             <main class="relative p-4 pt-5 m-3 shadow-xl rounded-3xl bg-white" *ngIf="selectedCard">
-                <div *ngIf="selectedCard.clonable"
+                <div *ngIf="!selectedCard.clonable"
                     class="absolute top-0 left-0 bg-main-dark text-xs text-white w-fit px-4 rounded-tl-3xl rounded-br-3xl py-[2px] font-semibold">
                     Clonable
+                </div>
+                <div
+                *ngIf="selectedCard.searched"
+                    class="absolute top-0 right-0 bg-yellow-600 text-xs text-white w-fit px-4 rounded-tr-3xl rounded-bl-3xl py-[2px] font-semibold">
+                    Searched
                 </div>
                 <div class="flex flex-col gap-4 mb-4">
                     <div class="flex justify-between items-start mb-4">
@@ -73,28 +78,45 @@
                         </div>
                     </div>
                     <div
-                        class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-lg p-2 w-full text-main-dark mb-10">
-                        <div class="flex items-center">
-                            <h2 class="text-xs font-semibold mr-[1px]">CofO</h2>
+                        class=" gap-1 justify-between flex-wrap items-center bg-[#ffeab3] border border-yellow-500 rounded-lg p-2 w-full text-main-dark mb-10">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-xs font-semibold mr-[1px]">Certificate of Occupancy (CofO)</h2>
                             <img *ngIf="selectedCard.c_of_o" src="assets/images/tick-square.svg" class="" alt=""
                                 title="uploded">
                             <img *ngIf="!selectedCard.c_of_o" src="assets/images/send-square.svg" class="cursor-pointer"
                                 alt="" (click)="CofOfileInput.click()">
                             <input #CofOfileInput type="file" hidden (change)="onFileSelected($event, 'c_of_o')">
                         </div>
-                        <div class="flex items-center">
-                            <h2 class="text-xs font-semibold mr-[1px]">Search</h2>
-                            <img *ngIf="selectedCard.searched" src="assets/images/tick-square.svg" class="" alt="">
-                            <img *ngIf="!selectedCard.searched" src="assets/images/send-square.svg"
-                                class="cursor-pointer" alt="" (click)="searchfileInput.click()">
-                            <input #searchfileInput type="file" hidden (change)="onFileSelected($event, 'searched')">
-                        </div>
-                        <div class="flex items-center">
+                        <div class="flex items-center justify-between">
                             <h2 class="text-xs font-semibold mr-[1px]">Survey</h2>
                             <img *ngIf="selectedCard.survey" src="assets/images/tick-square.svg" class="" alt="">
                             <img *ngIf="!selectedCard.survey" src="assets/images/send-square.svg" class="cursor-pointer"
                                 alt="" (click)="surveyfileInput.click()">
                             <input #surveyfileInput type="file" hidden (change)="onFileSelected($event, 'survey')">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-xs font-semibold mr-[1px]">Deed of Agreement</h2>
+                            <img *ngIf="selectedCard.c_of_o" src="assets/images/tick-square.svg" class="" alt=""
+                                title="uploded">
+                            <img *ngIf="!selectedCard.c_of_o" src="assets/images/send-square.svg" class="cursor-pointer"
+                                alt="" (click)="CofOfileInput.click()">
+                            <input #CofOfileInput type="file" hidden (change)="onFileSelected($event, 'c_of_o')">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-xs font-semibold mr-[1px]">Registered Title</h2>
+                            <img *ngIf="selectedCard.c_of_o" src="assets/images/tick-square.svg" class="" alt=""
+                                title="uploded">
+                            <img *ngIf="!selectedCard.c_of_o" src="assets/images/send-square.svg" class="cursor-pointer"
+                                alt="" (click)="CofOfileInput.click()">
+                            <input #CofOfileInput type="file" hidden (change)="onFileSelected($event, 'c_of_o')">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-xs font-semibold mr-[1px]">Right of Occupancy</h2>
+                            <img *ngIf="selectedCard.c_of_o" src="assets/images/tick-square.svg" class="" alt=""
+                                title="uploded">
+                            <img *ngIf="!selectedCard.c_of_o" src="assets/images/send-square.svg" class="cursor-pointer"
+                                alt="" (click)="CofOfileInput.click()">
+                            <input #CofOfileInput type="file" hidden (change)="onFileSelected($event, 'c_of_o')">
                         </div>
                     </div>
 

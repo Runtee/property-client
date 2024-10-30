@@ -1,0 +1,38 @@
+<div class="mt-5">
+    <app-topbar item="Payment"></app-topbar>
+    <main class="p-5 pt-0">
+        <ng-container *ngIf="canPay">
+            <div>
+                <p class="font-medium mb-5">
+                    Payment of N5000 is required to perform search on the listed propery.
+                </p>
+                <p class="font-medium mb-5">Upon clicking 'Continue', an invoice will be generated for your payment.</p>
+            </div>
+            <div>
+                <button type="button" (click)="confirmPayment()"
+                    class="mt-20 w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+                    Proceed to Payment
+                </button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!canPay">
+            <div>
+                <p class="font-medium mb-5">
+                    Prior to proceeding, you need to complete your KYC verification and upload your Certificate of
+                    Ownership for the property.
+                </p>
+                <p class="font-medium mb-5">
+                    Click the button below to navigate to the page where you can upload the necessary documents.
+                </p>
+            </div>
+            <div>
+                <button type="button" routerLink="/update-property/{{ id }}/{{userid}}"
+                    class="mt-20 w-full text-center py-2 border rounded-md font-bold bg-main-dark text-white border-main-dark">
+                    Proceed
+                </button>
+            </div>
+        </ng-container>
+    </main>
+</div>
+<app-notify-card *ngIf="showMessage" [title]="messageTitle" [description]='description'></app-notify-card>
+<app-modal [loading]="isModalLoading"></app-modal>

@@ -89,7 +89,7 @@ export class MainService {
   }
 
   createProperty(property: FormData): Observable<any> {
-    const url = `${CONFIG.apiUrl}/property-create`;
+    const url = `${CONFIG.apiUrl}/property/create`;
     return this.postRequestWithMedia(url, property);
   }
 
@@ -249,6 +249,17 @@ export class MainService {
   kycProperty(property_id: string): Observable<any> {
     const url = `${CONFIG.apiUrl}/property/kyc/${property_id}`;
     return this.postRequest(url, {});
+  }
+
+
+  getPOA(): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/poa`;
+    return this.getRequest(url);
+  }
+ 
+  createPOA(body:any): Observable<any> {
+    const url = `${CONFIG.apiUrl}/property/poa-create`;
+    return this.postRequest(url, body);
   }
 
 }

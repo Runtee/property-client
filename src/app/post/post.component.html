@@ -8,6 +8,11 @@
             class="absolute top-0 left-0 bg-main-dark text-xs text-white w-fit px-4 rounded-tl-3xl rounded-br-3xl py-[2px] font-semibold">
             Clonable
         </div>
+        <div
+            *ngIf="selectedCard.searched"
+            class="absolute top-0 right-0 bg-yellow-600 text-xs text-white w-fit px-4 rounded-tr-3xl rounded-bl-3xl py-[2px] font-semibold">
+            Searched
+        </div>
         <div class="flex flex-col gap-4 mb-4">
             <div class="flex justify-between items-start mb-4">
                 <div class="w-full flex flex-col">

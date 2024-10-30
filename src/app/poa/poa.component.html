@@ -1,0 +1,74 @@
+<div class="mb-16">
+    <header class="p-5 pb-2">
+      <h2 class="font-bold text-lg text-main-dark text-center">Welcome to Power of Attorney..</h2>
+    </header>
+    <div class="w-full pt-2 p-10 max-h-[20rem] h-[20rem]">
+      <img src="assets/images/poa_bg.svg" class="w-full h-full">
+    </div>
+    <div class="px-5 mb-5">
+      <h3 class="px-1 text-sm mb-5 text-center text-gray-500">Introducing Power of Attorney (PofA). A faster and more
+        secure way to sell property.</h3>
+      <h1 class="font-bold text-sm">Benefits of Power of Attorney (PofA):</h1>
+      <ul class="text-xs px-2">
+        <li class="list-disc">Lorem Lorem</li>
+        <li class="list-disc">Ipsium Lorem fgjdvvjjdfhb</li>
+        <li class="list-disc">golores indictus lorus</li>
+      </ul>
+    </div>
+    <div class="p-5">
+      <div class="">
+        <div class="flex w-full text-xs mb-2">
+          <div (click)="selectTab('Temporary')"
+            [class]="selectedTab === 'Temporary' ? 'font-semibold text-main-dark border-b-2 border-main-dark w-full text-center cursor-pointer' : 'font-semibold text-gray-500 border-b-4 border-transparent w-full text-center cursor-pointer'">
+            Temporary PofA
+          </div>
+          <div (click)="selectTab('Permanent')"
+            [class]="selectedTab === 'Permanent' ? 'font-semibold text-main-dark border-b-2 border-main-dark w-full text-center cursor-pointer' : 'font-semibold text-gray-500 border-b-4 border-transparent w-full text-center cursor-pointer'">
+            Permanent PofA
+          </div>
+        </div>
+  
+        <div class="px-4 py-5 min-h-60 w-full bg-[#f1f3f2] border-t-2 border-[#d5d7d6] overflow-y-auto">
+          <div *ngFor="let item of filteredProperties">
+            <div class="flex bg-white gap-2 border rounded-xl p-1 w-full cursor-pointer mb-2"
+              (click)="selectCard(item)">
+              <div class="h-20 w-[75px]">
+                <img src="assets/images/bg.png" class="h-full rounded-xl" width="80" />
+              </div>
+              <div class="w-full pb-1">
+                <h2 class="text-sm font-bold">{{ item.title }}</h2>
+                <div class="flex items-center py-1">
+                  <img src="assets/images/location.svg" class="w-3 h-3" alt="location" />
+                  <span class="text-xs text-main-dark">{{ item.location }}</span>
+                </div>
+                <h4 class="text-main-dark font-bold text-sm">
+                  {{ item.price | currency: "NGN" }}
+                </h4>
+                <div
+                  class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-md px-[2px] w-[170px] text-main-dark">
+                  <div class="flex items-center">
+                    <h2 class="text-[10px] font-semibold mr-[1px]">CofO</h2>
+                    <img *ngIf="!item.c_of_o" src="assets/images/bad.svg" class="w-5 h-5" alt="" />
+                    <img *ngIf="item.c_of_o" src="assets/images/mdi_tick.svg" class="w-3 h-3" alt="" />
+                  </div>
+                  <div class="flex items-center">
+                    <h2 class="text-[10px] font-semibold mr-[1px]">Search</h2>
+                    <img *ngIf="!item.searched" src="assets/images/bad.svg" class="w-5 h-5" alt="" />
+                    <img *ngIf="item.searched" src="assets/images/mdi_tick.svg" class="w-3 h-3" alt="" />
+                  </div>
+                  <div class="flex items-center">
+                    <h2 class="text-[10px] font-semibold mr-[1px]">Survey</h2>
+                    <img *ngIf="!item.survey" src="assets/images/bad.svg" class="w-5 h-5" alt="" />
+                    <img *ngIf="item.survey" src="assets/images/mdi_tick.svg" class="w-3 h-3" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h1 class="font-bold text-xs text-main-dark" (click)="goToAddPOA()">+ Add new property to {{selectedTab}} PofA </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-nav></app-nav>
+  <app-modal [loading]="isModalLoading"></app-modal>

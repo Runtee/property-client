@@ -16,6 +16,8 @@ export class ProfileComponent {
   user: User | null = null
   main_data: propertyInterface[] = []
   token : string = ""
+  isModalLoading = true;
+
 
   constructor(
     private mainService: MainService,
@@ -45,6 +47,7 @@ export class ProfileComponent {
       ).subscribe((data: propertyInterface[]) => {
         this.main_data = data;
         this.isLoading = false;
+        this.isModalLoading = false
       });
     
   }

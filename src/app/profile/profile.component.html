@@ -98,6 +98,10 @@
               class="ml-[2px] px-[2px] py-[2px] w-full rounded-md text-[12px] font-bold border bg-main-dark text-white">
               Verify KYC
             </button>
+            <button routerLink="/search/{{property.id}}/{{property.user_id}}" *ngIf="!property.searched"
+              class="ml-[2px] mt-2 px-[2px] py-[2px] w-full rounded-md text-[12px] font-bold border border-main-dark text-main-dark">
+              Search
+            </button>
             <button routerLink="/trending-pay/{{property.id}}/{{property.user_id}}" *ngIf="!property.is_trending"
               class="ml-[2px] mt-2 px-[2px] py-[2px] w-full rounded-md text-[12px] font-bold border border-main-dark text-main-dark">
               Trend
@@ -110,3 +114,4 @@
   <app-fab></app-fab>
 </div>
 <app-nav></app-nav>
+<app-modal [loading]="isModalLoading"></app-modal>

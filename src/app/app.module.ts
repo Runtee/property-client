@@ -58,6 +58,10 @@ import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.componen
 import { MetaMapComponent } from './meta-map/meta-map.component';
 import { VerificationDirective } from './verification.directive';
 import { KycCompleteComponent } from './kyc-complete/kyc-complete.component';
+import { PoaComponent } from './poa/poa.component';
+import { PoaListComponent } from './poa-list/poa-list.component';
+import { FailedPurchaseComponent } from './failed-purchase/failed-purchase.component';
+import { PropertySearchComponent } from './property-search/property-search.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +112,10 @@ import { KycCompleteComponent } from './kyc-complete/kyc-complete.component';
     MetaMapComponent,
     VerificationDirective,
     KycCompleteComponent,
+    PoaComponent,
+    PoaListComponent,
+    FailedPurchaseComponent,
+    PropertySearchComponent,
   ],
   imports: [
     BrowserModule,

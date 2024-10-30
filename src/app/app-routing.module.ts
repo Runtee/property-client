@@ -26,6 +26,10 @@ import { TrendWarningComponent } from './trend-warning/trend-warning.component';
 import { TrendAwaitingComponent } from './trend-awaiting/trend-awaiting.component';
 import { UploadMediaComponent } from './upload-media/upload-media.component';
 import { KycCompleteComponent } from './kyc-complete/kyc-complete.component';
+import { PoaComponent } from './poa/poa.component';
+import { PoaListComponent } from './poa-list/poa-list.component';
+import { FailedPurchaseComponent } from './failed-purchase/failed-purchase.component';
+import { PropertySearchComponent } from './property-search/property-search.component';
 
 const routes: Routes = [
   { path: 'login', component: OnboardingComponent },
@@ -168,7 +172,31 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   
+  {
+    path: 'poa',
+    component: PoaComponent,
+    canActivate: [AuthGuard],
+
+  },
+  {
+    path: 'poa-add',
+    component: PoaListComponent,
+    canActivate: [AuthGuard],
+
+  },
   
+  {
+    path: 'purchase/failed',
+    component: FailedPurchaseComponent,
+    canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'search/:id/:userid',
+    component: PropertySearchComponent,
+    canActivate: [AuthGuard],
+  },
+
 ];
 
 @NgModule({
