@@ -1,11 +1,11 @@
 <div
-  class="flex bg-white gap-2 border rounded-xl p-1 w-full cursor-pointer mb-2"
+  class="flex bg-white gap-2 border rounded-xl p-2 w-full cursor-pointer mb-2"
   *ngIf="item"
   (click)="selectCard(item)"
 >
-  <div class="h-20 w-[75px]">
-    <img src="assets/images/bg.png" class="h-full rounded-xl" width="80" />
-  </div>
+<div class="h-20">
+  <img src="assets/images/buildings-2.svg" class="h-full rounded-xl" width="50">
+</div>
   <div class="w-full pb-1">
     <h2 class="text-sm font-bold">{{ item.title }}</h2>
     <div class="flex items-center py-1">
@@ -16,7 +16,7 @@
       {{ item.price | currency: "NGN" }}
     </h4>
     <div
-      class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-md px-[2px] w-[170px] text-main-dark"
+      class="flex gap-1 justify-between items-center bg-[#ffeab3] border border-yellow-500 rounded-md px-[4px] w-[220px] text-main-dark"
     >
       <div class="flex items-center">
         <h2 class="text-[10px] font-semibold mr-[1px]">CofO</h2>
