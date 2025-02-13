@@ -12,6 +12,7 @@ import {URL} from "../../environments/environment"
 })
 export class PostComponent {
   @Input() selectedCard: propertyInterface | null = null;
+  @Input() isLoading: boolean = true;
   remainingTime: string = '';
   showCopiedAlert: boolean = false;
   copyTab = false;

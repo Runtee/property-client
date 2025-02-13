@@ -17,7 +17,7 @@ export class PropertyPostComponent implements OnInit {
   filteredData: propertyInterface[] = [];
   selectedCard: propertyInterface | null = null;
   isLoading = true;
-  is404 = true;
+  is404 = false;
   userid: string | null = '';
   isAuthenticated = false
   constructor(
@@ -38,6 +38,7 @@ export class PropertyPostComponent implements OnInit {
       });
     
       if (itemId && userid) {
+        this.isLoading = true;
         this.mainService
           .getPropertyById(itemId, userid)
           .pipe(
@@ -46,8 +47,10 @@ export class PropertyPostComponent implements OnInit {
                 this.is404 = true;
               } else {
                 console.error('Error fetching property data:', error);
+                this.isLoading = false;
                 return throwError(() => new Error('Something went wrong'));
               }
+              this.isLoading = false;
               return of(null);
             })
           )
@@ -55,6 +58,7 @@ export class PropertyPostComponent implements OnInit {
             if (item !== null) {
               this.selectedCard = item;
             }
+            this.isLoading = false;
           });
       }
     });

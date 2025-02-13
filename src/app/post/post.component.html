@@ -148,7 +148,7 @@
 </div>
 <app-notify-card *ngIf="showMessage" [title]="messageTitle" [description]='description'></app-notify-card>
 <app-modal [loading]="isModalLoading"></app-modal>
-<div class="" *ngIf="!selectedCard">
+<div class="" *ngIf="!selectedCard && !isLoading">
     <div class="">
         <h1 class="text-2xl text-main-dark">Invaild Link</h1>
     </div>

@@ -7,12 +7,10 @@ import { Router } from '@angular/router';
   templateUrl: './property-item.component.html',
 })
 export class PropertyItemComponent {
-@Input() item: propertyInterface | null = null
+  @Input() item: propertyInterface | null = null;
+  constructor(private router: Router) {}
 
-constructor(private router: Router) { }
-
-
-selectCard(card: propertyInterface): void {
-  this.router.navigate(['/property', card.id, card.user_id]);
-}
+  selectCard(card: propertyInterface): void {
+    this.router.navigate(['/property', card.id, card.user_id]);
+  }
 }
